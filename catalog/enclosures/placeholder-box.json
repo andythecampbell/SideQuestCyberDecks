@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "kind": "enclosure",
+  "id": "placeholder-box",
+  "revision": 1,
+  "name": "Placeholder open box",
+  "notes": "Stand-in until a real case is chosen and measured. Interior dimensions only.",
+  "interior": { "size": [300, 220, 110], "confidence": "estimate" },
+  "wallThickness": 3,
+  "sources": [
+    { "kind": "estimate", "title": "Synthetic enclosure" }
+  ]
+}

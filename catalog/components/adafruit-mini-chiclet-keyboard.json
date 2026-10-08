@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "kind": "component",
+  "id": "adafruit-mini-chiclet-keyboard",
+  "revision": 1,
+  "name": "Adafruit Mini Chiclet Keyboard (USB)",
+  "category": "input",
+  "notes": "Placeholder envelope. Measure the body and cable exit position; check Adafruit_CAD_Parts on GitHub for a model.",
+  "envelope": { "size": [250, 110, 15], "confidence": "estimate" },
+  "mountingHoles": [],
+  "ports": [
+    { "id": "usb-cable", "type": "usb-a-cable", "position": [125, 110, 8], "facing": "+y", "confidence": "estimate" }
+  ],
+  "keepOuts": [],
+  "sources": [
+    { "kind": "estimate", "title": "Placeholder; replace with measurements" },
+    { "kind": "model-search", "title": "Adafruit CAD parts", "url": "https://github.com/adafruit/Adafruit_CAD_Parts" }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "component",
+  "id": "anker-10000-30w",
+  "revision": 1,
+  "name": "Anker 10000mAh 30W Power Bank",
+  "category": "power",
+  "notes": "Placeholder envelope; record the exact model number. Check the PD profiles on the label: the Pi 5 wants 5V/5A, and most banks only offer 5V/3A.",
+  "envelope": { "size": [105, 52, 26], "confidence": "estimate" },
+  "mountingHoles": [],
+  "ports": [
+    { "id": "usb-c", "type": "usb-c-pd", "position": [0, 26, 13], "facing": "-x", "confidence": "estimate" }
+  ],
+  "keepOuts": [
+    { "id": "port-access", "reason": "Plug and cable bend room", "min": [-25, 6, 0], "max": [0, 46, 26], "confidence": "estimate" }
+  ],
+  "power": { "capacityWh": 36, "maxOutputWatts": 30, "notes": "Confirm the 5V current limit from the label." },
+  "sources": [
+    { "kind": "estimate", "title": "Placeholder; replace with measurements" }
+  ]
+}

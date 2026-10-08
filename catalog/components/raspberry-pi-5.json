@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "kind": "component",
+  "id": "raspberry-pi-5",
+  "revision": 1,
+  "name": "Raspberry Pi 5",
+  "category": "compute",
+  "notes": "Geometry is the same for all RAM sizes. Envelope height includes the USB/Ethernet stack but not a cooler or HAT.",
+  "envelope": { "size": [85, 56, 20], "confidence": "estimate" },
+  "mountingHoles": [
+    { "id": "mh1", "position": [3.5, 3.5, 0], "diameter": 2.7, "fastener": "M2.5", "confidence": "datasheet" },
+    { "id": "mh2", "position": [61.5, 3.5, 0], "diameter": 2.7, "fastener": "M2.5", "confidence": "datasheet" },
+    { "id": "mh3", "position": [3.5, 52.5, 0], "diameter": 2.7, "fastener": "M2.5", "confidence": "datasheet" },
+    { "id": "mh4", "position": [61.5, 52.5, 0], "diameter": 2.7, "fastener": "M2.5", "confidence": "datasheet" }
+  ],
+  "ports": [
+    { "id": "power", "type": "usb-c-power", "position": [11.2, 0, 3], "facing": "-y", "confidence": "estimate" },
+    { "id": "hdmi0", "type": "micro-hdmi", "position": [25.8, 0, 3], "facing": "-y", "confidence": "estimate" },
+    { "id": "hdmi1", "type": "micro-hdmi", "position": [39.2, 0, 3], "facing": "-y", "confidence": "estimate" },
+    { "id": "usb-stack", "type": "usb-a-ethernet", "position": [85, 28, 8], "facing": "+x", "confidence": "estimate" }
+  ],
+  "keepOuts": [
+    { "id": "usb-cables", "reason": "Cable plugs and bend room for the USB/Ethernet side", "min": [85, 0, 0], "max": [115, 56, 20], "confidence": "estimate" },
+    { "id": "power-hdmi-cables", "reason": "Plugs and bend room for USB-C power and micro HDMI", "min": [0, -25, 0], "max": [50, 0, 12], "confidence": "estimate" }
+  ],
+  "power": { "inputVoltage": 5.1, "recommendedSupplyCurrent": 5.0, "notes": "On a 3A supply, USB peripheral current is limited to 600mA total." },
+  "sources": [
+    { "kind": "datasheet", "title": "Raspberry Pi 5 mechanical drawing", "url": "https://datasheets.raspberrypi.com/" }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "kind": "component",
+  "id": "hoysond-7in-touch",
+  "revision": 1,
+  "name": "Hoysond 7\" HDMI Touchscreen",
+  "category": "display",
+  "notes": "ALL VALUES ARE PLACEHOLDERS for a typical 7in 1024x600 panel. Measure: overall size, active area and its offset, mounting holes, connector positions, back-side controller board height.",
+  "envelope": { "size": [165, 100, 15], "confidence": "estimate" },
+  "activeArea": { "min": [5.4, 7], "max": [159.6, 92.9], "confidence": "estimate" },
+  "mountingHoles": [],
+  "ports": [
+    { "id": "hdmi", "type": "hdmi", "position": [20, 100, 7], "facing": "+y", "confidence": "estimate" },
+    { "id": "usb-touch-power", "type": "micro-usb", "position": [50, 100, 7], "facing": "+y", "confidence": "estimate" }
+  ],
+  "keepOuts": [
+    { "id": "rear-cables", "reason": "HDMI and USB plugs and bend room", "min": [0, 100, 0], "max": [80, 130, 15], "confidence": "estimate" }
+  ],
+  "sources": [
+    { "kind": "estimate", "title": "Typical 7in 1024x600 HDMI panel; replace with calipers measurements" }
+  ]
+}
