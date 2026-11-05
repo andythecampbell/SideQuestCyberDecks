@@ -1,0 +1,5 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');
+const {selectCaseGroups}=require('./groups.cjs');
+const fixture=()=>({root:{name:'',meshes:[],children:[{name:'2800 Case Assembly',meshes:[],children:[{name:'Part 1',meshes:Array.from({length:13},(_,i)=>i),children:[]},{name:'Part 2',meshes:Array.from({length:8},(_,i)=>13+i),children:[]}]}]},meshes:Array.from({length:21},()=>({name:''}))});
+test('selects verified occurrences independent of child ordering',()=>{const r=fixture();r.root.children[0].children.reverse();assert.equal(selectCaseGroups(r).base.length,13)});
+test('fails closed for missing, ambiguous, overlapping, renamed or extra solids',()=>{for(const mutate of [r=>r.root.children[0].children.pop(),r=>r.root.children[0].children.push(r.root.children[0].children[0]),r=>r.root.children[0].children[1].meshes[0]=0,r=>r.root.children[0].children[0].name='Other',r=>r.meshes.push({name:''})]){const r=fixture();mutate(r);assert.throws(()=>selectCaseGroups(r))}});
