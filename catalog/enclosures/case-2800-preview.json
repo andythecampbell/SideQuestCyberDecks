@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 2,
+  "kind": "enclosure",
+  "id": "case-2800-preview",
+  "revision": 1,
+  "name": "2800 provisional articulated preview",
+  "calibration": "UNRESOLVED",
+  "assumptions": "Illustrative only: base and lid datums temporarily share CLOSED assembly coordinates; reference identity at source driver 210, sign +1, candidate +X pivot [0,137.175,0.625]. These are NOT accepted calibration. OPEN derives -90 degrees, conflicting with export -90.75770394990006.",
+  "bodies": {
+    "base": "base",
+    "lid": "lid"
+  },
+  "hinge": {
+    "pivot": [
+      0,
+      137.175,
+      0.625
+    ],
+    "axis": [
+      1,
+      0,
+      0
+    ],
+    "reference": {
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "referenceDriver": 210,
+    "sign": 1,
+    "sourceDrivers": {
+      "OPEN": 120,
+      "CLOSED": 210
+    }
+  },
+  "sources": [
+    {
+      "kind": "model",
+      "title": "GrabCAD 2800 case; author and source URL TODO (investigation deferred)",
+      "license": "TODO unresolved; rights uncleared"
+    }
+  ]
+}

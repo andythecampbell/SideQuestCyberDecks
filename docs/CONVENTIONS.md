@@ -5,13 +5,13 @@
 ## Units
 
 - Millimeters for every stored length. No unit suffixes in field names; the unit is implied by the schema.
-- Degrees only in the UI. Stored orientation is a unit quaternion `[x, y, z, w]`.
+- Stored orientation is a unit quaternion `[x, y, z, w]`. Source-CAD driver metadata may retain degrees (OPEN=120, CLOSED=210); it is not a spatial orientation or a physical hinge limit.
 - Imported files must declare their source units. Never guess.
 
 ## Coordinate system
 
 - Right-handed, **Z-up**. This matches CAD tools and OpenCascade/Replicad.
-- Three.js defaults to Y-up. The app sets the camera up vector to +Z and keeps the scene in Z-up. Do not rotate assets to fit Y-up; convert once at import and record it.
+- Three.js defaults to Y-up. The app sets the camera up vector to +Z and keeps the scene in Z-up. Standard GLB assets use meters/Y-up; export `(x,z,-y)/1000` and apply the inverse (+90° X, uniform 1000) exactly once at the mesh boundary, separately from rigid placement.
 - +X is width (left to right as you face the deck), +Y is depth (front to back), +Z is height.
 
 ## Component origin
@@ -58,3 +58,13 @@ Generated parts may use only `datasheet` or `measured` values. An `estimate` sho
 
 - Code in `app/src/domain/` must not import React, Three.js, or anything else that touches the browser. It must run in plain Node tests.
 - The 3D scene is a projection of domain state. Never store Three.js objects in domain state.
+
+## Provisional articulated preview
+
+See [ADR 0001](decisions/0001-articulated-enclosure-preview.md), which accepts enclosure-authored poses and explicit top/bottom-relative components while retaining the current strict v2 limit of exactly base/lid and one hinge. World = world/base × base/body × body/component; all transforms are rigid and resolved in pure domain code. Inspection pose is UI state. New records and nested references are strict; legacy box schemas and fixture retain their meaning.
+
+The 2800 temporary datums use CLOSED assembly coordinates, not an interior minimum corner. Candidate pivot, reference, sign and illustrative mounting positions remain **UNRESOLVED**, explicitly recorded in the new catalog revision and ADR. Never treat these assumptions as calibrated or use them to fabricate parts.
+
+Visual CAD fidelity/provenance does not upgrade `estimate` to `measured` or `datasheet`. Component meshes retain physical scale and normalize to provisional natural orientation/minimum corner; their bounds can disagree with catalog estimates. Do not resize them to hide disagreement. Imported mesh hole/port/keep-out overlays are hidden with a visible explanation. Keyboard/power are estimated envelopes.
+
+All six STEP originals are immutable. Offline derivation, hashes, declared context units, normalization and bounds live in `app/public/previews/manifest.json`; reproduction is documented in `tools/preview-converter/README.md`. The public repository's case/Pi source URLs/licenses remain TODO by explicit user deferral. No cleared rights are implied.
