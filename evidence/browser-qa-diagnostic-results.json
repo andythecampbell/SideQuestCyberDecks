@@ -1,0 +1,79 @@
+{
+  "status": "failed",
+  "attempts": [
+    {
+      "executablePath": "/root/.hermes/cache/scratch/sidequest-browser-runtime/chrome-linux64/chrome",
+      "launched": true
+    }
+  ],
+  "checks": [
+    {
+      "check": "closed-click",
+      "ariaPressed": "true"
+    },
+    {
+      "check": "open-enter",
+      "ariaPressed": "true"
+    },
+    {
+      "check": "closed-space",
+      "ariaPressed": "true"
+    }
+  ],
+  "screenshots": [
+    "/root/.hermes/cache/scratch/sidequest-browser-runtime/browser-screenshots/open.png",
+    "/root/.hermes/cache/scratch/sidequest-browser-runtime/browser-screenshots/closed.png"
+  ],
+  "errors": [
+    {
+      "type": "console",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "location": {
+        "url": "http://127.0.0.1:4173/favicon.ico",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "type": "console",
+      "text": "[removeChild-mismatch] {\"parent\":\"<div style=\\\"position: absolute; top: 0px; left: 0px; transform: translate3d(534.863px, 595.294px, 0px) scale(1); transform-origin: 0px 0px; z-index: 15138898;\\\"></div>\",\"child\":\"<div style=\\\"position: absolute; transform: translate3d(-50%, -50%, 0px);\\\">Loading base…</div>\",\"actualParent\":null,\"stack\":\"Error\\n    at Node.removeChild (<anonymous>:9:18)\\n    at commitDeletionEffectsOnFiber (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:6017:130)\\n    at recursivelyTraverseMutationEffects (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:6135:4)\\n    at commitMutationEffectsOnFiber (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:6263:5)\\n    at flushMutationEffects (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7437:6)\\n    at commitRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7413:285)\\n    at completeRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7383:4)\\n    at completeRootWhenReady (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7030:3)\\n    at performWorkOnRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7002:6)\\n    at performSyncWorkOnRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7761:3)\"}",
+      "location": {
+        "url": "",
+        "line": 4,
+        "column": 47,
+        "lineNumber": 4,
+        "columnNumber": 47
+      }
+    },
+    {
+      "type": "pageerror",
+      "text": "NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.",
+      "stack": "NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.\n    at Node.removeChild (<anonymous>:11:25)\n    at commitDeletionEffectsOnFiber (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:6017:130)\n    at recursivelyTraverseMutationEffects (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:6135:4)\n    at commitMutationEffectsOnFiber (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:6263:5)\n    at flushMutationEffects (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7437:6)\n    at commitRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7413:285)\n    at completeRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7383:4)\n    at completeRootWhenReady (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7030:3)\n    at performWorkOnRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7002:6)\n    at performSyncWorkOnRoot (http://127.0.0.1:4173/node_modules/.vite/deps/react-dom_client.js?v=15fcfae5:7761:3)"
+    }
+  ],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:4173/previews/base.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4173/previews/lid.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4173/previews/pi.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4173/previews/display.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    }
+  ],
+  "failedResources": []
+}

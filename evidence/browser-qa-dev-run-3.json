@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "attempts": [
+    {
+      "executablePath": "/root/.hermes/cache/scratch/sidequest-browser-runtime/chrome-linux64/chrome",
+      "launched": true
+    }
+  ],
+  "checks": [
+    {
+      "check": "closed-click",
+      "ariaPressed": "true"
+    },
+    {
+      "check": "open-enter",
+      "ariaPressed": "true"
+    },
+    {
+      "check": "closed-space",
+      "ariaPressed": "true"
+    }
+  ],
+  "screenshots": [
+    "/root/.hermes/cache/scratch/sidequest-browser-runtime/browser-screenshots/open.png",
+    "/root/.hermes/cache/scratch/sidequest-browser-runtime/browser-screenshots/closed.png"
+  ],
+  "errors": [],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:4173/previews/base.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4173/previews/lid.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4173/previews/pi.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:4173/previews/display.glb",
+      "status": 200,
+      "resourceType": "fetch"
+    }
+  ],
+  "failedResources": []
+}

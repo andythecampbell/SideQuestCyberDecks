@@ -1,0 +1,68 @@
+{
+  "method": "Follow #12/#13 product usage through #10/#11 context-dependent shape reps, #14/#15 relationships, #16/#17 item-defined transforms. Build orthonormal full AXIS2_PLACEMENT_3D frames; normalize each context to mm. T=F_target*inverse(F_source); D=T_open*inverse(T_closed).",
+  "angle_degrees": 90.75770394990006,
+  "signed_x_rotation_degrees": -90.75770394990006,
+  "delta_matrix_mm_row_major": [
+    [
+      1.0,
+      3.181354834111167e-20,
+      1.1065062154133503e-21,
+      -1.243392971792875e-17
+    ],
+    [
+      -6.857057221394458e-22,
+      -0.013224043224324966,
+      0.9999125585173944,
+      138.36406278022264
+    ],
+    [
+      3.1825399003172884e-20,
+      -0.9999125585173944,
+      -0.013224043224324966,
+      137.79627024164026
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "axis_unit": [
+    -1.0,
+    -1.5360789564093245e-20,
+    -1.6251048047360714e-20
+  ],
+  "candidate_axis_point_mm_at_x0": [
+    0,
+    137.17500000000035,
+    0.6250000000011176
+  ],
+  "fixed_point_residual_mm": 9.103832378015742e-15,
+  "base_transform_identical": true,
+  "changed_entities": [
+    {
+      "entity": 73081,
+      "closed": "DIRECTION('',(6.06671862752063E-16,-0.5,0.866025403784439))",
+      "open": "DIRECTION('',(6.06656914240384E-16,0.87256169885132,0.488503921885688))"
+    },
+    {
+      "entity": 73082,
+      "closed": "DIRECTION('',(1.,-6.04869661269703E-16,-1.04974598829805E-15))",
+      "open": "DIRECTION('',(1.,-1.04165606011248E-15,6.18730482292558E-16))"
+    },
+    {
+      "entity": 111880,
+      "closed": "CARTESIAN_POINT('',(-0.000125000000000132,0.0186904641590897,-0.0685037690560042))",
+      "open": "CARTESIAN_POINT('',(-0.000125000000000132,0.0696191202894263,0.120013337207473))"
+    }
+  ],
+  "driver_metadata_user_report": {
+    "open": 120,
+    "closed": 210,
+    "unit": "degrees",
+    "absolute_difference": 90
+  },
+  "discrepancy_degrees": 0.757703949900062,
+  "interpretation": "Verified export-to-export rigid pose delta, not physical hinge limit or calibrated Onshape driver mapping. Candidate axis from two poses only; pivot requires CAD/physical confirmation."
+}
