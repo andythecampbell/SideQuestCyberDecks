@@ -21,7 +21,7 @@ test('missing Pi/display mappings keep other meshes; body mapping never sends un
   components.set(id+'@2',{...part,revision:2})
   const config={...articulatedDeck,placements:articulatedDeck.placements.map(p=>p.component.id===id?{...p,component:{id,revision:2}}:p)}
   const html=render(config,{...catalog,components})
-  expect(html).toContain(`Missing preview mapping: ${id}@2`);expect(html).toContain('/previews/base.glb');expect(html).toContain('/previews/lid.glb')
+  expect(html).toContain(`Missing preview mapping: ${id}@2`);expect(html).toContain('/previews/apache-2800-base.glb');expect(html).toContain('/previews/apache-2800-lid.glb')
  }
  const enclosure=catalog.enclosures.get('case-2800-preview@1')!, enclosures=new Map(catalog.enclosures)
  enclosures.set('case-2800-preview@2',{...enclosure,revision:2})

@@ -15,7 +15,7 @@ import { PreviewMesh } from './PreviewMesh'
 test('pending GLTF stays in the R3F tree without mounting an Html fallback portal in either pose', () => {
   for (const rotation of [[0, 0, 0, 1], [1, 0, 0, 0]] as [number, number, number, number][]) {
     htmlPortal.mockClear()
-    const markup = renderToStaticMarkup(<PreviewMesh name="base" url="/previews/base.glb"
+    const markup = renderToStaticMarkup(<PreviewMesh name="base" url="/previews/apache-2800-base.glb"
       transform={{ position: [0, 0, 0], rotation }} />)
     expect(markup).toContain('<group')
     expect(htmlPortal).not.toHaveBeenCalled()

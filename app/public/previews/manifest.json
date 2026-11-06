@@ -43,7 +43,7 @@
     {
       "id": "base",
       "catalogKey": "case-2800-preview@1/base",
-      "url": "/previews/base.glb",
+      "url": "/previews/apache-2800-base.glb",
       "source": "assets/2800 Case Assembly closed.step",
       "selection": "verified CLOSED occurrence Part 1",
       "solids": [
@@ -376,7 +376,7 @@
     {
       "id": "lid",
       "catalogKey": "case-2800-preview@1/lid",
-      "url": "/previews/lid.glb",
+      "url": "/previews/apache-2800-lid.glb",
       "source": "assets/2800 Case Assembly closed.step",
       "selection": "verified CLOSED occurrence Part 2",
       "solids": [
