@@ -1,0 +1,18 @@
+
+> @sidequest/app@0.0.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-articulated/app
+
+(node:757253) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ Test Files  8 passed (8)
+      Tests  30 passed (30)
+   Start at  15:11:31
+   Duration  2.36s (import 63%, tests 18%, transform 17%, worker 2%)
+
+    Isolate  8 workers spawned · ~87ms startup each (spawn + environment, per file)
+             at least ~612ms faster with isolate: false — reuses workers across files instead of one per file

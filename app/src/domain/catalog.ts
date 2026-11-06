@@ -1,5 +1,7 @@
 // Catalog schema. Pure domain code: no React, Three.js, or browser APIs.
 import { z } from 'zod'
+import { Id, Source } from './catalogPrimitives'
+import { Articulated } from './articulatedSchema'
 
 export const Vec3 = z.tuple([z.number(), z.number(), z.number()])
 export type Vec3 = z.infer<typeof Vec3>
@@ -8,15 +10,6 @@ export const Confidence = z.enum(['datasheet', 'measured', 'estimate'])
 export type Confidence = z.infer<typeof Confidence>
 
 export const Facing = z.enum(['+x', '-x', '+y', '-y', '+z', '-z'])
-
-const Id = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'ids are lowercase kebab-case')
-
-const Source = z.object({
-  kind: z.string(),
-  title: z.string(),
-  url: z.url().optional(),
-  license: z.string().optional(),
-})
 
 const Vec2 = z.tuple([z.number(), z.number()])
 
@@ -74,7 +67,7 @@ export const ComponentDefinition = z.object({
 })
 export type ComponentDefinition = z.infer<typeof ComponentDefinition>
 
-export const EnclosureDefinition = z.object({
+const BoxEnclosureDefinition = z.object({
   schemaVersion: z.literal(1),
   kind: z.literal('enclosure'),
   id: Id,
@@ -85,9 +78,10 @@ export const EnclosureDefinition = z.object({
   wallThickness: z.number().positive(),
   sources: z.array(Source).min(1),
 })
+export const EnclosureDefinition = z.union([BoxEnclosureDefinition, Articulated])
 export type EnclosureDefinition = z.infer<typeof EnclosureDefinition>
 
-export const CatalogEntry = z.discriminatedUnion('kind', [ComponentDefinition, EnclosureDefinition])
+export const CatalogEntry = z.union([ComponentDefinition, EnclosureDefinition])
 export type CatalogEntry = z.infer<typeof CatalogEntry>
 
 /** Every confidence value recorded on a component, for flagging placeholder data. */
