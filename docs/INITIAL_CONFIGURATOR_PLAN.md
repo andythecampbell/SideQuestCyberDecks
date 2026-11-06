@@ -1,8 +1,15 @@
 # Initial Configurator Plan
 
-> Status: Proposed first implementation plan  
-> Started: October 7, 2026  
-> Goal: Place a display in a simple enclosure, save the arrangement, and generate one parameterized mounting part.
+> Status: **Historical. Not authoritative.** Superseded on 2026-11-06 by the [Deck 001 alpha roadmap](./DECK_001_ALPHA_ROADMAP.md).
+> Started: October 7, 2026
+> Original goal: Place a display in a simple enclosure, save the arrangement, and generate one parameterized mounting part.
+
+> **Read the roadmap for current scope and order.** This plan is kept as a record of the original thinking. Where the two differ, the roadmap wins. The main changes:
+>
+> - Milestone 4's bounds, overlap and keep-out warnings are deferred.
+> - Milestone 3 uses numeric body-local editing first, not a gizmo.
+> - Milestone 6 is replaced by a physical measurement campaign.
+> - Milestone 7 becomes a bounded single-engine spike that doesn't require in-browser generation.
 
 ## Outcome
 
