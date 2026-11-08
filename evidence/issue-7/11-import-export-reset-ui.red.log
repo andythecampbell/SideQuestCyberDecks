@@ -1,33 +1,33 @@
 
  RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
 
- ❯ src/appPersistence.test.tsx (33 tests | 24 failed | 9 skipped) 277ms
+ ❯ src/appPersistence.test.tsx (33 tests | 24 failed | 9 skipped) 280ms
    ❯ file export, import and reset (24)
-     × export writes the canonical bytes of the current design and changes nothing 48ms
+     × export writes the canonical bytes of the current design and changes nothing 46ms
      × export of an unedited fixture is its canonical snapshot and writes nothing 4ms
-     × a valid v2 import replaces the design, persists it once, keeps the file timestamps and clears the selection 18ms
-     × import survives a reload and re-exports byte-identically 4ms
+     × a valid v2 import replaces the design, persists it once, keeps the file timestamps and clears the selection 12ms
+     × import survives a reload and re-exports byte-identically 9ms
      × v1 import shows a visible migration notice naming dropped keys and persists v2 10ms
      × rejects an unknown schema version readably and leaves the loaded configuration and storage unchanged 8ms
-     × rejects a missing schema version readably and leaves the loaded configuration and storage unchanged 11ms
-     × rejects wrong units readably and leaves the loaded configuration and storage unchanged 10ms
-     × rejects a non-unit quaternion readably and leaves the loaded configuration and storage unchanged 20ms
-     × rejects an unknown v2 key readably and leaves the loaded configuration and storage unchanged 7ms
-     × rejects duplicate placement ids readably and leaves the loaded configuration and storage unchanged 8ms
-     × rejects a missing catalog revision readably and leaves the loaded configuration and storage unchanged 6ms
+     × rejects a missing schema version readably and leaves the loaded configuration and storage unchanged 9ms
+     × rejects wrong units readably and leaves the loaded configuration and storage unchanged 7ms
+     × rejects a non-unit quaternion readably and leaves the loaded configuration and storage unchanged 8ms
+     × rejects an unknown v2 key readably and leaves the loaded configuration and storage unchanged 17ms
+     × rejects duplicate placement ids readably and leaves the loaded configuration and storage unchanged 13ms
+     × rejects a missing catalog revision readably and leaves the loaded configuration and storage unchanged 7ms
      × rejects a lid attachment against a box enclosure readably and leaves the loaded configuration and storage unchanged 6ms
      × rejects a non-JSON file readably and leaves the loaded configuration and storage unchanged 7ms
      × an oversized file is rejected from its size alone, without reading it 45ms
-     × a later accepted import clears the previous rejection 2ms
-     × the file picker can import the same file twice in a row 7ms
-     × export -> clear storage -> import gives byte-identical state and survives reload 9ms
-     × an accepted import over a corrupt stored value preserves the corrupt bytes first 6ms
+     × a later accepted import clears the previous rejection 3ms
+     × the file picker can import the same file twice in a row 6ms
+     × export -> clear storage -> import gives byte-identical state and survives reload 10ms
+     × an accepted import over a corrupt stored value preserves the corrupt bytes first 9ms
      × a rejected import over a corrupt stored value does not move the corrupt bytes 6ms
      ❯ reset to fixture (3)
-       × needs a second confirming activation; cancel changes nothing and keeps focus on the mounted control 16ms
-       × restores the fixture, removes the saved value, clears the selection and persists through reload 8ms
-       × reset does not lose a corrupt stored value 3ms
-     × the panel shows the design timestamps, updating them only on a real edit 5ms
+       × needs a second confirming activation; cancel changes nothing and keeps focus on the mounted control 24ms
+       × restores the fixture, removes the saved value, clears the selection and persists through reload 7ms
+       × reset does not lose a corrupt stored value 2ms
+     × the panel shows the design timestamps, updating them only on a real edit 4ms
 
 ⎯⎯⎯⎯⎯⎯ Failed Tests 24 ⎯⎯⎯⎯⎯⎯⎯
 
@@ -119,7 +119,7 @@ AssertionError: input[type="file"]: expected null not to be null
      72|     return el!
      73|   }
  ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
- ❯ src/appPersistence.test.tsx:383:16
+ ❯ src/appPersistence.test.tsx:384:16
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/24]⎯
 
@@ -133,7 +133,7 @@ AssertionError: input[type="file"]: expected null not to be null
      72|     return el!
      73|   }
  ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
- ❯ src/appPersistence.test.tsx:402:16
+ ❯ src/appPersistence.test.tsx:403:16
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/24]⎯
 
@@ -147,7 +147,7 @@ AssertionError: input[type="file"]: expected null not to be null
      72|     return el!
      73|   }
  ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
- ❯ src/appPersistence.test.tsx:412:16
+ ❯ src/appPersistence.test.tsx:413:16
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/24]⎯
 
@@ -161,7 +161,7 @@ AssertionError: input[type="file"]: expected null not to be null
      72|     return el!
      73|   }
  ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
- ❯ src/appPersistence.test.tsx:421:16
+ ❯ src/appPersistence.test.tsx:422:16
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/24]⎯
 
@@ -175,7 +175,7 @@ AssertionError: Export file: expected undefined to be defined
      77|     return el!
      78|   }
  ❯ exported src/appPersistence.test.tsx:278:23
- ❯ src/appPersistence.test.tsx:429:25
+ ❯ src/appPersistence.test.tsx:430:25
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/24]⎯
 
@@ -189,7 +189,7 @@ AssertionError: input[type="file"]: expected null not to be null
      72|     return el!
      73|   }
  ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
- ❯ src/appPersistence.test.tsx:451:16
+ ❯ src/appPersistence.test.tsx:452:16
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/24]⎯
 
@@ -203,7 +203,7 @@ AssertionError: input[type="file"]: expected null not to be null
      72|     return el!
      73|   }
  ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
- ❯ src/appPersistence.test.tsx:461:16
+ ❯ src/appPersistence.test.tsx:462:16
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/24]⎯
 
@@ -216,7 +216,7 @@ AssertionError: Reset to fixture: expected undefined to be defined
        |                      ^
      77|     return el!
      78|   }
- ❯ src/appPersistence.test.tsx:471:26
+ ❯ src/appPersistence.test.tsx:472:26
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/24]⎯
 
@@ -229,7 +229,7 @@ AssertionError: Reset to fixture: expected undefined to be defined
        |                      ^
      77|     return el!
      78|   }
- ❯ src/appPersistence.test.tsx:484:26
+ ❯ src/appPersistence.test.tsx:485:26
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/24]⎯
 
@@ -242,7 +242,7 @@ AssertionError: Reset to fixture: expected undefined to be defined
        |                      ^
      77|     return el!
      78|   }
- ❯ src/appPersistence.test.tsx:506:26
+ ❯ src/appPersistence.test.tsx:507:26
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/24]⎯
 
@@ -255,7 +255,14 @@ AssertionError: [data-field="createdAt"]: expected null not to be null
        |                         ^
      72|     return el!
      73|   }
- ❯ src/appPersistence.test.tsx:518:17
+ ❯ src/appPersistence.test.tsx:519:17
 
 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/24]⎯
 
+
+ Test Files  1 failed (1)
+      Tests  24 failed | 9 skipped (33)
+   Start at  19:25:35
+   Duration  1.05s (environment 33%, tests 30%, transform 21%, import 15%)
+
+EXIT CODE: 1
