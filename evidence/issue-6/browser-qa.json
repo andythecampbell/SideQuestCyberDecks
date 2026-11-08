@@ -1,0 +1,570 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:4173/",
+  "identity": {
+    "baseCommit": "8450dc0696691c6103cba9e2bdba80992e2a8765",
+    "sourceContentSha256": "3b7c7bf1654aac2dfafb4ae9023f5a795470df46ed96c0f07a3e322180ea06ee",
+    "sourceFiles": 54,
+    "sourceStatusPorcelain": [
+      "M app/package.json",
+      " M app/src/PlacementPanel.tsx",
+      " M app/src/Workbench.tsx",
+      " M app/src/styles.css",
+      "?? app/src/workbenchInteraction.test.tsx"
+    ],
+    "hashRecipe": "sha256 over sorted `git ls-files -co --exclude-standard -- app catalog`, each as path\\0content\\0"
+  },
+  "command": "node evidence/issue-6/browser-qa.cjs",
+  "server": "npm run dev --workspace app -- --host 127.0.0.1 --port 4173 --strictPort",
+  "user": "sidequestqa",
+  "attempts": [
+    {
+      "executablePath": "/root/.hermes/tools/chromium-1208/chrome-linux64/chrome",
+      "launched": true,
+      "version": "145.0.7632.6"
+    }
+  ],
+  "runs": [
+    {
+      "name": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "deviceScaleFactor": 1,
+      "checks": [
+        {
+          "check": "list-select-display",
+          "pass": true
+        },
+        {
+          "check": "focus-after-list-select",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-top",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "edit-x-enter",
+          "pass": true,
+          "stored": "[-71.5, 64, 20]"
+        },
+        {
+          "check": "focus-kept-after-edit",
+          "pass": true
+        },
+        {
+          "check": "edit-y-apply",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "focus-kept-on-apply",
+          "pass": true
+        },
+        {
+          "check": "rotate-z",
+          "pass": true,
+          "rotBefore": "[1, 0, 0, 0]",
+          "rotAfter": "[0.7071067811865476, 0.7071067811865475, 0, 0]"
+        },
+        {
+          "check": "focus-kept-on-rotate",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-scrolled",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 317,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "pose-closed",
+          "pass": true
+        },
+        {
+          "check": "focus-kept-on-pose",
+          "pass": true
+        },
+        {
+          "check": "edit-survives-pose",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-closed",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "mesh-select",
+          "pass": true,
+          "picked": {
+            "heading": "Raspberry Pi 5",
+            "at": [
+              0.39999999999999997,
+              0.6
+            ]
+          }
+        },
+        {
+          "check": "mesh-select-syncs-list",
+          "pass": true
+        },
+        {
+          "check": "list-reselect-display",
+          "pass": true
+        },
+        {
+          "check": "focus-after-selection-change",
+          "pass": true
+        },
+        {
+          "check": "unsaved-marker",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-final",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "no-console-errors",
+          "pass": true
+        },
+        {
+          "check": "no-failed-loads",
+          "pass": true
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedLoads": [],
+      "screenshots": [
+        "evidence/issue-6/open.png",
+        "evidence/issue-6/closed.png"
+      ]
+    },
+    {
+      "name": "zoom-200",
+      "viewport": {
+        "width": 720,
+        "height": 500
+      },
+      "deviceScaleFactor": 2,
+      "checks": [
+        {
+          "check": "list-select-display",
+          "pass": true
+        },
+        {
+          "check": "focus-after-list-select",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-top",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 264,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "edit-x-enter",
+          "pass": true,
+          "stored": "[-71.5, 64, 20]"
+        },
+        {
+          "check": "focus-kept-after-edit",
+          "pass": true
+        },
+        {
+          "check": "edit-y-apply",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "focus-kept-on-apply",
+          "pass": true
+        },
+        {
+          "check": "rotate-z",
+          "pass": true,
+          "rotBefore": "[1, 0, 0, 0]",
+          "rotAfter": "[0.7071067811865476, 0.7071067811865475, 0, 0]"
+        },
+        {
+          "check": "focus-kept-on-rotate",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-scrolled",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 817,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "pose-closed",
+          "pass": true
+        },
+        {
+          "check": "focus-kept-on-pose",
+          "pass": true
+        },
+        {
+          "check": "edit-survives-pose",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-closed",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "mesh-select",
+          "pass": true,
+          "picked": {
+            "heading": "Raspberry Pi 5",
+            "at": [
+              0.35,
+              0.6
+            ]
+          }
+        },
+        {
+          "check": "mesh-select-syncs-list",
+          "pass": true
+        },
+        {
+          "check": "list-reselect-display",
+          "pass": true
+        },
+        {
+          "check": "focus-after-selection-change",
+          "pass": true
+        },
+        {
+          "check": "unsaved-marker",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-final",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 430,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "no-console-errors",
+          "pass": true
+        },
+        {
+          "check": "no-failed-loads",
+          "pass": true
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedLoads": [],
+      "screenshots": [
+        "evidence/issue-6/zoom-200-open.png",
+        "evidence/issue-6/zoom-200-closed.png"
+      ]
+    },
+    {
+      "name": "short",
+      "viewport": {
+        "width": 1280,
+        "height": 560
+      },
+      "deviceScaleFactor": 1,
+      "checks": [
+        {
+          "check": "list-select-display",
+          "pass": true
+        },
+        {
+          "check": "focus-after-list-select",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-top",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 204,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "edit-x-enter",
+          "pass": true,
+          "stored": "[-71.5, 64, 20]"
+        },
+        {
+          "check": "focus-kept-after-edit",
+          "pass": true
+        },
+        {
+          "check": "edit-y-apply",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "focus-kept-on-apply",
+          "pass": true
+        },
+        {
+          "check": "rotate-z",
+          "pass": true,
+          "rotBefore": "[1, 0, 0, 0]",
+          "rotAfter": "[0.7071067811865476, 0.7071067811865475, 0, 0]"
+        },
+        {
+          "check": "focus-kept-on-rotate",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-scrolled",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 757,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "pose-closed",
+          "pass": true
+        },
+        {
+          "check": "focus-kept-on-pose",
+          "pass": true
+        },
+        {
+          "check": "edit-survives-pose",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-closed",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "mesh-select",
+          "pass": true,
+          "picked": {
+            "heading": "Raspberry Pi 5",
+            "at": [
+              0.44999999999999996,
+              0.6
+            ]
+          }
+        },
+        {
+          "check": "mesh-select-syncs-list",
+          "pass": true
+        },
+        {
+          "check": "list-reselect-display",
+          "pass": true
+        },
+        {
+          "check": "focus-after-selection-change",
+          "pass": true
+        },
+        {
+          "check": "unsaved-marker",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-final",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 400,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "no-console-errors",
+          "pass": true
+        },
+        {
+          "check": "no-failed-loads",
+          "pass": true
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedLoads": [],
+      "screenshots": [
+        "evidence/issue-6/short-open.png",
+        "evidence/issue-6/short-closed.png"
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-08T14:53:02.065Z"
+}

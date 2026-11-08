@@ -1,0 +1,24 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/selectionSync.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/selectionSync.test.tsx [ src/selectionSync.test.tsx ]
+Error: Cannot find module './Workbench' imported from /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app/src/selectionSync.test.tsx
+ ❯ src/selectionSync.test.tsx:4:1
+      2| import { isValidElement, type ReactElement, type ReactNode } from 'rea…
+      3| import { renderToStaticMarkup } from 'react-dom/server'
+      4| import { Workbench, type WorkbenchProps } from './Workbench'
+       | ^
+      5| import { Viewport } from './scene/Viewport'
+      6| import { PreviewControls } from './scene/PreviewControls'
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:31:45
+   Duration  203ms (worker 71%, environment 29%)

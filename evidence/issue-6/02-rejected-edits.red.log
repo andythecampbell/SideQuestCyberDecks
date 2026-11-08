@@ -1,0 +1,56 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/domain/placementEdit.test.ts (17 tests | 16 failed) 12ms
+   ❯ rejected edits (16)
+     × non-finite position leaves the configuration unchanged and returns errors 3ms
+     × NaN position leaves the configuration unchanged and returns errors 1ms
+     × non-finite rotation leaves the configuration unchanged and returns errors 0ms
+     × zero quaternion leaves the configuration unchanged and returns errors 0ms
+     × non-unit quaternion leaves the configuration unchanged and returns errors 0ms
+     × unknown placement id leaves the configuration unchanged and returns errors 0ms
+     × null patch leaves the configuration unchanged and returns errors 0ms
+     × string patch leaves the configuration unchanged and returns errors 1ms
+     × empty patch leaves the configuration unchanged and returns errors 0ms
+     × short position leaves the configuration unchanged and returns errors 0ms
+     × string coordinates leaves the configuration unchanged and returns errors 0ms
+     × attachment edit leaves the configuration unchanged and returns errors 0ms
+     × component edit leaves the configuration unchanged and returns errors 0ms
+     × id edit leaves the configuration unchanged and returns errors 0ms
+     × base edit leaves the configuration unchanged and returns errors 0ms
+     × enclosure edit leaves the configuration unchanged and returns errors 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > non-finite position leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > NaN position leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > non-finite rotation leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > zero quaternion leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > non-unit quaternion leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > unknown placement id leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > null patch leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > string patch leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > empty patch leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > short position leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > string coordinates leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > attachment edit leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > component edit leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > id edit leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > base edit leaves the configuration unchanged and returns errors
+ FAIL  src/domain/placementEdit.test.ts > rejected edits > enclosure edit leaves the configuration unchanged and returns errors
+AssertionError: expected 0 to be greater than 0
+ ❯ src/domain/placementEdit.test.ts:49:34
+     47|     let calls = 0
+     48|     const result = editPlacement(articulatedDeck, id, patch, () => { c…
+     49|     expect(result.errors.length).toBeGreaterThan(0)
+       |                                  ^
+     50|     expect(result.changed).toBe(false)
+     51|     expect(result.configuration).toBe(articulatedDeck)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  16 failed | 1 passed (17)
+   Start at  00:27:19
+   Duration  366ms (transform 46%, import 45%, tests 7%, worker 2%)

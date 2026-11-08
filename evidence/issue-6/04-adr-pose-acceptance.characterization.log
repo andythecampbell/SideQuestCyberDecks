@@ -1,0 +1,8 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  00:28:16
+   Duration  377ms (transform 50%, import 35%, tests 14%, worker 1%)

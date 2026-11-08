@@ -1,0 +1,39 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/domain/placementEdit.test.ts (25 tests | 2 failed) 20ms
+   ❯ rotateAboutBodyAxis (UI rotation entry) (2)
+     × rotates about the attachment body axes and always returns a unit quaternion 5ms
+     × rejects non-finite angles by returning the stored quaternion unchanged 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/placementEdit.test.ts > rotateAboutBodyAxis (UI rotation entry) > rotates about the attachment body axes and always returns a unit quaternion
+TypeError: rotateAboutBodyAxis is not a function
+ ❯ src/domain/placementEdit.test.ts:102:13
+    100|   const closeTo = (a: number[], b: number[]) => a.forEach((v, i) => ex…
+    101|   test('rotates about the attachment body axes and always returns a un…
+    102|     closeTo(rotateAboutBodyAxis([0, 0, 0, 1], 'x', 90), [Math.SQRT1_2,…
+       |             ^
+    103|     const zThenX = rotateAboutBodyAxis(rotateAboutBodyAxis([0, 0, 0, 1…
+    104|     closeTo(rotate(zThenX, [1, 0, 0]), [0, 0, 1])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/domain/placementEdit.test.ts > rotateAboutBodyAxis (UI rotation entry) > rejects non-finite angles by returning the stored quaternion unchanged
+TypeError: rotateAboutBodyAxis is not a function
+ ❯ src/domain/placementEdit.test.ts:111:12
+    109|   test('rejects non-finite angles by returning the stored quaternion u…
+    110|     const q: [number, number, number, number] = [0, 0, 0, 1]
+    111|     expect(rotateAboutBodyAxis(q, 'y', NaN)).toBe(q)
+       |            ^
+    112|     expect(rotateAboutBodyAxis(q, 'y', Infinity)).toBe(q)
+    113|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 23 passed (25)
+   Start at  00:28:54
+   Duration  345ms (transform 53%, import 36%, tests 9%, worker 1%)

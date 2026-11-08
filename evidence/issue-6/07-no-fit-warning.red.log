@@ -1,0 +1,92 @@
+# ANNOTATION (added after the fact; raw Vitest output below is unedited)
+# This file holds two consecutive red runs.
+# Run 1: suite fails because ./noFitWarning did not exist yet (valid red).
+# Run 2: the "one exported constant ..." failure is a TEST BUG, not a product
+#   defect. The assertion checked `NO_FIT_WARNING` case-sensitively for the
+#   lowercase term 'fit', but the constant begins "Fit, clearance, ...". The
+#   constant already satisfied the requirement. The test was corrected to
+#   `expect(NO_FIT_WARNING.toLowerCase()).toContain(term)` (see
+#   app/src/noFitWarning.test.tsx:8). Only the six "is rendered with ..." failures
+#   in Run 2 are genuine red for the missing warning element.
+# ---------------------------------------------------------------------------
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/noFitWarning.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/noFitWarning.test.tsx [ src/noFitWarning.test.tsx ]
+Error: Cannot find module './noFitWarning' imported from /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app/src/noFitWarning.test.tsx
+ ❯ src/noFitWarning.test.tsx:3:1
+      1| import { describe, expect, test } from 'vitest'
+      2| import { renderToStaticMarkup } from 'react-dom/server'
+      3| import { NO_FIT_WARNING } from './noFitWarning'
+       | ^
+      4| import { App } from './App'
+      5|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:29:26
+   Duration  148ms (worker 96%, environment 4%)
+
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+(node:1509977) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ src/noFitWarning.test.tsx (7 tests | 7 failed) 23ms
+   ❯ persistent no-fit warning (7)
+     × one exported constant states the required unvalidated scope and non-evidence 6ms
+     × is rendered with no selection in OPEN and cannot be dismissed 9ms
+     × is rendered with no selection in CLOSED and cannot be dismissed 2ms
+     × is rendered with display selected in OPEN and cannot be dismissed 1ms
+     × is rendered with display selected in CLOSED and cannot be dismissed 1ms
+     × is rendered with pi selected in OPEN and cannot be dismissed 1ms
+     × is rendered with pi selected in CLOSED and cannot be dismissed 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/noFitWarning.test.tsx > persistent no-fit warning > one exported constant states the required unvalidated scope and non-evidence
+AssertionError: expected 'Fit, clearance, wiring, connector acc…' to contain 'fit'
+
+Expected: "fit"
+Received: "Fit, clearance, wiring, connector access, cooling and assembly are unvalidated. On-screen appearance, mesh bounds and apparent overlap (or its absence) are not evidence."
+
+ ❯ src/noFitWarning.test.tsx:8:122
+      6| describe('persistent no-fit warning', () => {
+      7|   test('one exported constant states the required unvalidated scope an…
+      8|     for (const term of ['fit', 'clearance', 'wiring', 'connector acces…
+       |                                                                                                                          ^
+      9|     expect(NO_FIT_WARNING).toMatch(/unvalidated/)
+     10|     for (const term of ['On-screen appearance', 'mesh bounds', 'appare…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  src/noFitWarning.test.tsx > persistent no-fit warning > is rendered with no selection in OPEN and cannot be dismissed
+ FAIL  src/noFitWarning.test.tsx > persistent no-fit warning > is rendered with no selection in CLOSED and cannot be dismissed
+ FAIL  src/noFitWarning.test.tsx > persistent no-fit warning > is rendered with display selected in OPEN and cannot be dismissed
+ FAIL  src/noFitWarning.test.tsx > persistent no-fit warning > is rendered with display selected in CLOSED and cannot be dismissed
+ FAIL  src/noFitWarning.test.tsx > persistent no-fit warning > is rendered with pi selected in OPEN and cannot be dismissed
+ FAIL  src/noFitWarning.test.tsx > persistent no-fit warning > is rendered with pi selected in CLOSED and cannot be dismissed
+AssertionError: <div class="layout"><aside class="panel"><h1>SideQuest Decks</h1><p class="muted">2800 articulated preview · mm, Z-up</p><section aria-label="Inspection pose"><p role="status">UNRESOLVED calibration · illustrative placement / not fit validated. Component natural orientation is unverified.</p><div><button type="button" aria-pressed="true">OPEN · 120°</button><button type="button" aria-pressed="false">CLOSED · 210°</button></div><p class="muted">Inspection only. Assumed CLOSED reference, sign +1, candidate +X hinge. Driver delta 90°; observed export delta 90.75770394990006°. Datums and mapping await approval.</p></section><p class="muted">Body-local positions. Imported mesh overlays hidden: catalog holes, ports and keep-outs are unvalidated. Keyboard/power are estimated envelopes. Mesh bounds differ from estimated catalog envelopes; no scaling to fit. GrabCAD case/Pi and Andy display: source URLs/license TODO, deferred.</p><h2>Components</h2><ul class="parts"><li class=""><button type="button" aria-pressed="false">Adafruit Mini Chiclet Keyboard (USB)</button><span class="badge">2 est.</span></li><li class=""><button type="button" aria-pressed="false">Raspberry Pi 5</button><span class="badge">7 est.</span></li><li class=""><button type="button" aria-pressed="false">Anker 10000mAh 30W Power Bank</button><span class="badge">3 est.</span></li><li class=""><button type="button" aria-pressed="false">Hoysond 7&quot; HDMI Touchscreen</button><span class="badge">5 est.</span></li></ul><footer class="muted">Illustrative preview only. No physical fit, clearance or fabrication validation.</footer></aside><main class="viewport"><div style="position:relative;width:100%;height:100%;overflow:hidden;pointer-events:auto"><div style="width:100%;height:100%"><canvas style="display:block"></canvas></div></div></main></div>: expected null not to be null
+ ❯ src/noFitWarning.test.tsx:22:31
+     20|     const html = renderToStaticMarkup(<App initialPose={pose} initialS…
+     21|     const warning = html.match(/<aside[^>]*aria-label="No-fit warning"…
+     22|     expect(warning, html).not.toBeNull()
+       |                               ^
+     23|     expect(warning![1]).toContain(NO_FIT_WARNING)
+     24|     expect(warning![1]).not.toMatch(/<button|<input/)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  00:29:31
+   Duration  902ms (import 66%, transform 30%, tests 3%)
