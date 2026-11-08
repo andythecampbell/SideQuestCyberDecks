@@ -9,6 +9,7 @@ import { ComponentView } from './scene/ComponentView'
 import { initialDesign, applyPlacementEdit } from './designState'
 import { articulatedDeck } from './articulatedFixture'
 import { catalog } from './catalog'
+import { EMPTY_REPORT } from './SnapshotPanel'
 
 type El = ReactElement<Record<string, unknown> & { children?: ReactNode }>
 /** Collects host and component elements without invoking child components. */
@@ -23,7 +24,7 @@ function elements(node: ReactNode, out: El[] = []): El[] {
 
 const props = (over: Partial<WorkbenchProps> = {}): WorkbenchProps => ({
   design: initialDesign(articulatedDeck), pose: 'OPEN', selectedId: null,
-  onPose: vi.fn(), onSelect: vi.fn(), onEdit: vi.fn(), ...over,
+  onPose: vi.fn(), onSelect: vi.fn(), onEdit: vi.fn(), report: EMPTY_REPORT, ...over,
 })
 const listButtons = (tree: El[]) => tree.filter(e => e.type === 'button' && 'aria-pressed' in e.props)
 
