@@ -40,7 +40,7 @@ export function Workbench({ design, pose, selectedId, onPose, onSelect, onEdit, 
         </aside>
         <div className="panel-scroll">
           <h1>SideQuest Decks</h1>
-          <p className="muted">2800 articulated preview · mm, Z-up</p>
+          <p className="muted">{catalog.enclosures.get(refKey(configuration.enclosure))?.name ?? refKey(configuration.enclosure)} · mm, Z-up</p>
           {design.unsaved && <p role="status" className="unsaved">Unsaved · edits are in memory only; reloading discards them.</p>}
 
           <PreviewControls pose={pose} onPose={onPose} />

@@ -10,6 +10,8 @@ import { initialDesign, applyPlacementEdit } from './designState'
 import { articulatedDeck } from './articulatedFixture'
 import { catalog } from './catalog'
 import { EMPTY_REPORT } from './SnapshotPanel'
+import { migrateV1ToV2 } from './domain/articulated'
+import { deck001 } from './fixtures'
 
 type El = ReactElement<Record<string, unknown> & { children?: ReactNode }>
 /** Collects host and component elements without invoking child components. */
@@ -86,5 +88,14 @@ describe('pose is UI state separate from the design', () => {
     expect(renderToStaticMarkup(Workbench(props()))).not.toContain('Unsaved')
     const edited = applyPlacementEdit(initialDesign(articulatedDeck), 'pi', { position: [0, 0, 0] }, () => '2026-11-08T12:00:00.000Z')
     for (const pose of ['OPEN', 'CLOSED'] as const) expect(renderToStaticMarkup(Workbench(props({ design: edited, pose })))).toContain('Unsaved')
+  })
+})
+
+describe('the workbench describes the loaded configuration', () => {
+  test('names the enclosure actually loaded, so an imported box is not called the 2800 preview', () => {
+    const html = renderToStaticMarkup(Workbench(props({ design: initialDesign(migrateV1ToV2(deck001)) })))
+    expect(html).toContain('Placeholder open box')
+    expect(html).not.toContain('2800 articulated preview')
+    expect(renderToStaticMarkup(Workbench(props()))).toContain('2800 provisional articulated preview')
   })
 })
