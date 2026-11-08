@@ -1,0 +1,261 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/appPersistence.test.tsx (33 tests | 24 failed | 9 skipped) 277ms
+   ❯ file export, import and reset (24)
+     × export writes the canonical bytes of the current design and changes nothing 48ms
+     × export of an unedited fixture is its canonical snapshot and writes nothing 4ms
+     × a valid v2 import replaces the design, persists it once, keeps the file timestamps and clears the selection 18ms
+     × import survives a reload and re-exports byte-identically 4ms
+     × v1 import shows a visible migration notice naming dropped keys and persists v2 10ms
+     × rejects an unknown schema version readably and leaves the loaded configuration and storage unchanged 8ms
+     × rejects a missing schema version readably and leaves the loaded configuration and storage unchanged 11ms
+     × rejects wrong units readably and leaves the loaded configuration and storage unchanged 10ms
+     × rejects a non-unit quaternion readably and leaves the loaded configuration and storage unchanged 20ms
+     × rejects an unknown v2 key readably and leaves the loaded configuration and storage unchanged 7ms
+     × rejects duplicate placement ids readably and leaves the loaded configuration and storage unchanged 8ms
+     × rejects a missing catalog revision readably and leaves the loaded configuration and storage unchanged 6ms
+     × rejects a lid attachment against a box enclosure readably and leaves the loaded configuration and storage unchanged 6ms
+     × rejects a non-JSON file readably and leaves the loaded configuration and storage unchanged 7ms
+     × an oversized file is rejected from its size alone, without reading it 45ms
+     × a later accepted import clears the previous rejection 2ms
+     × the file picker can import the same file twice in a row 7ms
+     × export -> clear storage -> import gives byte-identical state and survives reload 9ms
+     × an accepted import over a corrupt stored value preserves the corrupt bytes first 6ms
+     × a rejected import over a corrupt stored value does not move the corrupt bytes 6ms
+     ❯ reset to fixture (3)
+       × needs a second confirming activation; cancel changes nothing and keeps focus on the mounted control 16ms
+       × restores the fixture, removes the saved value, clears the selection and persists through reload 8ms
+       × reset does not lose a corrupt stored value 3ms
+     × the panel shows the design timestamps, updating them only on a real edit 5ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 24 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > export writes the canonical bytes of the current design and changes nothing
+AssertionError: Export file: expected undefined to be defined
+ ❯ Object.button src/appPersistence.test.tsx:76:22
+     74|   const button = (name: string) => {
+     75|     const el = [...host.querySelectorAll<HTMLButtonElement>('button')]…
+     76|     expect(el, name).toBeDefined()
+       |                      ^
+     77|     return el!
+     78|   }
+ ❯ exported src/appPersistence.test.tsx:278:23
+ ❯ src/appPersistence.test.tsx:306:24
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > export of an unedited fixture is its canonical snapshot and writes nothing
+AssertionError: Export file: expected undefined to be defined
+ ❯ Object.button src/appPersistence.test.tsx:76:22
+     74|   const button = (name: string) => {
+     75|     const el = [...host.querySelectorAll<HTMLButtonElement>('button')]…
+     76|     expect(el, name).toBeDefined()
+       |                      ^
+     77|     return el!
+     78|   }
+ ❯ exported src/appPersistence.test.tsx:278:23
+ ❯ src/appPersistence.test.tsx:316:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > a valid v2 import replaces the design, persists it once, keeps the file timestamps and clears the selection
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:324:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > import survives a reload and re-exports byte-identically
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:343:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > v1 import shows a visible migration notice naming dropped keys and persists v2
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:352:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects an unknown schema version readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects a missing schema version readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects wrong units readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects a non-unit quaternion readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects an unknown v2 key readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects duplicate placement ids readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects a missing catalog revision readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects a lid attachment against a box enclosure readably and leaves the loaded configuration and storage unchanged
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > rejects a non-JSON file readably and leaves the loaded configuration and storage unchanged
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:383:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > an oversized file is rejected from its size alone, without reading it
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:402:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > a later accepted import clears the previous rejection
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:412:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > the file picker can import the same file twice in a row
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:421:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > export -> clear storage -> import gives byte-identical state and survives reload
+AssertionError: Export file: expected undefined to be defined
+ ❯ Object.button src/appPersistence.test.tsx:76:22
+     74|   const button = (name: string) => {
+     75|     const el = [...host.querySelectorAll<HTMLButtonElement>('button')]…
+     76|     expect(el, name).toBeDefined()
+       |                      ^
+     77|     return el!
+     78|   }
+ ❯ exported src/appPersistence.test.tsx:278:23
+ ❯ src/appPersistence.test.tsx:429:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > an accepted import over a corrupt stored value preserves the corrupt bytes first
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:451:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > a rejected import over a corrupt stored value does not move the corrupt bytes
+AssertionError: input[type="file"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ Object.chooseFile src/appPersistence.test.tsx:97:22
+ ❯ src/appPersistence.test.tsx:461:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > reset to fixture > needs a second confirming activation; cancel changes nothing and keeps focus on the mounted control
+AssertionError: Reset to fixture: expected undefined to be defined
+ ❯ Object.button src/appPersistence.test.tsx:76:22
+     74|   const button = (name: string) => {
+     75|     const el = [...host.querySelectorAll<HTMLButtonElement>('button')]…
+     76|     expect(el, name).toBeDefined()
+       |                      ^
+     77|     return el!
+     78|   }
+ ❯ src/appPersistence.test.tsx:471:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > reset to fixture > restores the fixture, removes the saved value, clears the selection and persists through reload
+AssertionError: Reset to fixture: expected undefined to be defined
+ ❯ Object.button src/appPersistence.test.tsx:76:22
+     74|   const button = (name: string) => {
+     75|     const el = [...host.querySelectorAll<HTMLButtonElement>('button')]…
+     76|     expect(el, name).toBeDefined()
+       |                      ^
+     77|     return el!
+     78|   }
+ ❯ src/appPersistence.test.tsx:484:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > reset to fixture > reset does not lose a corrupt stored value
+AssertionError: Reset to fixture: expected undefined to be defined
+ ❯ Object.button src/appPersistence.test.tsx:76:22
+     74|   const button = (name: string) => {
+     75|     const el = [...host.querySelectorAll<HTMLButtonElement>('button')]…
+     76|     expect(el, name).toBeDefined()
+       |                      ^
+     77|     return el!
+     78|   }
+ ❯ src/appPersistence.test.tsx:506:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/24]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > the panel shows the design timestamps, updating them only on a real edit
+AssertionError: [data-field="createdAt"]: expected null not to be null
+ ❯ Object.$ src/appPersistence.test.tsx:71:25
+     69|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     70|     const el = host.querySelector<T>(sel)
+     71|     expect(el, sel).not.toBeNull()
+       |                         ^
+     72|     return el!
+     73|   }
+ ❯ src/appPersistence.test.tsx:518:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/24]⎯
+

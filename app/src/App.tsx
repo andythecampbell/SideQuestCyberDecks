@@ -4,6 +4,7 @@ import { browserStorage, createBrowserPersistence, type StorageLike } from './br
 import { catalog } from './catalog'
 import { applyPlacementEdit, committedDesign, initialDesign } from './designState'
 import type { PlacementPatch } from './domain/placementEdit'
+import { downloadSnapshot, readSnapshotFile } from './snapshotFile'
 import { EMPTY_REPORT, type SnapshotReport } from './SnapshotPanel'
 import { Workbench, type Pose } from './Workbench'
 
@@ -43,6 +44,25 @@ export function App({ initialPose = 'OPEN', initialSelectedId = null, storage, c
     setReport(r => ({ ...r, storageNotices: result.notices }))
   }
 
+  const importFile = async (file: File) => {
+    const result = await readSnapshotFile(file, catalog)
+    if (!result.ok) {
+      setReport(r => ({ ...r, importErrors: result.errors, importNotices: [] }))
+      return
+    }
+    const saved = persistence.save(result.configuration)
+    setSelectedId(null)
+    setDesign(committedDesign(result.configuration, saved.saved))
+    setReport({ storageNotices: saved.notices, importErrors: [], importNotices: [`Imported ${file.name}.`, ...result.notices] })
+  }
+
+  const reset = () => {
+    const result = persistence.clear()
+    setSelectedId(null)
+    setDesign(initialDesign(articulatedDeck))
+    setReport({ ...EMPTY_REPORT, storageNotices: result.notices })
+  }
+
   return (
     <Workbench
       design={design}
@@ -52,6 +72,9 @@ export function App({ initialPose = 'OPEN', initialSelectedId = null, storage, c
       onSelect={select}
       onEdit={edit}
       report={report}
+      onExport={() => downloadSnapshot(design.configuration)}
+      onImportFile={file => { void importFile(file) }}
+      onReset={reset}
     />
   )
 }

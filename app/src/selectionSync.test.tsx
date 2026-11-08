@@ -24,7 +24,7 @@ function elements(node: ReactNode, out: El[] = []): El[] {
 
 const props = (over: Partial<WorkbenchProps> = {}): WorkbenchProps => ({
   design: initialDesign(articulatedDeck), pose: 'OPEN', selectedId: null,
-  onPose: vi.fn(), onSelect: vi.fn(), onEdit: vi.fn(), report: EMPTY_REPORT, ...over,
+  onPose: vi.fn(), onSelect: vi.fn(), onEdit: vi.fn(), report: EMPTY_REPORT, onExport: vi.fn(), onImportFile: vi.fn(), onReset: vi.fn(), ...over,
 })
 const listButtons = (tree: El[]) => tree.filter(e => e.type === 'button' && 'aria-pressed' in e.props)
 

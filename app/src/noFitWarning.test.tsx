@@ -37,7 +37,7 @@ test('no rendered UI text claims that anything fits, clears or is valid', () => 
   expect(rejected.errors.length).toBeGreaterThan(0)
   const noop = () => {}
   for (const design of [initialDesign(articulatedDeck), edited, rejected]) for (const pose of ['OPEN', 'CLOSED'] as const) for (const selectedId of [null, ...articulatedDeck.placements.map(p => p.id)]) {
-    const text = renderToStaticMarkup(Workbench({ design, pose, selectedId, onPose: noop, onSelect: noop, onEdit: noop, report: EMPTY_REPORT })).replace(/<[^>]+>/g, ' ')
+    const text = renderToStaticMarkup(Workbench({ design, pose, selectedId, onPose: noop, onSelect: noop, onEdit: noop, report: EMPTY_REPORT, onExport: noop, onImportFile: noop, onReset: noop })).replace(/<[^>]+>/g, ' ')
     expect(text).not.toMatch(/\bfits\b|\bclears\b|\b(is|are|looks?)\s+(valid|clear)\b|\bvalidated\s+(fit|clearance)\b|\bfit\s+(ok|confirmed|verified|passes)\b|\bno\s+(collisions?|interference)\b/i)
   }
 })

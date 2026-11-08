@@ -64,9 +64,13 @@ html, body, #root { margin: 0; height: 100%; }
 .parts li.error { color: #e06060; }
 .badge { font-size: 11px; color: var(--warn); border: 1px solid var(--warn); border-radius: 3px; padding: 0 4px; }
 
-.details dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 13px; margin: 0 0 8px; }
-.details dt { color: var(--muted); }
-.details dd { margin: 0; font-variant-numeric: tabular-nums; }
+.snapshot-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 6px; }
+.snapshot-import { display: flex; flex-direction: column; gap: 2px; font-size: 12px; max-width: 100%; }
+.snapshot-import input { max-width: 100%; }
+.snapshot dl, .details dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 13px; margin: 0 0 8px; }
+.snapshot dt, .details dt { color: var(--muted); }
+.snapshot dd, .details dd { margin: 0; font-variant-numeric: tabular-nums; }
+.snapshot dd { overflow-wrap: anywhere; }
 
 .panel footer { margin-top: auto; padding-top: 16px; }
 

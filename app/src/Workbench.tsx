@@ -20,10 +20,13 @@ export interface WorkbenchProps {
   onSelect: (placementId: string | null) => void
   onEdit: (placementId: string, patch: PlacementPatch) => void
   report: SnapshotReport
+  onExport: () => void
+  onImportFile: (file: File) => void
+  onReset: () => void
 }
 
 /** Controlled view: no hooks, all state is owned by App. */
-export function Workbench({ design, pose, selectedId, onPose, onSelect, onEdit, report }: WorkbenchProps) {
+export function Workbench({ design, pose, selectedId, onPose, onSelect, onEdit, report, onExport, onImportFile, onReset }: WorkbenchProps) {
   const { configuration } = design
   const selected = configuration.placements.find((p) => p.id === selectedId)
   const selectedComponent = selected && catalog.components.get(refKey(selected.component))
@@ -42,7 +45,7 @@ export function Workbench({ design, pose, selectedId, onPose, onSelect, onEdit, 
 
           <PreviewControls pose={pose} onPose={onPose} />
           <p className="muted">Body-local positions. Imported mesh overlays hidden: catalog holes, ports and keep-outs are unvalidated. Keyboard/power are estimated envelopes. Mesh bounds differ from estimated catalog envelopes; no scaling to fit. GrabCAD case/Pi and Andy display: source URLs/license TODO, deferred.</p>
-          <SnapshotPanel report={report} />
+          <SnapshotPanel createdAt={configuration.createdAt} modifiedAt={configuration.modifiedAt} report={report} onExport={onExport} onImportFile={onImportFile} onReset={onReset} />
           <h2>Components</h2>
           <ul className="parts">
             {configuration.placements.map((p) => {
