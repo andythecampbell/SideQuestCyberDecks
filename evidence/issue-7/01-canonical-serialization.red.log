@@ -1,0 +1,26 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts [ src/domain/snapshot.test.ts ]
+Error: Cannot find module './snapshot' imported from /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app/src/domain/snapshot.test.ts
+ ❯ src/domain/snapshot.test.ts:3:1
+      1| import { describe, expect, test } from 'vitest'
+      2| import { ConfigurationV2 } from './articulated'
+      3| import { serializeSnapshot } from './snapshot'
+       | ^
+      4|
+      5| const sample = (): ConfigurationV2 => ConfigurationV2.parse({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  18:55:43
+   Duration  221ms (worker 96%, environment 4%)
+
+EXIT CODE: 1
