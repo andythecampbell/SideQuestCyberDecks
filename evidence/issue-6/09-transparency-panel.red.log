@@ -1,0 +1,27 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+(node:1510402) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ src/PlacementPanel.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/PlacementPanel.test.tsx [ src/PlacementPanel.test.tsx ]
+Error: Cannot find module './PlacementPanel' imported from /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app/src/PlacementPanel.test.tsx
+ ❯ src/PlacementPanel.test.tsx:7:1
+      5| import { catalog } from './catalog'
+      6| import { confidences, estimateFeatures, refKey } from './domain/catalo…
+      7| import { formatExact, positionPatch, rotationPatch } from './Placement…
+       | ^
+      8|
+      9| const decode = (s: string) => s.replace(/&quot;/g, '"').replace(/&#x27…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:30:43
+   Duration  885ms (worker 96%, environment 4%)

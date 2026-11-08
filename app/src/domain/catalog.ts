@@ -95,4 +95,15 @@ export function confidences(c: ComponentDefinition): Confidence[] {
   ]
 }
 
+/** Labels of the component's catalog features whose confidence is `estimate`, in catalog order. */
+export function estimateFeatures(c: ComponentDefinition): string[] {
+  return [
+    ...(c.envelope.confidence === 'estimate' ? ['envelope'] : []),
+    ...(c.activeArea?.confidence === 'estimate' ? ['active area'] : []),
+    ...c.mountingHoles.filter((h) => h.confidence === 'estimate').map((h) => `mounting hole ${h.id}`),
+    ...c.ports.filter((p) => p.confidence === 'estimate').map((p) => `port ${p.id}`),
+    ...c.keepOuts.filter((k) => k.confidence === 'estimate').map((k) => `keep-out ${k.id}`),
+  ]
+}
+
 export const refKey = (ref: { id: string; revision: number }) => `${ref.id}@${ref.revision}`

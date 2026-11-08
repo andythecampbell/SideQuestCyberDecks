@@ -1,0 +1,97 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/domain/placementEdit.test.ts (23 tests | 5 failed) 26ms
+   ❯ no-op and re-validation (6)
+     × same position is a no-op that does not touch modifiedAt or call the clock 8ms
+     × same rotation is a no-op that does not touch modifiedAt or call the clock 3ms
+     × same position and rotation is a no-op that does not touch modifiedAt or call the clock 2ms
+     × the whole result is re-validated: a malformed clock value is rejected 1ms
+     × an invalid input configuration is rejected rather than edited 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/placementEdit.test.ts > no-op and re-validation > same position is a no-op that does not touch modifiedAt or call the clock
+ FAIL  src/domain/placementEdit.test.ts > no-op and re-validation > same rotation is a no-op that does not touch modifiedAt or call the clock
+ FAIL  src/domain/placementEdit.test.ts > no-op and re-validation > same position and rotation is a no-op that does not touch modifiedAt or call the clock
+AssertionError: expected { configuration: { …(8) }, …(2) } to deeply equal { configuration: { …(8) }, …(2) }
+
+- Expected
++ Received
+
+@@ -1,7 +1,7 @@
+  {
+-   "changed": false,
++   "changed": true,
+    "configuration": {
+      "base": {
+        "position": [
+          0,
+          0,
+@@ -18,11 +18,11 @@
+      "createdAt": "2026-10-07T00:00:00.000Z",
+      "enclosure": {
+        "id": "case-2800-preview",
+        "revision": 1,
+      },
+-     "modifiedAt": "2026-10-07T00:00:00.000Z",
++     "modifiedAt": "2026-11-08T12:00:00.000Z",
+      "placements": [
+        {
+          "attachment": "base",
+          "component": {
+            "id": "adafruit-mini-chiclet-keyboard",
+
+ ❯ src/domain/placementEdit.test.ts:66:20
+     64|     let calls = 0
+     65|     const result = editPlacement(articulatedDeck, 'display', patch, ()…
+     66|     expect(result).toEqual({ configuration: articulatedDeck, changed: …
+       |                    ^
+     67|     expect(result.configuration).toBe(articulatedDeck)
+     68|     expect(result.configuration.modifiedAt).toBe(articulatedDeck.modif…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  src/domain/placementEdit.test.ts > no-op and re-validation > the whole result is re-validated: a malformed clock value is rejected
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ src/domain/placementEdit.test.ts:83:28
+     81|   test('the whole result is re-validated: a malformed clock value is r…
+     82|     const result = editPlacement(articulatedDeck, 'display', { positio…
+     83|     expect(result.changed).toBe(false)
+       |                            ^
+     84|     expect(result.configuration).toBe(articulatedDeck)
+     85|     expect(result.errors.join('\n')).toMatch(/modifiedAt/)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  src/domain/placementEdit.test.ts > no-op and re-validation > an invalid input configuration is rejected rather than edited
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ src/domain/placementEdit.test.ts:91:28
+     89|     const broken = { ...articulatedDeck, base: { ...articulatedDeck.ba…
+     90|     const result = editPlacement(broken, 'display', { position: [1, 2,…
+     91|     expect(result.changed).toBe(false)
+       |                            ^
+     92|     expect(result.configuration).toBe(broken)
+     93|     expect(result.errors.length).toBeGreaterThan(0)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 18 passed (23)
+   Start at  00:27:41
+   Duration  337ms (transform 51%, import 35%, tests 12%, worker 2%)

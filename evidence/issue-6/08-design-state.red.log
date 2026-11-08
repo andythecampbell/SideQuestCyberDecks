@@ -1,0 +1,23 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/designState.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/designState.test.ts [ src/designState.test.ts ]
+Error: Cannot find module './designState' imported from /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app/src/designState.test.ts
+ ❯ src/designState.test.ts:2:1
+      1| import { expect, test } from 'vitest'
+      2| import { applyPlacementEdit, initialDesign } from './designState'
+       | ^
+      3| import { articulatedDeck } from './articulatedFixture'
+      4| import { ConfigurationV2 } from './domain/articulated'
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:29:59
+   Duration  134ms (worker 96%, environment 4%)

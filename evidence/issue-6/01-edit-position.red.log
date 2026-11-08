@@ -1,0 +1,23 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/domain/placementEdit.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/placementEdit.test.ts [ src/domain/placementEdit.test.ts ]
+Error: Cannot find module './placementEdit' imported from /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app/src/domain/placementEdit.test.ts
+ ❯ src/domain/placementEdit.test.ts:2:1
+      1| import { describe, expect, test } from 'vitest'
+      2| import { editPlacement } from './placementEdit'
+       | ^
+      3| import { articulatedDeck } from '../articulatedFixture'
+      4|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  00:27:03
+   Duration  135ms (worker 95%, environment 5%)

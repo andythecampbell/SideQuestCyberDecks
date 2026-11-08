@@ -1,0 +1,38 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+
+ ❯ src/domain/catalogFeatures.test.ts (2 tests | 2 failed) 11ms
+   × estimateFeatures lists exactly the catalog features recorded as estimate 7ms
+   × datasheet features are not listed as estimate 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/catalogFeatures.test.ts > estimateFeatures lists exactly the catalog features recorded as estimate
+TypeError: estimateFeatures is not a function
+ ❯ src/domain/catalogFeatures.test.ts:18:12
+     16|       for (const f of raw[key] as { id: string; confidence: string }[]…
+     17|     }
+     18|     expect(estimateFeatures(ComponentDefinition.parse(raw)), file).toE…
+       |            ^
+     19|   }
+     20| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/domain/catalogFeatures.test.ts > datasheet features are not listed as estimate
+TypeError: estimateFeatures is not a function
+ ❯ src/domain/catalogFeatures.test.ts:25:10
+     23|   const pi = ComponentDefinition.parse(JSON.parse(readFileSync(join(di…
+     24|   expect(pi.mountingHoles.every(h => h.confidence === 'datasheet')).to…
+     25|   expect(estimateFeatures(pi).some(f => f.startsWith('mounting hole'))…
+       |          ^
+     26|   expect(estimateFeatures(pi)).toContain('envelope')
+     27| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  00:28:36
+   Duration  255ms (import 56%, transform 33%, tests 9%, worker 3%)
