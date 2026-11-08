@@ -6,6 +6,14 @@ import { Articulated } from './articulatedSchema'
 export { Articulated } from './articulatedSchema'
 
 const Ref = z.object({ id: z.string(), revision: z.number().int().positive() }).strict()
+
+/** Ids that occur more than once, in first-duplicate order. */
+function duplicateIds(placements: { id: string }[]): string[] {
+  const seen = new Set<string>(), duplicates = new Set<string>()
+  for (const { id } of placements) (seen.has(id) ? duplicates : seen).add(id)
+  return [...duplicates]
+}
+
 export const ConfigurationV2 = z.object({
   schemaVersion: z.literal(2),
   units: z.literal('mm'),
@@ -14,11 +22,17 @@ export const ConfigurationV2 = z.object({
   base: Transform,
   placements: z.array(Transform.extend({
     id: z.string(), component: Ref, attachment: z.enum(['base', 'lid']),
-  }).strict()).refine(p => new Set(p.map(x => x.id)).size === p.length, 'unique placement IDs required'),
+  }).strict()).refine(p => duplicateIds(p).length === 0, {
+    error: issue => `duplicate placement id: ${duplicateIds(issue.input as { id: string }[]).map(id => JSON.stringify(id)).join(', ')}`,
+  }),
   createdAt: z.iso.datetime(),
   modifiedAt: z.iso.datetime(),
 }).strict()
 export type ConfigurationV2 = z.infer<typeof ConfigurationV2>
+
+/** Every pose a configuration must resolve in. Pose is inspection state, never stored in a design. */
+export const POSES = ['OPEN', 'CLOSED'] as const
+export type Pose = (typeof POSES)[number]
 
 export function migrateV1ToV2(input: V1): ConfigurationV2 {
   const c = Configuration.parse(input)
@@ -32,12 +46,12 @@ export function migrateV1ToV2(input: V1): ConfigurationV2 {
 export function resolve(
   input: ConfigurationV2,
   enclosure: { id: string; revision: number; schemaVersion: number },
-  components: Map<string, ComponentDefinition>,
-  pose: 'OPEN' | 'CLOSED',
+  components: ReadonlyMap<string, ComponentDefinition>,
+  pose: Pose,
 ) {
   const c = ConfigurationV2.parse(input)
   if (enclosure.schemaVersion !== 1 && enclosure.schemaVersion !== 2) throw Error('Unsupported enclosure schema')
-  if (pose !== 'OPEN' && pose !== 'CLOSED') throw Error('Unsupported pose')
+  if (!POSES.includes(pose)) throw Error('Unsupported pose')
   if (refKey(c.enclosure) !== refKey(enclosure)) throw Error('Missing enclosure reference')
 
   let lid = identity()
@@ -47,8 +61,9 @@ export function resolve(
     const unpivot = { ...identity(), position: h.pivot.map(x => -x) as [number, number, number] }
     const turn = { ...identity(), rotation: axisRotation(h.axis, h.sign * (h.sourceDrivers[pose] - h.referenceDriver)) }
     lid = compose(compose(compose(pivot, turn), unpivot), h.reference)
-  } else if (c.placements.some(p => p.attachment === 'lid')) {
-    throw Error('Legacy enclosure has no lid')
+  } else {
+    const lidPlacement = c.placements.find(p => p.attachment === 'lid')
+    if (lidPlacement) throw Error(`Box enclosure ${refKey(enclosure)} has no lid; placement ${JSON.stringify(lidPlacement.id)} is attached to lid`)
   }
 
   const bodies = { base: c.base, lid: compose(c.base, lid) }

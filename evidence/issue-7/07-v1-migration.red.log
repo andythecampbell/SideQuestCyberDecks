@@ -1,0 +1,306 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (57 tests | 10 failed | 47 skipped) 19ms
+   ❯ v1 migration (10)
+     × migrates a v1 file to v2, preserving timestamps and using the current migration path 11ms
+     × resolved transforms in OPEN are unchanged by import and by the migration path 2ms
+     × resolved transforms in CLOSED are unchanged by import and by the migration path 1ms
+     × always reports the migration, and reports when nothing was dropped 1ms
+     × names every dropped key with its path, including prototype-shaped keys 1ms
+     × rejects a v1 file with wrong units using the same specific rule 0ms
+     × rejects a v1 file with non-unit quaternion using the same specific rule 0ms
+     × rejects a v1 file with duplicate placement ids using the same specific rule 0ms
+     × rejects a v1 file with missing component revision using the same specific rule 1ms
+     × rejects a v1 file with missing enclosure revision using the same specific rule 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 10 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > migrates a v1 file to v2, preserving timestamps and using the current migration path
+AssertionError: expected { schemaVersion: 1, units: 'mm', …(5) } to deeply equal { schemaVersion: 2, units: 'mm', …(6) }
+
+- Expected
++ Received
+
+@@ -1,29 +1,15 @@
+  {
+-   "base": {
+-     "position": [
+-       0,
+-       0,
+-       0,
+-     ],
+-     "rotation": [
+-       0,
+-       0,
+-       0,
+-       1,
+-     ],
+-   },
+    "coordinateSystem": "right-handed-z-up",
+    "createdAt": "2026-01-02T03:04:05Z",
+    "enclosure": {
+      "id": "placeholder-box",
+      "revision": 1,
+    },
+    "modifiedAt": "2026-06-07T08:09:10.500Z",
+    "placements": [
+      {
+-       "attachment": "base",
+        "component": {
+          "id": "adafruit-mini-chiclet-keyboard",
+          "revision": 1,
+        },
+        "id": "keyboard",
+@@ -38,11 +24,10 @@
+          0,
+          1,
+        ],
+      },
+      {
+-       "attachment": "base",
+        "component": {
+          "id": "raspberry-pi-5",
+          "revision": 1,
+        },
+        "id": "pi",
+@@ -57,11 +42,10 @@
+          0,
+          1,
+        ],
+      },
+      {
+-       "attachment": "base",
+        "component": {
+          "id": "anker-10000-30w",
+          "revision": 1,
+        },
+        "id": "power",
+@@ -76,11 +60,10 @@
+          0,
+          1,
+        ],
+      },
+      {
+-       "attachment": "base",
+        "component": {
+          "id": "hoysond-7in-touch",
+          "revision": 1,
+        },
+        "id": "display",
+@@ -95,8 +78,8 @@
+          0,
+          1,
+        ],
+      },
+    ],
+-   "schemaVersion": 2,
++   "schemaVersion": 1,
+    "units": "mm",
+  }
+
+ ❯ src/domain/snapshot.test.ts:329:34
+    327|     if (!result.ok) throw new Error(result.errors.join('\n'))
+    328|     expect(result.sourceVersion).toBe(1)
+    329|     expect(result.configuration).toEqual(migrateV1ToV2(doc as typeof d…
+       |                                  ^
+    330|     expect(result.configuration.schemaVersion).toBe(2)
+    331|     expect(result.configuration.createdAt).toBe('2026-01-02T03:04:05Z')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > resolved transforms in OPEN are unchanged by import and by the migration path
+ FAIL  src/domain/snapshot.test.ts > v1 migration > resolved transforms in CLOSED are unchanged by import and by the migration path
+ZodError: [
+  {
+    "code": "invalid_value",
+    "values": [
+      2
+    ],
+    "path": [
+      "schemaVersion"
+    ],
+    "message": "Invalid input: expected 2"
+  },
+  {
+    "expected": "object",
+    "code": "invalid_type",
+    "path": [
+      "base"
+    ],
+    "message": "Invalid input: expected object, received undefined"
+  },
+  {
+    "code": "invalid_value",
+    "values": [
+      "base",
+      "lid"
+    ],
+    "path": [
+      "placements",
+      0,
+      "attachment"
+    ],
+    "message": "Invalid option: expected one of \"base\"|\"lid\""
+  },
+  {
+    "code": "invalid_value",
+    "values": [
+      "base",
+      "lid"
+    ],
+    "path": [
+      "placements",
+      1,
+      "attachment"
+    ],
+    "message": "Invalid option: expected one of \"base\"|\"lid\""
+  },
+  {
+    "code": "invalid_value",
+    "values": [
+      "base",
+      "lid"
+    ],
+    "path": [
+      "placements",
+      2,
+      "attachment"
+    ],
+    "message": "Invalid option: expected one of \"base\"|\"lid\""
+  },
+  {
+    "code": "invalid_value",
+    "values": [
+      "base",
+      "lid"
+    ],
+    "path": [
+      "placements",
+      3,
+      "attachment"
+    ],
+    "message": "Invalid option: expected one of \"base\"|\"lid\""
+  }
+]
+ ❯ resolve src/domain/articulated.ts:52:29
+     50|   pose: Pose,
+     51| ) {
+     52|   const c = ConfigurationV2.parse(input)
+       |                             ^
+     53|   if (enclosure.schemaVersion !== 1 && enclosure.schemaVersion !== 2) …
+     54|   if (!POSES.includes(pose)) throw Error('Unsupported pose')
+ ❯ src/domain/snapshot.test.ts:339:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > always reports the migration, and reports when nothing was dropped
+AssertionError: expected '' to match /Migrated from schema version 1 to 2/
+
+- Expected:
+/Migrated from schema version 1 to 2/
+
++ Received:
+""
+
+ ❯ src/domain/snapshot.test.ts:350:21
+    348|     if (!result.ok) throw new Error(result.errors.join('\n'))
+    349|     const notices = result.notices.join('\n')
+    350|     expect(notices).toMatch(/Migrated from schema version 1 to 2/)
+       |                     ^
+    351|     expect(notices).toMatch(/every placement is attached to base/i)
+    352|     expect(notices).toMatch(/No keys were dropped/)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > names every dropped key with its path, including prototype-shaped keys
+AssertionError: expected '' to match /Dropped keys not in schema version 1:…/
+
+- Expected:
+/Dropped keys not in schema version 1: .*\bnotes\b/
+
++ Received:
+""
+
+ ❯ src/domain/snapshot.test.ts:366:21
+    364|     if (!result.ok) throw new Error(result.errors.join('\n'))
+    365|     const notices = result.notices.join('\n')
+    366|     expect(notices).toMatch(/Dropped keys not in schema version 1: .*\…
+       |                     ^
+    367|     for (const key of ['enclosure.sku', 'placements[1].label', 'placem…
+    368|     expect(result.configuration.placements[2].attachment).toBe('base')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > rejects a v1 file with wrong units using the same specific rule
+Error: expected rejection, got {"schemaVersion":1,"units":"cm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"placeholder-box","revision":1},"placements":[{"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"position":[25,5,0],"rotation":[0,0,0,1]},{"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"position":[20,125,0],"rotation":[0,0,0,1]},{"id":"power","component":{"id":"anker-10000-30w","revision":1},"position":[160,140,0],"rotation":[0,0,0,1]},{"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"position":[67,60,90],"rotation":[0,0,0,1]}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:135:24
+    133| const errorsFor = (doc: unknown) => {
+    134|   const result = parseDoc(doc)
+    135|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    136|   return result.errors.join('\n')
+    137| }
+ ❯ src/domain/snapshot.test.ts:381:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > rejects a v1 file with non-unit quaternion using the same specific rule
+Error: expected rejection, got {"schemaVersion":1,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"placeholder-box","revision":1},"placements":[{"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"position":[25,5,0],"rotation":[0,0,0,3]},{"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"position":[20,125,0],"rotation":[0,0,0,1]},{"id":"power","component":{"id":"anker-10000-30w","revision":1},"position":[160,140,0],"rotation":[0,0,0,1]},{"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"position":[67,60,90],"rotation":[0,0,0,1]}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:135:24
+    133| const errorsFor = (doc: unknown) => {
+    134|   const result = parseDoc(doc)
+    135|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    136|   return result.errors.join('\n')
+    137| }
+ ❯ src/domain/snapshot.test.ts:381:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > rejects a v1 file with duplicate placement ids using the same specific rule
+Error: expected rejection, got {"schemaVersion":1,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"placeholder-box","revision":1},"placements":[{"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"position":[25,5,0],"rotation":[0,0,0,1]},{"id":"keyboard","component":{"id":"raspberry-pi-5","revision":1},"position":[20,125,0],"rotation":[0,0,0,1]},{"id":"power","component":{"id":"anker-10000-30w","revision":1},"position":[160,140,0],"rotation":[0,0,0,1]},{"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"position":[67,60,90],"rotation":[0,0,0,1]}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:135:24
+    133| const errorsFor = (doc: unknown) => {
+    134|   const result = parseDoc(doc)
+    135|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    136|   return result.errors.join('\n')
+    137| }
+ ❯ src/domain/snapshot.test.ts:381:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > rejects a v1 file with missing component revision using the same specific rule
+Error: expected rejection, got {"schemaVersion":1,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"placeholder-box","revision":1},"placements":[{"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"position":[25,5,0],"rotation":[0,0,0,1]},{"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"position":[20,125,0],"rotation":[0,0,0,1]},{"id":"power","component":{"id":"anker-10000-30w","revision":1},"position":[160,140,0],"rotation":[0,0,0,1]},{"id":"display","component":{"id":"hoysond-7in-touch","revision":7},"position":[67,60,90],"rotation":[0,0,0,1]}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:135:24
+    133| const errorsFor = (doc: unknown) => {
+    134|   const result = parseDoc(doc)
+    135|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    136|   return result.errors.join('\n')
+    137| }
+ ❯ src/domain/snapshot.test.ts:381:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/10]⎯
+
+ FAIL  src/domain/snapshot.test.ts > v1 migration > rejects a v1 file with missing enclosure revision using the same specific rule
+Error: expected rejection, got {"schemaVersion":1,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"placeholder-box","revision":7},"placements":[{"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"position":[25,5,0],"rotation":[0,0,0,1]},{"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"position":[20,125,0],"rotation":[0,0,0,1]},{"id":"power","component":{"id":"anker-10000-30w","revision":1},"position":[160,140,0],"rotation":[0,0,0,1]},{"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"position":[67,60,90],"rotation":[0,0,0,1]}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:135:24
+    133| const errorsFor = (doc: unknown) => {
+    134|   const result = parseDoc(doc)
+    135|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    136|   return result.errors.join('\n')
+    137| }
+ ❯ src/domain/snapshot.test.ts:381:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/10]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  10 failed | 47 skipped (57)
+   Start at  18:59:05
+   Duration  362ms (transform 54%, import 36%, tests 9%, worker 2%)
+
+EXIT CODE: 1

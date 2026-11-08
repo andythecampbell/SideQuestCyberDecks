@@ -1,0 +1,27 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshotFrozen.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshotFrozen.test.ts [ src/domain/snapshotFrozen.test.ts ]
+Error: ENOENT: no such file or directory, open '/root/.hermes/workspace/SideQuestCyberDecks-issue-7/app/src/domain/__fixtures__/snapshot-v2.frozen.json'
+ ❯ read src/domain/snapshotFrozen.test.ts:12:32
+     10| // version keeps importing exactly as these files were written.
+     11| const dir = join(__dirname, '__fixtures__')
+     12| const read = (name: string) => readFileSync(join(dir, name), 'utf8')
+       |                                ^
+     13| const PINS = {
+     14|   'snapshot-v1.frozen.json': 'ebac117397be48379fc0bad5715c48feaf9c9b8e…
+ ❯ src/domain/snapshotFrozen.test.ts:32:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  19:00:12
+   Duration  276ms (worker 96%, environment 4%)
+
+EXIT CODE: 1

@@ -1,0 +1,77 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (42 tests | 4 failed | 37 skipped) 12ms
+   ❯ exact catalog revisions (5)
+     × rejects a component revision that does not exist and lists what does 5ms
+     × rejects an enclosure revision that does not exist 1ms
+     × reports an unknown id distinctly from an unknown revision 1ms
+     × a newer revision is honoured only when the file names it, and an older one still resolves 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts > exact catalog revisions > rejects a component revision that does not exist and lists what does
+Error: expected rejection, got {"schemaVersion":2,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"case-2800-preview","revision":1},"base":{"position":[0,0,0],"rotation":[0,0,0,1]},"placements":[{"position":[-140,-105,-80],"rotation":[0,0,0,1],"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"attachment":"base"},{"position":[-140,20,-80],"rotation":[0,0,0,1],"id":"pi","component":{"id":"raspberry-pi-5","revision":9},"attachment":"base"},{"position":[30,20,-80],"rotation":[0,0,0,1],"id":"power","component":{"id":"anker-10000-30w","revision":1},"attachment":"base"},{"position":[-82,64,20],"rotation":[1,0,0,0],"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"attachment":"lid"}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:134:24
+    132| const errorsFor = (doc: unknown) => {
+    133|   const result = parseDoc(doc)
+    134|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    135|   return result.errors.join('\n')
+    136| }
+ ❯ src/domain/snapshot.test.ts:231:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/domain/snapshot.test.ts > exact catalog revisions > rejects an enclosure revision that does not exist
+Error: expected rejection, got {"schemaVersion":2,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"case-2800-preview","revision":2},"base":{"position":[0,0,0],"rotation":[0,0,0,1]},"placements":[{"position":[-140,-105,-80],"rotation":[0,0,0,1],"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"attachment":"base"},{"position":[-140,20,-80],"rotation":[0,0,0,1],"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"attachment":"base"},{"position":[30,20,-80],"rotation":[0,0,0,1],"id":"power","component":{"id":"anker-10000-30w","revision":1},"attachment":"base"},{"position":[-82,64,20],"rotation":[1,0,0,0],"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"attachment":"lid"}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:134:24
+    132| const errorsFor = (doc: unknown) => {
+    133|   const result = parseDoc(doc)
+    134|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    135|   return result.errors.join('\n')
+    136| }
+ ❯ src/domain/snapshot.test.ts:240:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/domain/snapshot.test.ts > exact catalog revisions > reports an unknown id distinctly from an unknown revision
+Error: expected rejection, got {"schemaVersion":2,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"case-2800-preview","revision":1},"base":{"position":[0,0,0],"rotation":[0,0,0,1]},"placements":[{"position":[-140,-105,-80],"rotation":[0,0,0,1],"id":"keyboard","component":{"id":"no-such-part","revision":1},"attachment":"base"},{"position":[-140,20,-80],"rotation":[0,0,0,1],"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"attachment":"base"},{"position":[30,20,-80],"rotation":[0,0,0,1],"id":"power","component":{"id":"anker-10000-30w","revision":1},"attachment":"base"},{"position":[-82,64,20],"rotation":[1,0,0,0],"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"attachment":"lid"}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:134:24
+    132| const errorsFor = (doc: unknown) => {
+    133|   const result = parseDoc(doc)
+    134|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    135|   return result.errors.join('\n')
+    136| }
+ ❯ src/domain/snapshot.test.ts:248:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/domain/snapshot.test.ts > exact catalog revisions > a newer revision is honoured only when the file names it, and an older one still resolves
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ src/domain/snapshot.test.ts:269:25
+    267|     missing.placements[1].component.revision = 3
+    268|     const rejected = parseSnapshot(JSON.stringify(missing), withPi2())
+    269|     expect(rejected.ok).toBe(false)
+       |                         ^
+    270|     if (!rejected.ok) expect(rejected.errors.join('\n')).toMatch(/Avai…
+    271|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 1 passed | 37 skipped (42)
+   Start at  18:57:57
+   Duration  310ms (transform 55%, import 38%, tests 6%, worker 2%)
+
+EXIT CODE: 1

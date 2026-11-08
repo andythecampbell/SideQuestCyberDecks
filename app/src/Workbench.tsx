@@ -1,4 +1,5 @@
 import { catalog } from './catalog'
+import type { Pose } from './domain/articulated'
 import { confidences, refKey } from './domain/catalog'
 import type { PlacementPatch } from './domain/placementEdit'
 import type { DesignState } from './designState'
@@ -7,7 +8,7 @@ import { Viewport } from './scene/Viewport'
 import { NO_FIT_WARNING } from './noFitWarning'
 import { PlacementPanel } from './PlacementPanel'
 
-export type Pose = 'OPEN' | 'CLOSED'
+export type { Pose } from './domain/articulated'
 
 export interface WorkbenchProps {
   design: DesignState

@@ -1,0 +1,48 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (37 tests | 2 failed | 35 skipped) 9ms
+   ❯ placement id uniqueness (2)
+     × rejects duplicate placement ids and names the duplicated id 7ms
+     × names every duplicated id once 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts > placement id uniqueness > rejects duplicate placement ids and names the duplicated id
+AssertionError: expected 'placements: unique placement IDs requ…' to match /placements: duplicate placement id: "…/
+
+- Expected:
+/placements: duplicate placement id: "keyboard"/
+
++ Received:
+"placements: unique placement IDs required"
+
+ ❯ src/domain/snapshot.test.ts:210:20
+    208|     doc.placements[2].id = doc.placements[0].id
+    209|     const errors = errorsFor(doc)
+    210|     expect(errors).toMatch(/placements: duplicate placement id: "keybo…
+       |                    ^
+    211|   })
+    212|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/domain/snapshot.test.ts > placement id uniqueness > names every duplicated id once
+AssertionError: expected null not to be null
+ ❯ src/domain/snapshot.test.ts:216:82
+    214|     const doc = deckDoc()
+    215|     doc.placements = [doc.placements[0], doc.placements[0], doc.placem…
+    216|     expect(errorsFor(doc).match(/duplicate placement id: "keyboard", "…
+       |                                                                                  ^
+    217|   })
+    218| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 35 skipped (37)
+   Start at  18:57:21
+   Duration  299ms (transform 55%, import 39%, tests 4%, worker 2%)
+
+EXIT CODE: 1
