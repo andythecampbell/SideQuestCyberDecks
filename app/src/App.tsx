@@ -58,6 +58,10 @@ export function App({ initialPose = 'OPEN', initialSelectedId = null, storage, c
 
   const reset = () => {
     const result = persistence.clear()
+    if (!result.cleared) {
+      setReport(r => ({ ...r, storageNotices: result.notices }))
+      return
+    }
     setSelectedId(null)
     setDesign(initialDesign(articulatedDeck))
     setReport({ ...EMPTY_REPORT, storageNotices: result.notices })

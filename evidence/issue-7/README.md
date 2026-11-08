@@ -25,6 +25,7 @@ Each `NN-*.red.log` is raw Vitest output plus the exit code, captured from `cd a
 | 16 | enclosure subtitle | imported box still called the 2800 preview |
 | 17 | neutral wording, bounded rejection list | wrong wording, unbounded list |
 | 18 | exactly-once under StrictMode (mutation) | writing inside a state updater doubles the write in React's development build |
+| 19 | reset persistence failures | reset replaced the mounted design after removal or quarantine failed |
 
 Logs 13 and the `final-*` logs are not RED logs. `13-snapshot-derivation.log` records that `snapshots/deck-001-illustrative.json` is byte-identical to `serializeSnapshot(articulatedDeck)`.
 
@@ -52,14 +53,16 @@ What the run exercises per viewport, in one browser context:
 - **Rejected files** (11 cases, including a hand-corrupted truncated export and an oversized file): a specific readable message, and storage, the loaded design and the display all unchanged.
 - **v1 import**: visible migration notice naming dropped keys; stored as v2 with the file's timestamps; the box enclosure is named in the header.
 - **Corrupt stored value**: no writes on load, fixture shown with a notice, value untouched through viewing and reload; the first committed edit writes a verified quarantine copy before anything replaces it.
-- **Reset**: needs a second confirming activation; removes the saved value; the fixture persists through reload; the quarantine copy stays.
+- **Reset**: needs a second confirming activation; removes the saved value; the fixture persists through reload; the quarantine copy stays. Mounted failure tests additionally prove that removal or quarantine failure keeps the mounted design unchanged and explicitly warns that reload can restore the saved value.
 - **Constrained views**: the persistent no-fit warning never covers a control (scrolled and unscrolled); no fit claims appear in the panel text.
 
 Screenshots: `normal-edited.png`, `normal-rejected-import.png`, `normal-corrupt-storage.png`, `normal-reset.png`, and `zoom-200-*` / `short-*` edited and rejected-import views.
 
+`browser-qa-reset-failure.json` is the focused post-review run: `QA_VIEWPORT=normal QA_RESULT_FILE=browser-qa-reset-failure.json QA_PORT=4174 bash evidence/issue-7/run-browser-qa.sh`. It served base commit `6c9e8b0e26c42019f7016d528a9aa60435eb9810` plus SHA-256 `8af5a464eff3dcbefeace5ae7fd3c0c46312a8123f51427c218856578c9c4e70` over the 72 source files, including the three listed uncommitted app changes. All 96 checks passed, including three removal-failure checks; there were 0 console errors, page errors or failed loads.
+
 ## Final gates
 
-`env -u NODE_ENV npm test` — 23 files, 267 tests passed (`final-test.log`). `env -u NODE_ENV npm run build` — passed with the existing bundle-size advisory (`final-build.log`). `git diff --check origin/main...HEAD` — `final-diff-check.log`.
+`env -u NODE_ENV npm test` — 23 files, 269 tests passed (`final-test.log`). `env -u NODE_ENV npm run build` — passed with the existing bundle-size advisory (`final-build.log`). `git diff --check origin/main...HEAD` — `final-diff-check.log`.
 
 ## Acceptance mapping (issue #7)
 

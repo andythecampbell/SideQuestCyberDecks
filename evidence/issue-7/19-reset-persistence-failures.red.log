@@ -1,0 +1,58 @@
+
+> @sidequest/app@0.0.0 test
+> vitest run --run appPersistence.test.tsx -t removal failure|quarantine failure
+
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/appPersistence.test.tsx (35 tests | 2 failed | 33 skipped) 95ms
+   ❯ file export, import and reset (26)
+     ❯ reset to fixture (5)
+       × a removal failure keeps the current design and warns that the saved value remains 69ms
+       × a quarantine failure keeps the current fixture view and warns that corrupt saved bytes can return 25ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > reset to fixture > a removal failure keeps the current design and warns that the saved value remains
+AssertionError: [data-field="position"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:76:25
+     74|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     75|     const el = host.querySelector<T>(sel)
+     76|     expect(el, sel).not.toBeNull()
+       |                         ^
+     77|     return el!
+     78|   }
+ ❯ Object.stored src/appPersistence.test.tsx:96:19
+ ❯ src/appPersistence.test.tsx:528:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/appPersistence.test.tsx > file export, import and reset > reset to fixture > a quarantine failure keeps the current fixture view and warns that corrupt saved bytes can return
+AssertionError: [data-field="position"]: expected null not to be null
+ ❯ $ src/appPersistence.test.tsx:76:25
+     74|   const $ = <T extends Element = HTMLElement>(sel: string) => {
+     75|     const el = host.querySelector<T>(sel)
+     76|     expect(el, sel).not.toBeNull()
+       |                         ^
+     77|     return el!
+     78|   }
+ ❯ Object.stored src/appPersistence.test.tsx:96:19
+ ❯ src/appPersistence.test.tsx:544:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 33 skipped (35)
+   Start at  19:55:44
+   Duration  902ms (environment 41%, transform 28%, import 19%, tests 12%)
+
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+npm error workspace @sidequest/app@0.0.0
+npm error location /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+npm error command failed
+npm error command sh -c vitest run --run appPersistence.test.tsx -t 'removal failure|quarantine failure'
+
+exit code: 1

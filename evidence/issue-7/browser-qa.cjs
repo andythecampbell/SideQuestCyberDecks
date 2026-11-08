@@ -38,16 +38,19 @@ const EDITED_DISPLAY = '[-71.5, 51, 20]'
 const FIXTURE_STAMP = '2026-10-07T00:00:00.000Z'
 const FORBIDDEN = /\bfits\b|\bclears\b|\b(is|are|looks?)\s+(valid|clear)\b|\bvalidated\s+(fit|clearance)\b|\bfit\s+(ok|confirmed|verified|passes)\b|\bno\s+(collisions?|interference)\b/i
 
-const viewports = [
+const allViewports = [
   { name: 'normal', viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 },
   // 200% browser zoom of a 1440x1000 window: half the CSS pixels at twice the density.
   { name: 'zoom-200', viewport: { width: 720, height: 500 }, deviceScaleFactor: 2 },
   { name: 'short', viewport: { width: 1280, height: 560 }, deviceScaleFactor: 1 },
 ]
+const viewports = process.env.QA_VIEWPORT ? allViewports.filter(v => v.name === process.env.QA_VIEWPORT) : allViewports
+if (!viewports.length) throw new Error(`Unknown QA_VIEWPORT: ${process.env.QA_VIEWPORT}`)
+const resultFile = process.env.QA_RESULT_FILE || 'browser-qa.json'
 
 const result = {
   status: 'not-run', url: URL, identity, command: 'bash evidence/issue-7/run-browser-qa.sh',
-  server: 'env -u NODE_ENV npm run dev --workspace app -- --host 127.0.0.1 --port 4173 --strictPort',
+  server: `env -u NODE_ENV npm run dev --workspace app -- --host 127.0.0.1 --port ${new globalThis.URL(URL).port || '80'} --strictPort`,
   user: require('node:os').userInfo().username, chromiumSandbox: true, attempts: [], runs: [],
 }
 
@@ -83,7 +86,11 @@ async function runViewport(browser, vp) {
     const log = window.__qaStorageLog = { writes: [], removes: [] }
     const original = { set: Storage.prototype.setItem, remove: Storage.prototype.removeItem, clear: Storage.prototype.clear }
     Storage.prototype.setItem = function (key, value) { log.writes.push(key); return original.set.call(this, key, value) }
-    Storage.prototype.removeItem = function (key) { log.removes.push(key); return original.remove.call(this, key) }
+    Storage.prototype.removeItem = function (key) {
+      if (window.__qaFailRemove && key === 'sidequest-decks:configuration') throw new Error('simulated removal denial')
+      log.removes.push(key)
+      return original.remove.call(this, key)
+    }
     Storage.prototype.clear = function () { log.removes.push('*clear*'); return original.clear.call(this) }
   })
   const page = await context.newPage()
@@ -314,10 +321,25 @@ async function runViewport(browser, vp) {
     check('corrupt-primary-replaced-by-edit', restored.placements.find(p => p.id === 'display').position.join() === '-60,64,20')
     check('corrupt-quarantine-notice', (await alerts()).includes(QUARANTINE_0))
 
-    // ---------- Reset to fixture: confirmation, removal, reload shows the fixture; quarantine stays.
-    const resetButton = page.getByRole('button', { name: 'Reset to fixture', exact: true })
+    // ---------- Failed reset: current design and selection stay visible with an explicit reload warning.
+    await page.evaluate(() => { window.__qaFailRemove = true })
+    await selectDisplay()
+    await resetLog()
+    let resetButton = page.getByRole('button', { name: 'Reset to fixture', exact: true })
     await resetButton.click()
-    const confirm = page.getByRole('button', { name: 'Confirm reset', exact: true })
+    let confirm = page.getByRole('button', { name: 'Confirm reset', exact: true })
+    await confirm.click()
+    l = await log()
+    check('reset-removal-failure-keeps-value', (await value()) !== null && l.removes.length === 0, l)
+    check('reset-removal-failure-keeps-design', (await stored()) === '[-60, 64, 20]' && (await hasSelection()) === 1, { stored: await stored() })
+    const resetFailureNotice = await alerts()
+    check('reset-removal-failure-warns-reload', /Reset was not applied/.test(resetFailureNotice) && /reloading can restore it/.test(resetFailureNotice), { resetFailureNotice })
+    await page.evaluate(() => { window.__qaFailRemove = false })
+
+    // ---------- Reset to fixture: confirmation, removal, reload shows the fixture; quarantine stays.
+    resetButton = page.getByRole('button', { name: 'Reset to fixture', exact: true })
+    await resetButton.click()
+    confirm = page.getByRole('button', { name: 'Confirm reset', exact: true })
     check('reset-needs-confirmation', await confirm.isVisible() && (await value()) !== null)
     await page.getByRole('button', { name: 'Cancel', exact: true }).click()
     check('reset-cancel-keeps-design', JSON.parse(await value()).modifiedAt === restored.modifiedAt && (await resetButton.isVisible()))
@@ -372,7 +394,7 @@ async function main() {
 
 main().catch(e => { result.status = 'error'; result.error = String(e && e.stack || e) }).finally(() => {
   result.finishedAt = new Date().toISOString()
-  fs.writeFileSync(path.join(out, 'browser-qa.json'), JSON.stringify(result, null, 2) + '\n')
+  fs.writeFileSync(path.join(out, resultFile), JSON.stringify(result, null, 2) + '\n')
   console.log(JSON.stringify({ status: result.status, error: result.error, runs: result.runs.map(r => ({ name: r.name, failed: !!r.failed, checks: r.checks.length, failedChecks: r.checks.filter(c => !c.pass).map(c => c.check), error: r.error })) }, null, 2))
   process.exitCode = result.status === 'passed' ? 0 : result.status === 'blocked-before-navigation' ? 2 : 1
 })

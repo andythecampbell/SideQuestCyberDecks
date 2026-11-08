@@ -13,6 +13,7 @@ out="$repo/evidence/issue-7"
 qa_user="${QA_USER:-sidequestqa}"
 qa_dir="/home/$qa_user/issue-7-qa"
 port="${QA_PORT:-4173}"
+result_file="${QA_RESULT_FILE:-browser-qa.json}"
 url="http://127.0.0.1:${port}/"
 node_bin="$(command -v node)"
 
@@ -71,10 +72,11 @@ curl -sf -o /dev/null "$url" || { echo "dev server never became ready" >&2; exit
 set +e
 runuser -u "$qa_user" -- env -i HOME="/home/$qa_user" PATH=/usr/bin:/bin \
   QA_URL="$url" QA_OUT="$qa_dir/out" QA_WORK="$qa_dir/work" QA_IDENTITY="$qa_dir/identity.json" QA_FIXTURES="$qa_dir/fixtures" \
+  QA_VIEWPORT="${QA_VIEWPORT:-}" QA_RESULT_FILE="$result_file" \
   "$node_bin" "$qa_dir/browser-qa.cjs"
 status=$?
 set -e
 
-cp "$qa_dir/out/browser-qa.json" "$out/browser-qa.json"
+cp "$qa_dir/out/$result_file" "$out/$result_file"
 cp "$qa_dir"/out/*.png "$out/" 2>/dev/null || true
 exit "$status"

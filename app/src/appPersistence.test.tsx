@@ -33,13 +33,18 @@ class FakeStorage implements StorageLike {
   writes: string[] = []
   removes: string[] = []
   failWrite: (key: string) => boolean = () => false
+  failRemove: (key: string) => boolean = () => false
   getItem(key: string) { return this.data.has(key) ? this.data.get(key)! : null }
   setItem(key: string, value: string) {
     if (this.failWrite(key)) throw new Error(`quota exceeded for ${key}`)
     this.writes.push(key)
     this.data.set(key, value)
   }
-  removeItem(key: string) { this.removes.push(key); this.data.delete(key) }
+  removeItem(key: string) {
+    if (this.failRemove(key)) throw new Error(`removal denied for ${key}`)
+    this.removes.push(key)
+    this.data.delete(key)
+  }
 }
 
 // jsdom's File has no text(); browsers do. Tests can spy on this to prove a file was not read.
@@ -510,6 +515,35 @@ describe('file export, import and reset', () => {
       expect(storage.data.get(`${QUARANTINE_PREFIX}0`)).toBe('corrupt{')
       expect(storage.data.has(STORAGE_KEY)).toBe(false)
       expect(page.alerts().join('\n')).toContain(`${QUARANTINE_PREFIX}0`)
+    })
+
+    test('a removal failure keeps the current design and warns that the saved value remains', () => {
+      const { storage, page } = editedDeck()
+      const stored = storage.data.get(STORAGE_KEY)
+      storage.failRemove = key => key === STORAGE_KEY
+      const reset = page.button('Reset to fixture')
+      page.click(reset)
+      page.click(reset)
+      expect(storage.data.get(STORAGE_KEY)).toBe(stored)
+      expect(page.stored()).toBe('[-71.5, 64, 20]')
+      expect(page.host.querySelector('section[aria-label="Selected placement"]')).not.toBeNull()
+      expect(page.alerts().join('\n')).toMatch(/Could not clear.*Reset was not applied.*reloading can restore it/)
+    })
+
+    test('a quarantine failure keeps the current fixture view and warns that corrupt saved bytes can return', () => {
+      const storage = new FakeStorage()
+      storage.data.set(STORAGE_KEY, 'corrupt{')
+      storage.failWrite = key => key.startsWith(QUARANTINE_PREFIX)
+      const page = mount(storage)
+      page.selectDisplay()
+      const reset = page.button('Reset to fixture')
+      page.click(reset)
+      page.click(reset)
+      expect(storage.data.get(STORAGE_KEY)).toBe('corrupt{')
+      expect(storage.removes).toEqual([])
+      expect(page.stored()).toBe('[-82, 64, 20]')
+      expect(page.host.querySelector('section[aria-label="Selected placement"]')).not.toBeNull()
+      expect(page.alerts().join('\n')).toMatch(/Could not clear.*Reset was not applied.*reloading can restore it/)
     })
   })
 

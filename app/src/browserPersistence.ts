@@ -79,7 +79,7 @@ export function createBrowserPersistence(storage: StorageLike | null, catalog: S
       storage.removeItem(STORAGE_KEY)
       return { cleared: true, notices }
     } catch (error) {
-      return { cleared: false, notices: [`Could not clear the saved configuration in this browser: ${messageOf(error)}. The saved value was left in place.`] }
+      return { cleared: false, notices: [`Could not clear the saved configuration in this browser: ${messageOf(error)}. Reset was not applied, and the saved value was left in place; reloading can restore it.`] }
     }
   }
 

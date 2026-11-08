@@ -1,2 +1,2 @@
-$ git diff --check origin/main...HEAD
-EXIT CODE: 0
+committed range and working tree diff checks passed
+exit code: 0
