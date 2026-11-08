@@ -1,0 +1,32 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+(node:1743338) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ src/noFitWarning.test.tsx (9 tests | 1 failed) 63ms
+   × messages shown by import, reset and storage flows make no fit, clearance or validity claim 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/noFitWarning.test.tsx > messages shown by import, reset and storage flows make no fit, clearance or validity claim
+AssertionError: expected '  Configuration file   Created  2026-…' not to match /\bfits\b|\bclears\b|\b(is|are|looks?…/i
+
+- Expected:
+/\bfits\b|\bclears\b|\b(is|are|looks?)\s+(valid|clear)\b|\bvalidated\s+(fit|clearance)\b|\bfit\s+(ok|confirmed|verified|passes)\b|\bno\s+(collisions?|interference)\b/i
+
++ Received:
+"  Configuration file   Created  2026-10-07T00:00:00.000Z  Modified  2026-10-07T00:00:00.000Z    Export file  Import file   Reset to fixture   The saved configuration in this browser could not be loaded, so the fixture is shown. The saved value has not been changed; it stays under browser-storage key &quot;sidequest-decks:configuration&quot;. Reason: File is not valid JSON: Unexpected token &#x27;c&#x27;, &quot;corrupt{&quot; is not valid JSON  The unreadable saved configuration was preserved unchanged under browser-storage key &quot;sidequest-decks:configuration:quarantine:0&quot;.  Could not save to this browser: quota. The configuration stays in memory only and reloading discards it.  Import rejected; configuration unchanged.  File is not valid JSON: Unexpected token &#x27;o&#x27;, &quot;nope&quot; is not valid JSON  Unsupported schemaVersion 3. Supported versions: 1, 2.  units: &quot;in&quot; is not supported; snapshots are in millimeters (&quot;mm&quot;) and units are never guessed or converted.  Unknown key: pose  Cannot resolve in pose OPEN: Box enclosure placeholder-box@1 has no lid; placement &quot;display&quot; is attached to lid.    Migrated from schema version 1 to 2: every placement fits on the base and the world base is identity.  Dropped keys not in schema version 1: extra.  "
+
+ ❯ src/noFitWarning.test.tsx:72:20
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  19:09:49
+   Duration  746ms (import 61%, transform 29%, tests 10%)
+
+EXIT CODE: 1
