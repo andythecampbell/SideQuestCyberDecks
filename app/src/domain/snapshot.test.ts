@@ -381,3 +381,33 @@ describe('v1 migration', () => {
     expect(errorsFor(doc)).toMatch(message)
   })
 })
+
+describe('rejection reporting', () => {
+  test('messages say snapshot, so they read correctly for a file and for a stored value', () => {
+    const notJson = parseSnapshot('nope', catalog)
+    if (notJson.ok) throw new Error('expected rejection')
+    expect(notJson.errors[0]).toMatch(/^Snapshot is not valid JSON/)
+    const tooLarge = parseSnapshot(' '.repeat(MAX_SNAPSHOT_BYTES + 1), catalog)
+    if (tooLarge.ok) throw new Error('expected rejection')
+    expect(tooLarge.errors[0]).toMatch(/^Snapshot is too large/)
+  })
+
+  test('reports at most 20 specific problems and says how many more exist, so a hostile file cannot flood the page', () => {
+    const doc = deckDoc()
+    for (let i = 0; i < 50; i++) doc[`bogus${i}`] = i
+    const result = parseSnapshot(JSON.stringify(doc), catalog)
+    if (result.ok) throw new Error('expected rejection')
+    expect(result.errors).toHaveLength(21)
+    expect(result.errors[0]).toMatch(/^Unknown key: bogus0$/)
+    expect(result.errors[20]).toMatch(/^\.\.\.and 30 more problems\.$/)
+  })
+
+  test('a file with exactly 20 problems is reported in full', () => {
+    const doc = deckDoc()
+    for (let i = 0; i < 20; i++) doc[`bogus${i}`] = i
+    const result = parseSnapshot(JSON.stringify(doc), catalog)
+    if (result.ok) throw new Error('expected rejection')
+    expect(result.errors).toHaveLength(20)
+    expect(result.errors.join('\n')).not.toMatch(/more problems/)
+  })
+})

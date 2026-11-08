@@ -16,11 +16,18 @@ export type SnapshotParseResult =
   | { ok: true; configuration: ConfigurationV2; sourceVersion: 1 | 2; notices: string[] }
   | { ok: false; errors: string[] }
 
-const reject = (...errors: string[]): SnapshotParseResult => ({ ok: false, errors })
+/** A hostile file must not be able to flood the page with thousands of messages. */
+const MAX_REPORTED_ERRORS = 20
+
+function reject(...errors: string[]): SnapshotParseResult {
+  const shown = errors.slice(0, MAX_REPORTED_ERRORS)
+  const hidden = errors.length - shown.length
+  return { ok: false, errors: hidden > 0 ? [...shown, `...and ${hidden} more problems.`] : shown }
+}
 
 /** Shared with the UI's pre-read size check, so both paths report the same message. */
 export const snapshotTooLarge = (bytes: number) =>
-  `File is too large: ${bytes} bytes; the limit is ${MAX_SNAPSHOT_BYTES} bytes.`
+  `Snapshot is too large: ${bytes} bytes; the limit is ${MAX_SNAPSHOT_BYTES} bytes.`
 
 /** `placements[1].rotation` for a Zod issue path. */
 const formatPath = (path: readonly PropertyKey[]) =>
@@ -146,7 +153,7 @@ export function parseSnapshot(text: string, catalog: SnapshotCatalog): SnapshotP
   try {
     raw = JSON.parse(text)
   } catch (error) {
-    return reject(`File is not valid JSON: ${error instanceof Error ? error.message : String(error)}`)
+    return reject(`Snapshot is not valid JSON: ${error instanceof Error ? error.message : String(error)}`)
   }
   if (raw === null || typeof raw !== 'object' || Array.isArray(raw)) return reject('A snapshot must be a JSON object.')
 
