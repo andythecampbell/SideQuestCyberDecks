@@ -12,6 +12,10 @@ Committed configuration snapshots. `npm test` validates every file here against 
 - A snapshot's file name must include its status.
 - Every display a snapshot references is listed under `unverifiedIdentities` until a measurement record confirms its identity and spelling.
 
+## Canonical bytes
+
+`serializeSnapshot` in `app/src/domain/snapshot.ts` defines the format: UTF-8, LF line endings, one trailing newline, two-space indentation, object keys sorted by UTF-16 code unit, number arrays on one line, and numbers in shortest round-trip form with signed zero preserved. Importing a canonical export and exporting again is byte-identical. A differently formatted v2 file, or a migrated v1 file, keeps the same design but is canonicalized on its first export.
+
 ## What a snapshot is not
 
 A snapshot records a configuration. It is not a description of a physical deck. No snapshot here claims fit, clearance, wiring, connector access, cooling or assembly, and none is a source for generated parts. See the [Deck 001 alpha roadmap](../docs/DECK_001_ALPHA_ROADMAP.md) and [measurement records](../evidence/measurements/README.md).
