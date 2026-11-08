@@ -1,0 +1,19 @@
+{
+  "snapshots": [
+    {
+      "file": "deck-001-illustrative.json",
+      "deck": "Deck 001",
+      "status": "illustrative",
+      "calibration": "uncalibrated",
+      "authoritative": false,
+      "asBuilt": false,
+      "notes": "Canonical export of the app's illustrative fixture placements. Nothing in it was measured: the enclosure calibration is UNRESOLVED and every placement is illustrative. It records a configuration, not the physical Deck 001 as built, and no fit, clearance or fabrication conclusion may be drawn from it. Replacing it needs a new, explicitly relabelled snapshot backed by physical evidence.",
+      "unverifiedIdentities": [
+        {
+          "ref": "hoysond-7in-touch@1",
+          "note": "The physical display's identity and spelling are unverified. The catalog id and name say Hoysond, while the preview CAD source file is named Hosyond 7in IPS LCD. No photo, label reading or measurement record exists yet (issue #8). This reference is kept as the existing catalog id and must not be read as confirming the product identity; a correction would be a new catalog id or revision and a new snapshot."
+        }
+      ]
+    }
+  ]
+}

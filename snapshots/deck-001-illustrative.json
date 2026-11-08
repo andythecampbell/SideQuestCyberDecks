@@ -1,0 +1,57 @@
+{
+  "base": {
+    "position": [0, 0, 0],
+    "rotation": [0, 0, 0, 1]
+  },
+  "coordinateSystem": "right-handed-z-up",
+  "createdAt": "2026-10-07T00:00:00.000Z",
+  "enclosure": {
+    "id": "case-2800-preview",
+    "revision": 1
+  },
+  "modifiedAt": "2026-10-07T00:00:00.000Z",
+  "placements": [
+    {
+      "attachment": "base",
+      "component": {
+        "id": "adafruit-mini-chiclet-keyboard",
+        "revision": 1
+      },
+      "id": "keyboard",
+      "position": [-140, -105, -80],
+      "rotation": [0, 0, 0, 1]
+    },
+    {
+      "attachment": "base",
+      "component": {
+        "id": "raspberry-pi-5",
+        "revision": 1
+      },
+      "id": "pi",
+      "position": [-140, 20, -80],
+      "rotation": [0, 0, 0, 1]
+    },
+    {
+      "attachment": "base",
+      "component": {
+        "id": "anker-10000-30w",
+        "revision": 1
+      },
+      "id": "power",
+      "position": [30, 20, -80],
+      "rotation": [0, 0, 0, 1]
+    },
+    {
+      "attachment": "lid",
+      "component": {
+        "id": "hoysond-7in-touch",
+        "revision": 1
+      },
+      "id": "display",
+      "position": [-82, 64, 20],
+      "rotation": [1, 0, 0, 0]
+    }
+  ],
+  "schemaVersion": 2,
+  "units": "mm"
+}
