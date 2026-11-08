@@ -31,16 +31,27 @@ interface Props {
   onEdit: (patch: PlacementPatch) => void
 }
 
+type Draft = { x: string; y: string; z: string }
+const toDraft = ([x, y, z]: Placement['position']): Draft => ({ x: String(x), y: String(y), z: String(z) })
+
 export function PlacementPanel({ placement, component, enclosure, enclosureRef, errors, onEdit }: Props) {
   const [step, setStep] = useState('90')
   const [stepError, setStepError] = useState(false)
+  // Drafts follow the stored position without remounting the inputs, so keyboard focus survives an
+  // accepted edit. A rejected edit leaves the stored value unchanged and keeps the typed draft.
+  const stored = formatExact(placement.position)
+  const [draft, setDraft] = useState(() => toDraft(placement.position))
+  const [syncedFrom, setSyncedFrom] = useState(stored)
+  if (syncedFrom !== stored) {
+    setSyncedFrom(stored)
+    setDraft(toDraft(placement.position))
+  }
   const estimates = estimateFeatures(component)
   const body = placement.attachment
 
   const submitPosition = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    onEdit(positionPatch({ x: String(data.get('x')), y: String(data.get('y')), z: String(data.get('z')) }))
+    onEdit(positionPatch(draft))
   }
   const rotateBy = (axis: Axis, sign: 1 | -1) => {
     const patch = rotationPatch(placement.rotation, axis, sign, step)
@@ -71,14 +82,13 @@ export function PlacementPanel({ placement, component, enclosure, enclosureRef, 
       </ul>
       {estimates.length === 0 && <p className="muted">None recorded as estimate.</p>}
 
-      {/* key resets the draft inputs whenever the stored value or selection changes */}
-      <form key={`${placement.id}:${formatExact(placement.position)}`} className="edit" onSubmit={submitPosition}
-        aria-label={`Body-local position relative to ${body}`}>
+      <form className="edit" onSubmit={submitPosition} aria-label={`Body-local position relative to ${body}`}>
         <p className="muted">Body-local position relative to {body} · mm</p>
-        {(['x', 'y', 'z'] as const).map((axis, i) => (
+        {(['x', 'y', 'z'] as const).map(axis => (
           <label key={axis}>
             {axis.toUpperCase()}
-            <input name={axis} type="number" step="any" defaultValue={String(placement.position[i])} />
+            <input name={axis} type="number" step="any" value={draft[axis]}
+              onChange={e => setDraft(d => ({ ...d, [axis]: e.target.value }))} />
           </label>
         ))}
         <button type="submit">Apply position</button>

@@ -1,3 +1,14 @@
+# ANNOTATION (added after the fact; raw Vitest output below is unedited)
+# This file holds two consecutive red runs.
+# Run 1: suite fails because ./noFitWarning did not exist yet (valid red).
+# Run 2: the "one exported constant ..." failure is a TEST BUG, not a product
+#   defect. The assertion checked `NO_FIT_WARNING` case-sensitively for the
+#   lowercase term 'fit', but the constant begins "Fit, clearance, ...". The
+#   constant already satisfied the requirement. The test was corrected to
+#   `expect(NO_FIT_WARNING.toLowerCase()).toContain(term)` (see
+#   app/src/noFitWarning.test.tsx:8). Only the six "is rendered with ..." failures
+#   in Run 2 are genuine red for the missing warning element.
+# ---------------------------------------------------------------------------
 
  RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
 

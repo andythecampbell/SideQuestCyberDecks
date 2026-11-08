@@ -1,17 +1,43 @@
+# DELIBERATE MUTATION RED RUN — generated 2026-11-08
+# Purpose: prove the independent ADR 0001 matrix oracle detects a reversed hinge delta.
+# Reproduction: apply the exact patch below, then run:
+#   npm test -- --run src/domain/placementEditPose.test.ts
+# The mutation is temporary and is reverted after this log is captured.
+# --- exact mutation diff ---
+diff --git a/app/src/domain/articulated.ts b/app/src/domain/articulated.ts
+index 333093b..6b9b471 100644
+--- a/app/src/domain/articulated.ts
++++ b/app/src/domain/articulated.ts
+@@ -45,7 +45,7 @@ export function resolve(
+     const h = Articulated.parse(enclosure).hinge
+     const pivot = { ...identity(), position: h.pivot }
+     const unpivot = { ...identity(), position: h.pivot.map(x => -x) as [number, number, number] }
+-    const turn = { ...identity(), rotation: axisRotation(h.axis, h.sign * (h.sourceDrivers[pose] - h.referenceDriver)) }
++    const turn = { ...identity(), rotation: axisRotation(h.axis, h.sign * (h.referenceDriver - h.sourceDrivers[pose])) }
+     lid = compose(compose(compose(pivot, turn), unpivot), h.reference)
+   } else if (c.placements.some(p => p.attachment === 'lid')) {
+     throw Error('Legacy enclosure has no lid')
+# --- Vitest output (expected non-zero) ---
+
+> test
+> npm run test -w app --run src/domain/placementEditPose.test.ts
+
+
+> @sidequest/app@0.0.0 test
+> vitest run src/domain/placementEditPose.test.ts
+
 
  RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
 
- ❯ src/domain/placementEditPose.test.ts (7 tests | 3 failed) 40ms
+ ❯ src/domain/placementEditPose.test.ts (7 tests | 2 failed) 28ms
    ❯ ADR 0001 resolved transforms after editing (4)
-     × edited lid placement world transform in OPEN matches the independent ADR formula 8ms
-     × edited lid placement world transform in CLOSED matches the independent ADR formula 2ms
-     × also holds under a non-identity world base 1ms
+     × edited lid placement world transform in OPEN matches the independent ADR formula 6ms
+     × also holds under a non-identity world base 2ms
 
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
 
  FAIL  src/domain/placementEditPose.test.ts > ADR 0001 resolved transforms after editing > edited lid placement world transform in OPEN matches the independent ADR formula
- FAIL  src/domain/placementEditPose.test.ts > ADR 0001 resolved transforms after editing > edited lid placement world transform in CLOSED matches the independent ADR formula
-AssertionError: expected -2.220446049250313e-16 to be close to 1, received difference is 1.0000000000000002, but expected 5e-10
+AssertionError: expected -0.9999999999999996 to be close to 1, received difference is 1.9999999999999996, but expected 5e-10
  ❯ src/domain/placementEditPose.test.ts:46:62
      44| }
      45| function expectMatrixClose(actual: M, expected: M) {
@@ -23,10 +49,10 @@ AssertionError: expected -2.220446049250313e-16 to be close to 1, received diffe
  ❯ expectMatrixClose src/domain/placementEditPose.test.ts:46:10
  ❯ src/domain/placementEditPose.test.ts:72:7
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
 
  FAIL  src/domain/placementEditPose.test.ts > ADR 0001 resolved transforms after editing > also holds under a non-identity world base
-AssertionError: expected -0.5000000000000002 to be close to 0.8660254037844387, received difference is 1.3660254037844388, but expected 5e-10
+AssertionError: expected 0.5 to be close to -0.49999999999999994, received difference is 1, but expected 5e-10
  ❯ src/domain/placementEditPose.test.ts:46:62
      44| }
      45| function expectMatrixClose(actual: M, expected: M) {
@@ -38,10 +64,20 @@ AssertionError: expected -0.5000000000000002 to be close to 0.8660254037844387, 
  ❯ expectMatrixClose src/domain/placementEditPose.test.ts:46:10
  ❯ src/domain/placementEditPose.test.ts:81:7
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
 
 
  Test Files  1 failed (1)
-      Tests  3 failed | 4 passed (7)
-   Start at  00:28:23
-   Duration  402ms (transform 49%, import 36%, tests 14%, worker 1%)
+      Tests  2 failed | 5 passed (7)
+   Start at  14:43:35
+   Duration  310ms (transform 50%, import 35%, tests 13%, worker 2%)
+
+npm error Lifecycle script `test` failed with error:
+npm error code 1
+npm error path /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+npm error workspace @sidequest/app@0.0.0
+npm error location /root/.hermes/workspace/SideQuestCyberDecks-issue-6/app
+npm error command failed
+npm error command sh -c vitest run src/domain/placementEditPose.test.ts
+
+# Exit status: 1 (expected non-zero)
