@@ -64,6 +64,15 @@ export async function loadEngine() {
 
 /** Turns anything the kernel throws, including an opaque C++ exception pointer, into a readable message. */
 export function describeKernelError(oc, thrown) {
+  if (thrown instanceof WebAssembly.Exception) {
+    try {
+      const [type, message] = oc.getExceptionMessage(thrown)
+      oc.decrementExceptionRefcount(thrown)
+      return `OpenCascade ${type}: ${message || '(no message)'}`
+    } catch {
+      return 'Undecodable WebAssembly kernel exception.'
+    }
+  }
   if (typeof thrown === 'number') {
     try {
       const data = oc.OCJS.getStandard_FailureData(thrown)

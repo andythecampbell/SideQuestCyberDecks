@@ -70,3 +70,31 @@ test('bad invocations and unreadable requests are diagnosed without writing', ()
   }
   rmSync(dir, { recursive: true, force: true })
 })
+
+test('infeasible geometry is diagnosed before the kernel and writes nothing', () => {
+  const dir = scratch('preflight')
+  const out = join(dir, 'out')
+  const request = readFixture(SYNTHETIC)
+  request.inputs.cornerRadius.value = 30
+  const result = runCli(['--request', writeRequest(dir, request), '--out', out])
+  assert.equal(result.status, 3, result.stderr)
+  const diagnostic = parseDiagnostic(result)
+  assert.equal(diagnostic.code, 'PREFLIGHT_FAILED')
+  assert.equal(diagnostic.stage, 'preflight')
+  assert.ok(diagnostic.issues.some((issue) => issue.code === 'CORNER_RADIUS_TOO_LARGE' && issue.path === 'inputs.cornerRadius'))
+  assert.equal(existsSync(out), false)
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('a successful CLI run prints machine-readable output and writes the labelled files', () => {
+  const dir = scratch('success')
+  const out = join(dir, 'out')
+  const result = runCli(['--request', fixturePath(SYNTHETIC), '--out', out])
+  assert.equal(result.status, 0, result.stderr)
+  assert.equal(result.stderr, '', 'kernel console output must not leak into stderr')
+  const summary = JSON.parse(result.stdout)
+  assert.equal(summary.status, 'ok')
+  assert.equal(summary.purpose, 'non-fabrication')
+  assert.deepEqual(listTree(out), ['NON-FABRICATION-synthetic-plate-r1.step', 'NON-FABRICATION-synthetic-plate-r1.stl', 'manifest.json'])
+  rmSync(dir, { recursive: true, force: true })
+})

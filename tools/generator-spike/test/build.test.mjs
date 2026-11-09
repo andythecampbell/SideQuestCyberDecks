@@ -67,7 +67,8 @@ test('a kernel failure names the failing stage and carries the kernel message', 
       assert.equal(error.code, 'KERNEL_FAILURE')
       assert.equal(error.stage, 'corner-fillet')
       assert.equal(error.exitCode, 3)
-      assert.ok(error.message.length > 20, error.message)
+      assert.doesNotMatch(error.message, /\[object/, 'the kernel exception must be decoded')
+      assert.match(error.message, /StdFail_NotDone/, error.message)
       return true
     },
   )
