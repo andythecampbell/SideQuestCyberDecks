@@ -1,3 +1,6 @@
+import { EXIT, GeneratorError } from './errors.mjs'
+import { describeKernelError } from './engine.mjs'
+
 /** Descriptor for the single spike template. Pure data: no kernel, no filesystem. */
 export const syntheticPlate = Object.freeze({
   id: 'synthetic-plate',
@@ -143,5 +146,87 @@ export function expectedGeometry(v) {
     meshVolumeToleranceMm3: STL_LINEAR_DEFLECTION_MM * curvedPerimeter * v.plateThickness,
     // Through-cuts and through-holes each add one to the mesh genus; the blind pocket adds none.
     throughFeatureCount: 4,
+  }
+}
+
+
+function kernelStage(engine, stage, operation) {
+  try {
+    return operation()
+  } catch (thrown) {
+    const detail = describeKernelError(engine.oc, thrown)
+    throw new GeneratorError('KERNEL_FAILURE', `Kernel failed at stage "${stage}": ${detail}`, {
+      stage,
+      exitCode: EXIT.GEOMETRY,
+      cause: thrown instanceof Error ? thrown : new Error(detail),
+    })
+  }
+}
+
+/** How far cut tools extend past each plate face, so booleans never meet a coincident face. */
+const CUT_OVERSHOOT_MM = 1
+
+/**
+ * Builds the plate one operation at a time and records the volume after each, so a failure names
+ * its stage and each feature can be checked against an analytic value. All coordinates are absolute
+ * (origin at the plate's minimum corner); nothing is built centred and then translated.
+ */
+export function buildSyntheticPlate(engine, v) {
+  const { makeBox, makeCylinder, measureVolume } = engine.replicad
+  const stages = []
+  const record = (stage, shape) => {
+    stages.push({ stage, volumeMm3: kernelStage(engine, stage, () => measureVolume(shape)) })
+    return shape
+  }
+  const t = v.plateThickness
+  // Cut tools extend past both faces so every through-cut is unambiguous for the boolean.
+  const below = -CUT_OVERSHOOT_MM
+  const above = t + CUT_OVERSHOOT_MM
+
+  let shape = record('plate', kernelStage(engine, 'plate', () => makeBox([0, 0, 0], [v.plateSizeX, v.plateSizeY, t])))
+  shape = record(
+    'corner-fillet',
+    kernelStage(engine, 'corner-fillet', () => shape.fillet(v.cornerRadius, (edge) => edge.inDirection('Z'))),
+  )
+  shape = record(
+    'through-cut',
+    kernelStage(engine, 'through-cut', () =>
+      shape.cut(makeBox([v.throughCutMinX, v.throughCutMinY, below], [v.throughCutMinX + v.throughCutSizeX, v.throughCutMinY + v.throughCutSizeY, above])),
+    ),
+  )
+  shape = record(
+    'pocket',
+    kernelStage(engine, 'pocket', () =>
+      shape.cut(makeBox([v.pocketMinX, v.pocketMinY, t - v.pocketDepth], [v.pocketMinX + v.pocketSizeX, v.pocketMinY + v.pocketSizeY, above])),
+    ),
+  )
+  for (const index of [1, 2, 3]) {
+    const stage = `hole-${index}`
+    shape = record(
+      stage,
+      kernelStage(engine, stage, () =>
+        shape.cut(makeCylinder(v[`hole${index}Diameter`] / 2, above - below, [v[`hole${index}X`], v[`hole${index}Y`], below], [0, 0, 1])),
+      ),
+    )
+  }
+
+  const solids = kernelStage(engine, 'inspect', () => shape.solids)
+  const { BRepCheck_Analyzer: Analyzer } = engine.oc
+  const valid = kernelStage(engine, 'inspect', () => {
+    const analyzer = new Analyzer(shape.wrapped, true, false, false)
+    const result = analyzer.IsValid_2 ? analyzer.IsValid_2() : analyzer.IsValid()
+    analyzer.delete()
+    return result
+  })
+  const { bounds } = kernelStage(engine, 'inspect', () => shape.boundingBox)
+  return {
+    shape,
+    solid: solids[0],
+    solidCount: solids.length,
+    valid,
+    boundsMm: [bounds[0], bounds[1]],
+    volumeMm3: stages.at(-1).volumeMm3,
+    faces: shape.faces.length,
+    stages,
   }
 }
