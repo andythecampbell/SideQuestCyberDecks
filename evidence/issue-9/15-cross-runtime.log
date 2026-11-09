@@ -1,8 +1,8 @@
 # Cross-runtime comparison
 v24.22.2
-  [run-node24] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.90
-  [run-node24] 	Maximum resident set size (kbytes): 571052
-  [run-node24] CLI observations: {'wallMs': 1193, 'engineLoadMs': 284, 'rssBytes': 481734656}
+  [run-node24] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.02
+  [run-node24] 	Maximum resident set size (kbytes): 625976
+  [run-node24] CLI observations: {'wallMs': 1122, 'engineLoadMs': 279, 'rssBytes': 584638464}
 byte-identical across runtimes: NON-FABRICATION-synthetic-plate-r1.stl
 byte-identical across runtimes: NON-FABRICATION-synthetic-plate-r1.step
 manifest differs only by the recorded runtime:

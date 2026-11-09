@@ -1,18 +1,18 @@
 # Two clean runs from fresh output directories
-git head: ed920ad2b41a1dede136fdf7d6a3ee0b9ea04de3   node: v22.22.0
-  [run-a] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.07
-  [run-a] 	Maximum resident set size (kbytes): 635432
-  [run-a] CLI observations: {'wallMs': 1020, 'engineLoadMs': 298, 'rssBytes': 401276928}
-  [run-b] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.12
-  [run-b] 	Maximum resident set size (kbytes): 639136
-  [run-b] CLI observations: {'wallMs': 1278, 'engineLoadMs': 300, 'rssBytes': 418533376}
+git head: a8ee70bfc8b864ef1fa69dd518d62e785e8e80ec   node: v22.22.0
+  [run-a] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.17
+  [run-a] 	Maximum resident set size (kbytes): 671764
+  [run-a] CLI observations: {'wallMs': 1221, 'engineLoadMs': 337, 'rssBytes': 417341440}
+  [run-b] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.04
+  [run-b] 	Maximum resident set size (kbytes): 638780
+  [run-b] CLI observations: {'wallMs': 1096, 'engineLoadMs': 302, 'rssBytes': 376672256}
 
 45d7e374f5caeaaa69a08aa484debccd7ed2b72ccd785bdd372a3b6a521a8552  run-a/NON-FABRICATION-synthetic-plate-r1.step
 9cc920c3b06715e03bed96330d2a5f0cb38a2a012f44601a37b70e11cb44edfd  run-a/NON-FABRICATION-synthetic-plate-r1.stl
-ca5f7a51b572ce0aea579377354b3a8f6383d9d4e41a350208febef00512c202  run-a/manifest.json
+6bd58620a35aa1b7c09f19b8ea5574585c4833de77c40afbcfa4eacdffcd0e1a  run-a/manifest.json
 45d7e374f5caeaaa69a08aa484debccd7ed2b72ccd785bdd372a3b6a521a8552  run-b/NON-FABRICATION-synthetic-plate-r1.step
 9cc920c3b06715e03bed96330d2a5f0cb38a2a012f44601a37b70e11cb44edfd  run-b/NON-FABRICATION-synthetic-plate-r1.stl
-ca5f7a51b572ce0aea579377354b3a8f6383d9d4e41a350208febef00512c202  run-b/manifest.json
+6bd58620a35aa1b7c09f19b8ea5574585c4833de77c40afbcfa4eacdffcd0e1a  run-b/manifest.json
 
 byte-identical: NON-FABRICATION-synthetic-plate-r1.stl
 byte-identical: NON-FABRICATION-synthetic-plate-r1.step
@@ -47,7 +47,7 @@ Manifest geometry summary:
   "units": "mm",
   "generator": {
     "name": "@sidequest/generator-spike",
-    "sourceSha256": "c2ea1a129f8d6ca24db9526b17a4d04d9590a8ad1e10275335d73c8d2150481a",
+    "sourceSha256": "c46058592064a68240176892ff3af5c22dc6cd6ad1327475829f1c43adc8c54d",
     "template": {
       "id": "synthetic-plate",
       "revision": 1

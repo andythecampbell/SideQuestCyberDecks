@@ -5,33 +5,33 @@
   "samples": [
     {
       "iteration": 1,
-      "wallMs": 798,
-      "rssMb": 403
+      "wallMs": 705,
+      "rssMb": 332
     },
     {
       "iteration": 5,
-      "wallMs": 408,
-      "rssMb": 508
+      "wallMs": 415,
+      "rssMb": 558
     },
     {
       "iteration": 10,
-      "wallMs": 141,
-      "rssMb": 602
+      "wallMs": 134,
+      "rssMb": 624
     },
     {
       "iteration": 15,
-      "wallMs": 130,
-      "rssMb": 495
+      "wallMs": 127,
+      "rssMb": 460
     },
     {
       "iteration": 20,
-      "wallMs": 123,
-      "rssMb": 498
+      "wallMs": 124,
+      "rssMb": 463
     },
     {
       "iteration": 25,
-      "wallMs": 118,
-      "rssMb": 500
+      "wallMs": 120,
+      "rssMb": 466
     }
   ]
 }

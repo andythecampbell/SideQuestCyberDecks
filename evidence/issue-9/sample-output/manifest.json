@@ -47,7 +47,7 @@
   "fabricationEligible": false,
   "generator": {
     "name": "@sidequest/generator-spike",
-    "sourceSha256": "c2ea1a129f8d6ca24db9526b17a4d04d9590a8ad1e10275335d73c8d2150481a",
+    "sourceSha256": "c46058592064a68240176892ff3af5c22dc6cd6ad1327475829f1c43adc8c54d",
     "template": {
       "id": "synthetic-plate",
       "revision": 1
