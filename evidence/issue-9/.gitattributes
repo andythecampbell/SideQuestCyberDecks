@@ -1,0 +1,2 @@
+# Keep captured tool output byte-for-byte; trailing whitespace is part of the raw record.
+*.log -whitespace
