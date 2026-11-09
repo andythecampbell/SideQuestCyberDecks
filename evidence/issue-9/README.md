@@ -33,6 +33,7 @@ Each `NN-*.red.log` is raw Node test runner output plus the exit code, captured 
 | 08b | STEP product name normalization | counter not normalized |
 | 09 | fixture unlike Deck 001 data | three coincidental value collisions with catalog data |
 | 10 | kernel exception decoding | message was only `[object WebAssembly.Exception]` |
+| 18 | gaps found in self-review | an occupied output path raised a raw error and a no-solid build crashed during export |
 
 ## Acceptance records
 
@@ -45,7 +46,7 @@ Each `NN-*.red.log` is raw Node test runner output plus the exit code, captured 
 | [14-external-validation.log](14-external-validation.log) | trimesh, ADMesh and native OpenCascade results, plus the same validator rejecting a deliberately damaged copy |
 | [15-cross-runtime.log](15-cross-runtime.log) | Node 22 vs Node 24 primary output comparison |
 | [16-kernel-reuse.log](16-kernel-reuse.log) | 25 runs on one kernel: time and memory |
-| [17-mutations.log](17-mutations.log) | 19 source sabotages, each killed by the named test and reverted |
+| [17-mutations.log](17-mutations.log) | 21 source sabotages, each killed by the named test and reverted |
 | `final-tool-test.log`, `final-test.log`, `final-build.log`, `final-diff-check.log` | final gates (`npm --prefix tools/generator-spike test`, `npm test`, `npm run build`, `git diff --check`) |
 
 ## Acceptance mapping (issue #9)
@@ -54,7 +55,7 @@ Each `NN-*.red.log` is raw Node test runner output plus the exit code, captured 
 | --- | --- |
 | (A) Two clean runs identical | Test `two clean separate-process CLI runs are byte-identical`, log 12 |
 | (A) Dimensions equal inputs, one closed solid | Tests `the STL is one closed oriented solid…`, `the STEP file declares millimetres…`, `builds one solid…`, logs 12 and 14 |
-| (A) Fabrication refuses unqualified facts, no artifact | `guard.test.mjs`, `cli-refusal.test.mjs`, log 13, mutations M03–M07 and M09 |
+| (A) Fabrication refuses unqualified facts, no artifact | `guard.test.mjs`, `cli-refusal.test.mjs`, log 13, mutations M03–M07, M09 and M20 |
 | (A) Synthetic fixture cannot be fabrication-labelled | Tests `the synthetic fixture cannot be relabelled for fabrication`, `refuses synthetic values in a fabrication request`, manifest fields, mutations M07 and M08 |
 | (A) Generator path free of preview, mesh and placement data | `purity.test.mjs`, mutations M17 and M18, and the fixture-collision test |
 | (H) ADR records evidence and outcome, Andy accepts | [ADR 0002](../../docs/decisions/0002-replicad-headless-generator-spike.md). **Acceptance pending.** |

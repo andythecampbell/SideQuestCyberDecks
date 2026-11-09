@@ -67,6 +67,10 @@ mutate M18 "generator path references a catalog" src/generate.mjs \
   "const NAMES = Object.freeze({" "const catalogDir = 'catalog/components'\nconst NAMES = Object.freeze({" test/purity.test.mjs
 mutate M19 "strict schema relaxed so a fabrication label can be smuggled in" src/request.mjs \
   "const requestSchema = z.strictObject({" "const requestSchema = z.looseObject({" test/request.test.mjs
+mutate M20 "the kernel loads before the fabrication guard runs" src/generate.mjs \
+  "  const template = checkRequest(request, { repoRoot })\n" "  await (deps.loadEngine ?? loadEngine)()\n  const template = checkRequest(request, { repoRoot })\n" test/generate.test.mjs
+mutate M21 "a build with no solid is not diagnosed" src/generate.mjs \
+  "  if (built.solid === undefined) {" "  if (false) {" test/generate.test.mjs
 
 rm -f "$EVID/.mutation-output"
 git diff --quiet -- tools/generator-spike/src tools/generator-spike/test || { echo "source tree was not restored" >&2; exit 3; }
