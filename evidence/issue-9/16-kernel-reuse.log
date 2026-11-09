@@ -1,0 +1,37 @@
+# Repeated runs reusing one kernel (long-lived process observation)
+{
+  "iterations": 25,
+  "node": "v22.22.0",
+  "samples": [
+    {
+      "iteration": 1,
+      "wallMs": 798,
+      "rssMb": 403
+    },
+    {
+      "iteration": 5,
+      "wallMs": 408,
+      "rssMb": 508
+    },
+    {
+      "iteration": 10,
+      "wallMs": 141,
+      "rssMb": 602
+    },
+    {
+      "iteration": 15,
+      "wallMs": 130,
+      "rssMb": 495
+    },
+    {
+      "iteration": 20,
+      "wallMs": 123,
+      "rssMb": 498
+    },
+    {
+      "iteration": 25,
+      "wallMs": 118,
+      "rssMb": 500
+    }
+  ]
+}

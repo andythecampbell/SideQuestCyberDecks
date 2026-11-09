@@ -1,0 +1,320 @@
+{
+  "diagnostics": {
+    "kernelMessages": [
+      "",
+      "*******************************************************************",
+      "******        Statistics on Transfer (Write)                 ******",
+      "",
+      "*******************************************************************",
+      "******        Transfer Mode = 0  I.E.  As Is       ******",
+      "",
+      "******        Transferring Shape, ShapeType = 2                      ******",
+      "",
+      "** WorkSession : Sending all data",
+      "",
+      " Step File Name : blob.step(1552 ents)  Write  Done",
+      ""
+    ],
+    "refusals": [],
+    "status": "passed"
+  },
+  "engine": {
+    "openCascadeReported": "Open CASCADE 8.0",
+    "replicad": "1.2.1",
+    "replicadOpencascadejs": "1.2.1",
+    "wasmBuild": "replicad_single",
+    "wasmBytes": 22942327,
+    "wasmSha256": "a9335919fa64bfeaee3e241d3139ad134022682429c6688e20d8ca12093d33d9"
+  },
+  "exportSettings": {
+    "step": {
+      "declaredLengthUnit": "mm",
+      "normalization": "FILE_NAME timestamp set to the fixed value, the PRODUCT name replaced (OpenCascade appends a process-wide counter to it), and FILE_DESCRIPTION relabelled non-fabrication. Refused if any of the three is not recognized. Geometry entities are unchanged.",
+      "productName": "NON-FABRICATION synthetic-plate r1",
+      "schema": "AP242",
+      "timestampNormalizedTo": "1970-01-01T00:00:00",
+      "writer": "replicad blobSTEP (write.step.schema=5)"
+    },
+    "stl": {
+      "angularDeflectionRad": 0.1,
+      "format": "binary",
+      "header": "NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1 units=mm no-timestamp",
+      "linearDeflectionMm": 0.01,
+      "normalization": "The 80-byte header OpenCascade writes is replaced with the fixed header above. Geometry bytes are unchanged.",
+      "unitsNote": "Binary STL has no unit field. Coordinates are millimetres by this manifest and the project convention."
+    }
+  },
+  "fabricationEligible": false,
+  "generator": {
+    "name": "@sidequest/generator-spike",
+    "sourceSha256": "c2ea1a129f8d6ca24db9526b17a4d04d9590a8ad1e10275335d73c8d2150481a",
+    "template": {
+      "id": "synthetic-plate",
+      "revision": 1
+    },
+    "version": "0.1.0"
+  },
+  "geometry": {
+    "boundsMm": [
+      [
+        -8.881784197001252e-16,
+        -8.881784197001252e-16,
+        0
+      ],
+      [
+        73.5,
+        41.25,
+        6.125
+      ]
+    ],
+    "dimensionsMm": [
+      73.5,
+      41.25,
+      6.125
+    ],
+    "expected": {
+      "boundsMm": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          73.5,
+          41.25,
+          6.125
+        ]
+      ],
+      "dimensionsMm": [
+        73.5,
+        41.25,
+        6.125
+      ],
+      "meshVolumeToleranceMm3": 3.2230777130422785,
+      "throughFeatureCount": 4,
+      "units": "mm",
+      "volumeMm3": 17299.059913381683
+    },
+    "faces": 22,
+    "solidCount": 1,
+    "stages": [
+      {
+        "stage": "plate",
+        "volumeMm3": 18570.234375
+      },
+      {
+        "stage": "corner-fillet",
+        "volumeMm3": 18496.297335983025
+      },
+      {
+        "stage": "through-cut",
+        "volumeMm3": 17763.59421098303
+      },
+      {
+        "stage": "pocket",
+        "volumeMm3": 17437.06296098303
+      },
+      {
+        "stage": "hole-1",
+        "volumeMm3": 17386.251381365102
+      },
+      {
+        "stage": "hole-2",
+        "volumeMm3": 17335.439801747176
+      },
+      {
+        "stage": "hole-3",
+        "volumeMm3": 17299.059913381683
+      }
+    ],
+    "step": {
+      "closedShells": 1,
+      "declaredLengthUnit": "mm",
+      "manifoldSolidBreps": 1,
+      "openShells": 0,
+      "schema": "AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF {1 0 10303 442 1 1 4 }",
+      "timestamp": "1970-01-01T00:00:00"
+    },
+    "stepReimport": {
+      "boundsMm": [
+        [
+          -8.881784197001e-16,
+          -8.881784197001e-16,
+          0
+        ],
+        [
+          73.5,
+          41.25,
+          6.125
+        ]
+      ],
+      "dimensionsMm": [
+        73.5,
+        41.25,
+        6.125
+      ],
+      "solidCount": 1,
+      "valid": true,
+      "volumeMm3": 17299.0599133817
+    },
+    "stl": {
+      "bodies": 1,
+      "boundaryEdges": 0,
+      "boundsMm": [
+        [
+          -8.881784197001252e-16,
+          -8.881784197001252e-16,
+          0
+        ],
+        [
+          73.5,
+          41.25,
+          6.125
+        ]
+      ],
+      "degenerateTriangles": 0,
+      "dimensionsMm": [
+        73.5,
+        41.25,
+        6.125
+      ],
+      "edges": 3126,
+      "eulerCharacteristic": -6,
+      "genus": 4,
+      "inconsistentEdges": 0,
+      "nonManifoldEdges": 0,
+      "signedVolumeMm3": 17299.00849585075,
+      "triangles": 2084,
+      "vertices": 1036,
+      "watertight": true
+    },
+    "units": "mm",
+    "valid": true,
+    "volumeMm3": 17299.059913381683
+  },
+  "label": "NON-FABRICATION synthetic spike output. Never a Deck 001 part. Not for printing as a Deck 001 part.",
+  "manifestSchema": "sidequest.generator-manifest/1",
+  "outputs": [
+    {
+      "bytes": 104284,
+      "format": "binary-stl",
+      "path": "NON-FABRICATION-synthetic-plate-r1.stl",
+      "role": "primary",
+      "sha256": "9cc920c3b06715e03bed96330d2a5f0cb38a2a012f44601a37b70e11cb44edfd"
+    },
+    {
+      "bytes": 73773,
+      "format": "step-ap242",
+      "path": "NON-FABRICATION-synthetic-plate-r1.step",
+      "role": "primary",
+      "sha256": "45d7e374f5caeaaa69a08aa484debccd7ed2b72ccd785bdd372a3b6a521a8552"
+    }
+  ],
+  "purpose": "non-fabrication",
+  "request": {
+    "inputs": {
+      "cornerRadius": {
+        "class": "synthetic",
+        "value": 3.75
+      },
+      "hole1Diameter": {
+        "class": "synthetic",
+        "value": 3.25
+      },
+      "hole1X": {
+        "class": "synthetic",
+        "value": 7.25
+      },
+      "hole1Y": {
+        "class": "synthetic",
+        "value": 7.25
+      },
+      "hole2Diameter": {
+        "class": "synthetic",
+        "value": 3.25
+      },
+      "hole2X": {
+        "class": "synthetic",
+        "value": 64.25
+      },
+      "hole2Y": {
+        "class": "synthetic",
+        "value": 9.25
+      },
+      "hole3Diameter": {
+        "class": "synthetic",
+        "value": 2.75
+      },
+      "hole3X": {
+        "class": "synthetic",
+        "value": 60.5
+      },
+      "hole3Y": {
+        "class": "synthetic",
+        "value": 32.75
+      },
+      "plateSizeX": {
+        "class": "synthetic",
+        "value": 73.5
+      },
+      "plateSizeY": {
+        "class": "synthetic",
+        "value": 41.25
+      },
+      "plateThickness": {
+        "class": "synthetic",
+        "value": 6.125
+      },
+      "pocketDepth": {
+        "class": "synthetic",
+        "value": 2.25
+      },
+      "pocketMinX": {
+        "class": "synthetic",
+        "value": 9.5
+      },
+      "pocketMinY": {
+        "class": "synthetic",
+        "value": 22.25
+      },
+      "pocketSizeX": {
+        "class": "synthetic",
+        "value": 13.5
+      },
+      "pocketSizeY": {
+        "class": "synthetic",
+        "value": 10.75
+      },
+      "throughCutMinX": {
+        "class": "synthetic",
+        "value": 27.25
+      },
+      "throughCutMinY": {
+        "class": "synthetic",
+        "value": 9.75
+      },
+      "throughCutSizeX": {
+        "class": "synthetic",
+        "value": 16.5
+      },
+      "throughCutSizeY": {
+        "class": "synthetic",
+        "value": 7.25
+      }
+    },
+    "notice": "Synthetic spike fixture. Values are invented and deliberately unlike Deck 001. Never print this as a Deck 001 part.",
+    "purpose": "non-fabrication",
+    "schema": "sidequest.generator-request/1",
+    "template": {
+      "id": "synthetic-plate",
+      "revision": 1
+    },
+    "units": "mm"
+  },
+  "runtime": {
+    "arch": "x64",
+    "node": "v22.22.0",
+    "platform": "linux"
+  },
+  "units": "mm"
+}

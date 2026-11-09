@@ -1,0 +1,114 @@
+# External validation of run-a
+{
+  "stl": {
+    "tool": "trimesh 4.12.2 (numpy 2.5.4)",
+    "triangles": 2084,
+    "watertight": true,
+    "windingConsistent": true,
+    "bodyCount": 1,
+    "eulerNumber": -6,
+    "boundsMm": [
+      [
+        -8.881784197001252e-16,
+        -8.881784197001252e-16,
+        0.0
+      ],
+      [
+        73.5,
+        41.25,
+        6.125
+      ]
+    ],
+    "extentsMm": [
+      73.5,
+      41.25,
+      6.125
+    ],
+    "volumeMm3": 17299.008495850725,
+    "genus": 4.0
+  },
+  "stlAdmesh": {
+    "tool": "ADMesh - version 0.98.4",
+    "sizeMm": [
+      73.5,
+      41.25,
+      6.125
+    ],
+    "facets": 2084,
+    "disconnectedFacets": 0,
+    "parts": 1,
+    "degenerateFacets": 0,
+    "edgesFixed": 0,
+    "facetsRemoved": 0,
+    "facetsAdded": 0,
+    "facetsReversed": 0,
+    "backwardsEdges": 0,
+    "normalsFixed": 0,
+    "volumeMm3": 17299.003906
+  },
+  "step": {
+    "tool": "cadquery-ocp (OCP 8.0.1.1)",
+    "readStatus": "IFSelect_ReturnStatus.IFSelect_RetDone",
+    "solids": 1,
+    "shells": 1,
+    "closedShells": 1,
+    "valid": true,
+    "sizeMm": [
+      73.5,
+      41.25,
+      6.125
+    ],
+    "boundsMm": [
+      [
+        -8.881784197001e-16,
+        -8.881784197001e-16,
+        0.0
+      ],
+      [
+        73.5,
+        41.25,
+        6.125
+      ]
+    ],
+    "volumeMm3": 17299.0599133817,
+    "declaredLengthUnit": "mm",
+    "headerTimestamp": "1970-01-01T00:00:00",
+    "productName": "NON-FABRICATION synthetic-plate r1",
+    "description": "NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1"
+  },
+  "expected": {
+    "boundsMm": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        73.5,
+        41.25,
+        6.125
+      ]
+    ],
+    "dimensionsMm": [
+      73.5,
+      41.25,
+      6.125
+    ],
+    "meshVolumeToleranceMm3": 3.2230777130422785,
+    "throughFeatureCount": 4,
+    "units": "mm",
+    "volumeMm3": 17299.059913381683
+  },
+  "failures": []
+}
+exit code: 0
+
+# Validator sabotage: the same validator must reject a deliberately damaged copy
+damaged copy failures: [
+  "trimesh: mesh is not watertight",
+  "trimesh: genus 4.5",
+  "ADMesh: facetsAdded is 1",
+  "ADMesh: facetsReversed is 1",
+  "ADMesh: normalsFixed is 1"
+]
+exit code for damaged copy: 1 (expected 1)
