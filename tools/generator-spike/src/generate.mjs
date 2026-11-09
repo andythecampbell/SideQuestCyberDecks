@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, renameSync, rmSync, rmdirSync, writeFileSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, renameSync, rmSync, rmdirSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describeKernelError, loadEngine } from './engine.mjs'
@@ -38,8 +38,10 @@ const NAMES = Object.freeze({
 })
 
 function ensureCleanOutputDir(outDir) {
-  if (existsSync(outDir) && readdirSync(outDir).length > 0) {
-    throw new GeneratorError('OUTPUT_DIR_NOT_EMPTY', `Output directory "${outDir}" is not empty. A clean run needs an empty or absent directory.`, { stage: 'output', exitCode: EXIT.REFUSED })
+  if (!existsSync(outDir)) return
+  const occupied = !lstatSync(outDir).isDirectory() || readdirSync(outDir).length > 0
+  if (occupied) {
+    throw new GeneratorError('OUTPUT_DIR_NOT_EMPTY', `Output path "${outDir}" is occupied. A clean run needs an empty or absent directory.`, { stage: 'output', exitCode: EXIT.REFUSED })
   }
 }
 
@@ -119,6 +121,13 @@ export async function generate({ requestPath, outDir, repoRoot = REPO_ROOT, deps
   const firstKernelMessage = engine.messages.length
 
   const built = (deps.buildPart ?? buildSyntheticPlate)(engine, values)
+  if (built.solid === undefined) {
+    throw new GeneratorError('VERIFICATION_FAILED', `Generated part failed verification: geometry.solidCount: Expected exactly one solid, found ${built.solidCount}.`, {
+      stage: 'verify-output',
+      issues: [{ code: 'VERIFICATION_CHECK_FAILED', path: 'geometry.solidCount', message: `Expected exactly one solid, found ${built.solidCount}.` }],
+      exitCode: EXIT.VERIFICATION,
+    })
+  }
   const { stl, step } = await exportPrimary(engine, built.solid)
   const stlAnalysis = analyzeBinaryStl(stl)
   const stepAnalysis = analyzeStepText(step)

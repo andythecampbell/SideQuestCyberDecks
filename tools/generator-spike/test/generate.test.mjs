@@ -7,7 +7,7 @@ import { generate } from '../src/generate.mjs'
 import { GeneratorError } from '../src/errors.mjs'
 import { buildSyntheticPlate } from '../src/synthetic-plate.mjs'
 import { analyzeBinaryStl, analyzeStepText, NORMALIZED_STEP_TIMESTAMP } from '../src/verify.mjs'
-import { SYNTHETIC, fixturePath, listTree, readFixture, scratch } from './support.mjs'
+import { REJECTED, SYNTHETIC, fixturePath, listTree, readFixture, scratch } from './support.mjs'
 
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex')
 const STL = 'NON-FABRICATION-synthetic-plate-r1.stl'
@@ -179,5 +179,78 @@ test('more than one solid fails and writes nothing', async () => {
     (error) => error.code === 'VERIFICATION_FAILED' && error.issues.some((issue) => issue.path === 'geometry.solidCount'),
   )
   assert.equal(existsSync(outDir), false)
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('a refused request never loads the kernel', async () => {
+  const dir = scratch('no-kernel')
+  let loads = 0
+  await assert.rejects(
+    generate({
+      requestPath: fixturePath(REJECTED),
+      outDir: join(dir, 'out'),
+      deps: {
+        loadEngine: async () => {
+          loads += 1
+          throw new Error('kernel must not load')
+        },
+      },
+    }),
+    (error) => error.code === 'FABRICATION_REFUSED',
+  )
+  assert.equal(loads, 0)
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('a kernel failure during the build writes nothing and names its stage', async () => {
+  const dir = scratch('kernel-failure')
+  const outDir = join(dir, 'out')
+  await assert.rejects(
+    generate({
+      requestPath: fixturePath(SYNTHETIC),
+      outDir,
+      deps: { buildPart: sabotaged((v) => ({ ...v, cornerRadius: v.plateSizeY })) },
+    }),
+    (error) => error.code === 'KERNEL_FAILURE' && error.stage === 'corner-fillet' && error.exitCode === 3,
+  )
+  assert.deepEqual(listTree(dir), [])
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('a build that yields no solid is diagnosed as verification failure, not a crash', async () => {
+  const dir = scratch('no-solid')
+  const outDir = join(dir, 'out')
+  await assert.rejects(
+    generate({
+      requestPath: fixturePath(SYNTHETIC),
+      outDir,
+      deps: { buildPart: (engine, v) => ({ ...buildSyntheticPlate(engine, v), solid: undefined, solidCount: 0 }) },
+    }),
+    (error) => {
+      assert.equal(error.code, 'VERIFICATION_FAILED', error.message)
+      assert.equal(error.stage, 'verify-output')
+      assert.ok(error.issues.some((issue) => issue.path === 'geometry.solidCount'))
+      return true
+    },
+  )
+  assert.deepEqual(listTree(dir), [])
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('a successful run leaves nothing beside the output directory', async () => {
+  const { dir } = await runFixture()
+  assert.deepEqual(listTree(dir).filter((entry) => !entry.startsWith('out')), [], 'no staging directory remains')
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('an output path that is an existing file is diagnosed without being touched', async () => {
+  const dir = scratch('file-out')
+  const outDir = join(dir, 'occupied')
+  writeFileSync(outDir, 'a file')
+  await assert.rejects(
+    generate({ requestPath: fixturePath(SYNTHETIC), outDir }),
+    (error) => error instanceof GeneratorError && error.code === 'OUTPUT_DIR_NOT_EMPTY' && error.message.includes(outDir),
+  )
+  assert.equal(readFileSync(outDir, 'utf8'), 'a file')
   rmSync(dir, { recursive: true, force: true })
 })
