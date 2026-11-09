@@ -59,8 +59,8 @@ mutate M02 "STEP product counter normalization removed" src/verify.mjs \
   "const normalizedBody = body.replace(PRODUCT_NAMES, \`\$1\${STEP_PRODUCT_NAME}\$2\${STEP_PRODUCT_NAME}\$3\`)" "const normalizedBody = body" test/determinism.test.mjs
 mutate M03 "guard stops checking physical facts" src/guard.mjs \
   "function checkPhysicalFact(input, path, repoRoot, issues) {" "function checkPhysicalFact(input, path, repoRoot, issues) { return" test/guard.test.mjs
-mutate M04 "guard treats every cited source as present" src/guard.mjs \
-  "    return stat.isFile() && stat.size > 0" "    return true // mutation" test/guard.test.mjs
+mutate M04 "guard treats every cited repository file as present" src/guard.mjs \
+  "function repoFileExists(repoRoot, relativePath) {" "function repoFileExists(repoRoot, relativePath) { return true // mutation" test/guard.test.mjs
 mutate M05 "synthetic values allowed in fabrication" src/guard.mjs \
   "    if (input.class === 'synthetic') {\n      issues.push({ code: 'SYNTHETIC_IN_FABRICATION'" "    if (false) {\n      issues.push({ code: 'SYNTHETIC_IN_FABRICATION'" test/guard.test.mjs
 mutate M06 "design parameters no longer need test evidence" src/guard.mjs \

@@ -1,220 +1,335 @@
+baseline head: 4921cb96e1981c91e7271a1a0c0ed2ac21f06d43
+
+added 7 packages in 632ms
+✔ the engine reports exact versions and a hash of the WASM it loaded (297.977581ms)
+✔ a version that differs from the pin is refused with a diagnostic (0.48605ms)
+✔ builds one solid, reporting the exact volume change of every operation (379.856619ms)
+✔ the finished solid matches the expected dimensions and passes the kernel validity check (278.132787ms)
+✔ a kernel failure names the failing stage and carries the kernel message (52.207723ms)
+✔ the committed rejected-fabrication fixture is refused and writes nothing (86.779384ms)
+✔ the synthetic fixture cannot be relabelled for fabrication (84.536314ms)
+✔ a refused request leaves an existing output directory untouched (84.223381ms)
+✔ bad invocations and unreadable requests are diagnosed without writing (323.946301ms)
+✔ infeasible geometry is diagnosed before the kernel and writes nothing (84.132869ms)
+✔ a successful CLI run prints machine-readable output and writes the labelled files (3058.340002ms)
+✔ two clean separate-process CLI runs are byte-identical (6243.646046ms)
+✔ the CLI reports hashes that match the written files (3238.130858ms)
+✔ repeating in one process with a reused kernel is byte-identical (1568.657281ms)
+✔ writes exactly the labelled STL, STEP and manifest (1023.799676ms)
+✔ the STL is one closed oriented solid at the requested size with the expected holes (2405.379004ms)
+✔ the STEP file declares millimetres and one closed solid, with the timestamp normalized (485.890634ms)
+✔ the manifest records the exact inputs, versions, settings, hashes and measurements (467.861681ms)
+✔ the manifest contains no wall-clock time or local path (397.726175ms)
+✔ the manifest omits free-form request notices for arbitrary accepted requests (359.608238ms)
+✔ a clean run refuses a non-empty output directory and leaves it alone (1.740462ms)
+✔ an empty existing output directory is acceptable (354.840261ms)
+✔ wrong dimensions fail verification and write nothing (368.723912ms)
+✔ an undersized hole fails the volume check and writes nothing (411.019598ms)
+✔ more than one solid fails and writes nothing (385.97895ms)
+✔ a refused request never loads the kernel (2.202508ms)
+✔ a kernel failure during the build writes nothing and names its stage (214.7112ms)
+✔ a build that yields no solid is diagnosed as verification failure, not a crash (279.42936ms)
+✔ a successful run leaves nothing beside the output directory (372.714651ms)
+✔ an output path that is an existing file is diagnosed without being touched (0.819986ms)
+✔ a mkdtempSync publication failure is structured and cleans staging (379.9713ms)
+✔ a writeFileSync publication failure is structured and cleans staging (361.536956ms)
+✔ a rmdirSync publication failure is structured and cleans staging (337.811534ms)
+✔ a renameSync publication failure is structured and cleans staging (389.122626ms)
+✔ publication requires an existing output parent (370.004192ms)
+✔ rename failure after removing an existing empty target leaves no partial target (356.358315ms)
+✔ publication preserves the original error when cleanup also fails (360.033593ms)
+✔ the synthetic fixture passes as non-fabrication (3.82807ms)
+✔ a fully qualifying fabrication request clears every input check (4.143371ms)
+✔ refuses an estimate even when it cites a source (3.130622ms)
+✔ refuses a missing or unknown confidence (7.521212ms)
+✔ refuses a measured fact with no durable source (9.318845ms)
+✔ refuses a measured fact citing anything but a measurement record that exists (9.763547ms)
+✔ refuses a measurement record reached through a symlink out of the repository (2.591217ms)
+✔ refuses repository evidence reached through any symlinked ancestor (3.951954ms)
+✔ accepts a canonical repository reached through a symlinked root alias (2.78317ms)
+✔ refuses an internal symlink even when its target stays in the repository (2.508158ms)
+✔ refuses a confidence and source kind that disagree (2.015477ms)
+✔ refuses a datasheet source without a title, locator or durable uri (9.865746ms)
+✔ accepts a repository-relative datasheet that exists and refuses one that does not (3.527092ms)
+✔ refuses a design parameter missing its author or rationale (14.419286ms)
+✔ refuses a design parameter that never states whether test evidence applies (9.669556ms)
+✔ refuses recorded test evidence that does not exist, and accepts it when it does (3.471123ms)
+✔ refuses synthetic values in a fabrication request (0.803963ms)
+✔ a non-fabrication request may only carry synthetic values (0.890705ms)
+✔ names every failing input in one report (1.985922ms)
+✔ binds inputs to the template: unknown, missing and unknown-template are refused (0.959808ms)
+✔ the fixture is geometrically feasible (1.609663ms)
+✔ requires positive plate dimensions (1.305016ms)
+✔ refuses a corner radius that cannot fit the plate (0.341123ms)
+✔ refuses a pocket as deep as the plate, because that would be a through-cut (0.285766ms)
+✔ refuses a feature that leaves the plate (0.498313ms)
+✔ refuses a feature inside a rounded corner region (0.205608ms)
+✔ refuses overlapping features (0.554784ms)
+✔ expected geometry is derived only from the explicit inputs (0.443984ms)
+✔ the generator imports only its own modules, the pinned engine, zod and node builtins (2.751095ms)
+✔ every generator source file is on the graph, so nothing bypasses the check (0.859667ms)
+✔ the generator path never references preview, catalog, snapshot or placement data (9.139526ms)
+✔ the fixture shares no numeric value with catalog, snapshot or fixture-placement data (2.075501ms)
+✔ the fixture declares itself non-fabrication and synthetic throughout (0.297226ms)
+✔ accepts the synthetic non-fabrication fixture unchanged (4.644756ms)
+✔ requires an explicit purpose, schema, units and template (1.430278ms)
+✔ never guesses units (0.337866ms)
+✔ refuses unknown top-level keys, so nothing can smuggle a fabrication label or placement (1.49989ms)
+✔ refuses extra keys inside an input (0.393352ms)
+✔ refuses non-finite and non-numeric values (0.813258ms)
+✔ refuses an input with no class rather than guessing one (0.428658ms)
+✔ refuses a purpose outside the two declared values (0.595268ms)
+✔ reports every problem at once, with a path for each (0.513018ms)
+✔ test/support.mjs (24.841258ms)
+✔ a closed tetrahedron is one watertight body with genus zero (1.975761ms)
+✔ a removed triangle is an open mesh (0.355614ms)
+✔ a flipped triangle is inconsistently oriented (0.194268ms)
+✔ an edge shared by four triangles is non-manifold (0.221982ms)
+✔ two separate tetrahedra are two bodies (0.308847ms)
+✔ a degenerate triangle is counted and blocks watertightness (0.167198ms)
+✔ a closed tetrahedron containing a distinct collinear face is rejected (0.211381ms)
+✔ non-finite STL coordinates are diagnosed as malformed (0.576847ms)
+✔ a distinct near-zero-area triangle is degenerate (0.93502ms)
+✔ an inside-out mesh is rejected by its negative volume (0.375901ms)
+✔ malformed binary STLs are diagnosed, not misread (0.218279ms)
+✔ normalizeStl stamps a fixed header and leaves geometry bytes alone (0.258318ms)
+✔ the normalized STL header states non-fabrication and is exactly 80 bytes (0.086964ms)
+✔ normalizeStep removes the wall-clock timestamp and labels the description (0.536201ms)
+✔ normalizeStep replaces the process-wide product counter with a fixed name (0.143885ms)
+✔ normalizeStep refuses a file it cannot normalize rather than passing varying data through (0.358829ms)
+✔ analyzeStepText reads solids, shells and declared units from the exported text (0.385416ms)
+✔ analyzeStepText distinguishes open shells, extra solids and non-millimetre units (0.193705ms)
+✔ verifyPart passes consistent measurements (0.353223ms)
+✔ verifyPart names each failed check by path (0.666131ms)
+ℹ tests 100
+ℹ suites 0
+ℹ pass 100
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 28362.826429
+baseline: GREEN
 ### M01: STEP timestamp normalization removed
 file: src/verify.mjs   test: test/determinism.test.mjs
-✖ two clean separate-process CLI runs are byte-identical (3114.489517ms)
-✖ the CLI reports hashes that match the written files (3067.48184ms)
-✖ repeating in one process with a reused kernel is byte-identical (1303.647845ms)
+✖ two clean separate-process CLI runs are byte-identical (3052.200221ms)
+✖ the CLI reports hashes that match the written files (3098.74794ms)
+✖ repeating in one process with a reused kernel is byte-identical (1199.510023ms)
 ℹ pass 0
 ℹ fail 3
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M02: STEP product counter normalization removed
 file: src/verify.mjs   test: test/determinism.test.mjs
-✖ repeating in one process with a reused kernel is byte-identical (1544.003985ms)
+✖ repeating in one process with a reused kernel is byte-identical (1562.645855ms)
 ℹ pass 2
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M03: guard stops checking physical facts
 file: src/guard.mjs   test: test/guard.test.mjs
-✖ refuses an estimate even when it cites a source (2.132538ms)
-✖ refuses a missing or unknown confidence (1.811363ms)
-✖ refuses a measured fact with no durable source (1.131743ms)
-✖ refuses a measured fact citing anything but a measurement record that exists (1.080882ms)
-✖ refuses a measurement record reached through a symlink out of the repository (1.172832ms)
-✖ refuses a confidence and source kind that disagree (0.979474ms)
-✖ refuses a datasheet source without a title, locator or durable uri (1.9781ms)
-✖ accepts a repository-relative datasheet that exists and refuses one that does not (1.56776ms)
-✖ names every failing input in one report (1.174122ms)
-ℹ pass 8
-ℹ fail 9
-✖ failing tests:
-exit code: 1 (expected non-zero)
+✖ refuses an estimate even when it cites a source (1.944238ms)
+✖ refuses a missing or unknown confidence (1.463045ms)
+✖ refuses a measured fact with no durable source (1.117697ms)
+✖ refuses a measured fact citing anything but a measurement record that exists (1.053946ms)
+✖ refuses a measurement record reached through a symlink out of the repository (1.127941ms)
+✖ refuses repository evidence reached through any symlinked ancestor (2.069863ms)
+✖ refuses an internal symlink even when its target stays in the repository (1.119392ms)
+✖ refuses a confidence and source kind that disagree (1.024064ms)
+✖ refuses a datasheet source without a title, locator or durable uri (1.027661ms)
+✖ accepts a repository-relative datasheet that exists and refuses one that does not (1.1861ms)
+✖ names every failing input in one report (0.980591ms)
+ℹ pass 9
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M04: guard treats every cited source as present
 file: src/guard.mjs   test: test/guard.test.mjs
-✖ refuses a measurement record reached through a symlink out of the repository (2.089455ms)
-ℹ pass 16
-ℹ fail 1
-✖ failing tests:
-exit code: 1 (expected non-zero)
-KILLED
+ℹ pass 20
+ℹ fail 0
+exit code: 0; assertion failure: false; infrastructure failure: false
+INVALID OR SURVIVED
 
 ### M05: synthetic values allowed in fabrication
 file: src/guard.mjs   test: test/guard.test.mjs
-✖ refuses synthetic values in a fabrication request (1.905484ms)
-ℹ pass 16
+✖ refuses synthetic values in a fabrication request (1.671911ms)
+ℹ pass 19
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M06: design parameters no longer need test evidence
 file: src/guard.mjs   test: test/guard.test.mjs
-✖ refuses a design parameter that never states whether test evidence applies (2.13375ms)
-✖ refuses recorded test evidence that does not exist, and accepts it when it does (1.423508ms)
-ℹ pass 15
-ℹ fail 2
+✖ refuses repository evidence reached through any symlinked ancestor (4.157657ms)
+✖ refuses a design parameter that never states whether test evidence applies (2.400443ms)
+✖ refuses recorded test evidence that does not exist, and accepts it when it does (2.466725ms)
+ℹ pass 17
+ℹ fail 3
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M07: template declares itself fabrication-capable
 file: src/synthetic-plate.mjs   test: test/guard.test.mjs
-✖ a fully qualifying fabrication request clears every input check (3.805946ms)
-✖ accepts a repository-relative datasheet that exists and refuses one that does not (1.726855ms)
-✖ refuses recorded test evidence that does not exist, and accepts it when it does (2.264142ms)
-✖ refuses synthetic values in a fabrication request (1.560158ms)
-✖ names every failing input in one report (1.36326ms)
-ℹ pass 12
-ℹ fail 5
+✖ a fully qualifying fabrication request clears every input check (3.85863ms)
+✖ accepts a canonical repository reached through a symlinked root alias (2.681706ms)
+✖ accepts a repository-relative datasheet that exists and refuses one that does not (2.260517ms)
+✖ refuses recorded test evidence that does not exist, and accepts it when it does (3.510219ms)
+✖ refuses synthetic values in a fabrication request (1.455384ms)
+✖ names every failing input in one report (2.07157ms)
+ℹ pass 14
+ℹ fail 6
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M08: manifest relabelled fabrication-eligible
 file: src/manifest.mjs   test: test/generate.test.mjs
-✖ the manifest records the exact inputs, versions, settings, hashes and measurements (426.743206ms)
-ℹ pass 14
+✖ the manifest records the exact inputs, versions, settings, hashes and measurements (443.565061ms)
+ℹ pass 22
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M09: a refused request still writes a file
 file: src/generate.mjs   test: test/cli-refusal.test.mjs
-✖ the committed rejected-fabrication fixture is refused and writes nothing (85.033586ms)
-✖ the synthetic fixture cannot be relabelled for fabrication (83.038102ms)
-✖ a refused request leaves an existing output directory untouched (84.359937ms)
-✖ bad invocations and unreadable requests are diagnosed without writing (157.452535ms)
-✖ infeasible geometry is diagnosed before the kernel and writes nothing (83.0045ms)
-✖ a successful CLI run prints machine-readable output and writes the labelled files (83.429008ms)
+✖ the committed rejected-fabrication fixture is refused and writes nothing (85.221348ms)
+✖ the synthetic fixture cannot be relabelled for fabrication (82.401371ms)
+✖ a refused request leaves an existing output directory untouched (83.877811ms)
+✖ bad invocations and unreadable requests are diagnosed without writing (159.125552ms)
+✖ infeasible geometry is diagnosed before the kernel and writes nothing (82.30597ms)
+✖ a successful CLI run prints machine-readable output and writes the labelled files (81.957525ms)
 ℹ pass 0
 ℹ fail 6
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M10: output verification skipped
 file: src/generate.mjs   test: test/generate.test.mjs
-✖ wrong dimensions fail verification and write nothing (400.987008ms)
-✖ an undersized hole fails the volume check and writes nothing (344.160457ms)
-✖ more than one solid fails and writes nothing (417.431716ms)
-ℹ pass 12
+✖ wrong dimensions fail verification and write nothing (374.938849ms)
+✖ an undersized hole fails the volume check and writes nothing (403.909838ms)
+✖ more than one solid fails and writes nothing (369.231159ms)
+ℹ pass 20
 ℹ fail 3
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M11: STL watertightness always reported
 file: src/verify.mjs   test: test/verify.test.mjs
-✖ a removed triangle is an open mesh (0.835963ms)
-✖ a flipped triangle is inconsistently oriented (0.277377ms)
-✖ an edge shared by four triangles is non-manifold (0.296884ms)
-✖ a degenerate triangle is counted and blocks watertightness (0.21075ms)
-✖ an inside-out mesh is rejected by its negative volume (0.299675ms)
-ℹ pass 12
-ℹ fail 5
+✖ a removed triangle is an open mesh (0.887189ms)
+✖ a flipped triangle is inconsistently oriented (0.264106ms)
+✖ an edge shared by four triangles is non-manifold (0.294798ms)
+✖ a degenerate triangle is counted and blocks watertightness (0.211884ms)
+✖ a closed tetrahedron containing a distinct collinear face is rejected (0.249173ms)
+✖ a distinct near-zero-area triangle is degenerate (0.98328ms)
+✖ an inside-out mesh is rejected by its negative volume (0.395487ms)
+ℹ pass 13
+ℹ fail 7
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M12: genus check removed from verification
 file: src/verify.mjs   test: test/verify.test.mjs
-✖ verifyPart names each failed check by path (1.185456ms)
-ℹ pass 16
+✖ verifyPart names each failed check by path (1.221329ms)
+ℹ pass 19
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M13: pocket built at half depth
 file: src/synthetic-plate.mjs   test: test/build.test.mjs
-✖ builds one solid, reporting the exact volume change of every operation (335.112274ms)
-✖ the finished solid matches the expected dimensions and passes the kernel validity check (213.562556ms)
+✖ builds one solid, reporting the exact volume change of every operation (246.979242ms)
+✖ the finished solid matches the expected dimensions and passes the kernel validity check (262.577304ms)
 ℹ pass 3
 ℹ fail 2
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M14: corner fillet skipped
 file: src/synthetic-plate.mjs   test: test/build.test.mjs
-✖ builds one solid, reporting the exact volume change of every operation (313.597896ms)
-✖ the finished solid matches the expected dimensions and passes the kernel validity check (198.794905ms)
-✖ a kernel failure names the failing stage and carries the kernel message (157.096484ms)
+✖ builds one solid, reporting the exact volume change of every operation (298.744205ms)
+✖ the finished solid matches the expected dimensions and passes the kernel validity check (193.09434ms)
+✖ a kernel failure names the failing stage and carries the kernel message (167.294071ms)
 ℹ pass 2
 ℹ fail 3
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M15: engine version pin not enforced
 file: src/engine.mjs   test: test/build.test.mjs
-✖ a version that differs from the pin is refused with a diagnostic (0.640183ms)
+✖ a version that differs from the pin is refused with a diagnostic (0.602108ms)
 ℹ pass 4
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M16: WebAssembly kernel exceptions left undecoded
 file: src/engine.mjs   test: test/build.test.mjs
-✖ a kernel failure names the failing stage and carries the kernel message (44.577987ms)
+✖ a kernel failure names the failing stage and carries the kernel message (36.77211ms)
 ℹ pass 4
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M17: generator imports preview data
 file: src/cli.mjs   test: test/purity.test.mjs
-✖ the generator imports only its own modules, the pinned engine, zod and node builtins (3.052777ms)
-✖ the generator path never references preview, catalog, snapshot or placement data (1.746942ms)
+✖ the generator imports only its own modules, the pinned engine, zod and node builtins (3.220019ms)
+✖ the generator path never references preview, catalog, snapshot or placement data (1.757292ms)
 ℹ pass 3
 ℹ fail 2
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M18: generator path references a catalog
 file: src/generate.mjs   test: test/purity.test.mjs
-✖ the generator path never references preview, catalog, snapshot or placement data (2.648288ms)
+✖ the generator path never references preview, catalog, snapshot or placement data (2.750272ms)
 ℹ pass 4
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M19: strict schema relaxed so a fabrication label can be smuggled in
 file: src/request.mjs   test: test/request.test.mjs
-✖ refuses unknown top-level keys, so nothing can smuggle a fabrication label or placement (0.661919ms)
+✖ refuses unknown top-level keys, so nothing can smuggle a fabrication label or placement (0.67665ms)
 ℹ pass 8
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M20: the kernel loads before the fabrication guard runs
 file: src/generate.mjs   test: test/generate.test.mjs
-✖ a refused request never loads the kernel (2.544678ms)
-ℹ pass 14
+✖ a refused request never loads the kernel (2.458357ms)
+ℹ pass 22
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
 ### M21: a build with no solid is not diagnosed
 file: src/generate.mjs   test: test/generate.test.mjs
-✖ a build that yields no solid is diagnosed as verification failure, not a crash (289.286041ms)
-ℹ pass 14
+✖ a build that yields no solid is diagnosed as verification failure, not a crash (268.13992ms)
+ℹ pass 22
 ℹ fail 1
 ✖ failing tests:
-exit code: 1 (expected non-zero)
+exit code: 1; assertion failure: true; infrastructure failure: false
 KILLED
 
-survivors or failures: 0
+source checkout restored: true
+survivors or failures: 1
