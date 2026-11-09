@@ -6,6 +6,9 @@ export const NORMALIZED_STEP_TIMESTAMP = '1970-01-01T00:00:00'
 /** Fixed binary STL header. Exactly 80 bytes; never starts with "solid". */
 export const STL_HEADER = 'NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1 units=mm no-timestamp'.padEnd(80, ' ')
 
+/** float32 STL cannot represent every double; this bounds that representational noise only. */
+const STL_NOISE_TOLERANCE_MM = 1e-6
+
 const STEP_DESCRIPTION = 'NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1'
 
 function malformed(code, message) {
@@ -177,3 +180,78 @@ export function analyzeStepText(bytes) {
     schema: text.match(/FILE_SCHEMA\s*\(\s*\(\s*'([^']*)'/)?.[1] ?? null,
   }
 }
+
+/** Largest allowed offset of the part's minimum corner from the origin; kernel float noise only. */
+const BREP_NOISE_TOLERANCE_MM = 1e-9
+const BREP_VOLUME_TOLERANCE_MM3 = 1e-6
+
+const dimensionsOf = (bounds) => [0, 1, 2].map((axis) => bounds[1][axis] - bounds[0][axis])
+
+/**
+ * Compares what was built and exported against what the inputs specify. Returns one issue per
+ * failed check. Exact dimensions are not tolerance-matched against an engineering allowance:
+ * the only tolerances here are numeric representation limits, stated by name.
+ */
+export function verifyPart({ expected, built, stl, step, stepReimport }) {
+  const issues = []
+  const check = (ok, path, message) => {
+    if (!ok) issues.push({ code: 'VERIFICATION_CHECK_FAILED', path, message })
+  }
+  const dimensions = dimensionsOf(built.boundsMm)
+  check(built.solidCount === 1, 'geometry.solidCount', `Expected exactly one solid, found ${built.solidCount}.`)
+  check(built.valid === true, 'geometry.valid', 'The kernel reports the solid as invalid.')
+  check(
+    dimensions.every((value, axis) => Math.abs(value - expected.dimensionsMm[axis]) <= BREP_NOISE_TOLERANCE_MM),
+    'geometry.dimensionsMm',
+    `B-rep dimensions ${dimensions} differ from the requested ${expected.dimensionsMm} mm.`,
+  )
+  check(
+    built.boundsMm[0].every((value) => Math.abs(value) <= BREP_NOISE_TOLERANCE_MM),
+    'geometry.boundsMm',
+    `Part minimum corner ${built.boundsMm[0]} is not at the origin.`,
+  )
+  check(
+    Math.abs(built.volumeMm3 - expected.volumeMm3) <= BREP_VOLUME_TOLERANCE_MM3,
+    'geometry.volumeMm3',
+    `B-rep volume ${built.volumeMm3} differs from the analytic ${expected.volumeMm3} mm^3.`,
+  )
+
+  check(stl.watertight === true, 'geometry.stl.watertight', `STL is not a closed oriented solid (boundary ${stl.boundaryEdges}, non-manifold ${stl.nonManifoldEdges}, inconsistent ${stl.inconsistentEdges}, degenerate ${stl.degenerateTriangles}, signed volume ${stl.signedVolumeMm3}).`)
+  check(stl.bodies === 1, 'geometry.stl.bodies', `STL has ${stl.bodies} bodies, expected 1.`)
+  check(stl.genus === expected.throughFeatureCount, 'geometry.stl.genus', `STL genus ${stl.genus} differs from the ${expected.throughFeatureCount} through-features requested.`)
+  const stlDimensions = dimensionsOf(stl.boundsMm)
+  check(
+    stlDimensions.every((value, axis) => Math.abs(value - Math.fround(expected.dimensionsMm[axis])) <= STL_NOISE_TOLERANCE_MM),
+    'geometry.stl.dimensionsMm',
+    `STL dimensions ${stlDimensions} differ from the requested ${expected.dimensionsMm} mm at float32 precision.`,
+  )
+  check(
+    Math.abs(stl.signedVolumeMm3 - expected.volumeMm3) <= expected.meshVolumeToleranceMm3,
+    'geometry.stl.volumeMm3',
+    `STL volume ${stl.signedVolumeMm3} is outside ${expected.meshVolumeToleranceMm3} mm^3 of the analytic ${expected.volumeMm3} mm^3.`,
+  )
+
+  check(step.manifoldSolidBreps === 1, 'geometry.step.manifoldSolidBreps', `STEP has ${step.manifoldSolidBreps} solids, expected 1.`)
+  check(step.closedShells === 1, 'geometry.step.closedShells', `STEP has ${step.closedShells} closed shells, expected 1.`)
+  check(step.openShells === 0, 'geometry.step.openShells', `STEP has ${step.openShells} open shells.`)
+  check(step.declaredLengthUnit === 'mm', 'geometry.step.declaredLengthUnit', `STEP declares length unit "${step.declaredLengthUnit}", expected mm.`)
+  check(step.timestamp === NORMALIZED_STEP_TIMESTAMP, 'geometry.step.timestamp', `STEP header timestamp is "${step.timestamp}".`)
+
+  const reimported = dimensionsOf(stepReimport.boundsMm)
+  check(stepReimport.solidCount === 1, 'geometry.stepReimport.solidCount', `Re-imported STEP has ${stepReimport.solidCount} solids.`)
+  check(stepReimport.valid === true, 'geometry.stepReimport.valid', 'The re-imported STEP is invalid.')
+  check(
+    reimported.every((value, axis) => Math.abs(value - expected.dimensionsMm[axis]) <= BREP_NOISE_TOLERANCE_MM),
+    'geometry.stepReimport.dimensionsMm',
+    `Re-imported STEP dimensions ${reimported} differ from the requested ${expected.dimensionsMm} mm.`,
+  )
+  check(
+    Math.abs(stepReimport.volumeMm3 - expected.volumeMm3) <= BREP_VOLUME_TOLERANCE_MM3,
+    'geometry.stepReimport.volumeMm3',
+    `Re-imported STEP volume ${stepReimport.volumeMm3} differs from the analytic ${expected.volumeMm3} mm^3.`,
+  )
+  return issues
+}
+
+/** Reported as [max - min] per axis. */
+export const reportDimensions = dimensionsOf

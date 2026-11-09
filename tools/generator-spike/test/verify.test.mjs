@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { analyzeBinaryStl, analyzeStepText, normalizeStep, normalizeStl, NORMALIZED_STEP_TIMESTAMP, STL_HEADER } from '../src/verify.mjs'
+import { analyzeBinaryStl, analyzeStepText, normalizeStep, normalizeStl, NORMALIZED_STEP_TIMESTAMP, STL_HEADER, verifyPart } from '../src/verify.mjs'
 
 /** Builds a binary STL from triangles given as three [x, y, z] points. */
 function stl(triangles, header = 'test') {
@@ -152,4 +152,47 @@ test('analyzeStepText distinguishes open shells, extra solids and non-millimetre
   assert.equal(two.manifoldSolidBreps, 2)
   const inch = analyzeStepText(utf8(stepText().replace('SI_UNIT(.MILLI.,.METRE.)', 'SI_UNIT($,.METRE.)')))
   assert.equal(inch.declaredLengthUnit, 'unknown')
+})
+
+
+const passing = () => ({
+  expected: { dimensionsMm: [10, 20, 3], volumeMm3: 600, meshVolumeToleranceMm3: 1, throughFeatureCount: 2 },
+  built: { solidCount: 1, valid: true, boundsMm: [[0, 0, 0], [10, 20, 3]], volumeMm3: 600 },
+  stl: { watertight: true, bodies: 1, genus: 2, boundsMm: [[0, 0, 0], [10, 20, 3]], signedVolumeMm3: 600.5, boundaryEdges: 0, nonManifoldEdges: 0, inconsistentEdges: 0, degenerateTriangles: 0 },
+  step: { manifoldSolidBreps: 1, closedShells: 1, openShells: 0, declaredLengthUnit: 'mm', timestamp: NORMALIZED_STEP_TIMESTAMP },
+  stepReimport: { solidCount: 1, valid: true, boundsMm: [[0, 0, 0], [10, 20, 3]], volumeMm3: 600 },
+})
+
+test('verifyPart passes consistent measurements', () => {
+  assert.deepEqual(verifyPart(passing()), [])
+})
+
+test('verifyPart names each failed check by path', () => {
+  const cases = [
+    [(i) => (i.built.solidCount = 2), 'geometry.solidCount'],
+    [(i) => (i.built.valid = false), 'geometry.valid'],
+    [(i) => (i.built.boundsMm[1][1] = 21), 'geometry.dimensionsMm'],
+    [(i) => (i.built.boundsMm = [[1, 0, 0], [11, 20, 3]]), 'geometry.boundsMm'],
+    [(i) => (i.built.volumeMm3 = 601), 'geometry.volumeMm3'],
+    [(i) => (i.stl.watertight = false), 'geometry.stl.watertight'],
+    [(i) => (i.stl.bodies = 2), 'geometry.stl.bodies'],
+    [(i) => (i.stl.genus = 1), 'geometry.stl.genus'],
+    [(i) => (i.stl.boundsMm[1][2] = 3.5), 'geometry.stl.dimensionsMm'],
+    [(i) => (i.stl.signedVolumeMm3 = 590), 'geometry.stl.volumeMm3'],
+    [(i) => (i.step.manifoldSolidBreps = 0), 'geometry.step.manifoldSolidBreps'],
+    [(i) => (i.step.closedShells = 2), 'geometry.step.closedShells'],
+    [(i) => (i.step.openShells = 1), 'geometry.step.openShells'],
+    [(i) => (i.step.declaredLengthUnit = 'unknown'), 'geometry.step.declaredLengthUnit'],
+    [(i) => (i.step.timestamp = '2026-11-09T04:39:43'), 'geometry.step.timestamp'],
+    [(i) => (i.stepReimport.solidCount = 0), 'geometry.stepReimport.solidCount'],
+    [(i) => (i.stepReimport.valid = false), 'geometry.stepReimport.valid'],
+    [(i) => (i.stepReimport.boundsMm[1][0] = 9), 'geometry.stepReimport.dimensionsMm'],
+    [(i) => (i.stepReimport.volumeMm3 = 1), 'geometry.stepReimport.volumeMm3'],
+  ]
+  for (const [mutate, path] of cases) {
+    const input = passing()
+    mutate(input)
+    const paths = verifyPart(input).map((issue) => issue.path)
+    assert.deepEqual(paths, [path], path)
+  }
 })

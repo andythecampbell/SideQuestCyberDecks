@@ -1,0 +1,222 @@
+✖ writes exactly the labelled STL, STEP and manifest (5.164904ms)
+✖ the STL is one closed oriented solid at the requested size with the expected holes (0.497986ms)
+✖ the STEP file declares millimetres and one closed solid, with the timestamp normalized (0.597012ms)
+✖ the manifest records the exact inputs, versions, settings, hashes and measurements (0.496434ms)
+✖ the manifest contains no wall-clock time or local path (0.712348ms)
+✖ a clean run refuses a non-empty output directory and leaves it alone (1.136236ms)
+✖ an empty existing output directory is acceptable (0.524624ms)
+✖ wrong dimensions fail verification and write nothing (0.984311ms)
+✖ a missing through-feature fails the genus check and writes nothing (1.079964ms)
+✖ more than one solid fails and writes nothing (0.80443ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 10
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 125.341687
+
+✖ failing tests:
+
+test at test/generate.test.mjs:23:1
+✖ writes exactly the labelled STL, STEP and manifest (5.164904ms)
+  Error [GeneratorError]: Geometry generation is not implemented yet.
+      at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+      at runFixture (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:19:25)
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:24:42)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.start (node:internal/test_runner/test:944:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17) {
+    code: 'NOT_IMPLEMENTED',
+    stage: 'build',
+    issues: [],
+    exitCode: 5
+  }
+
+test at test/generate.test.mjs:31:1
+✖ the STL is one closed oriented solid at the requested size with the expected holes (0.497986ms)
+  Error [GeneratorError]: Geometry generation is not implemented yet.
+      at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+      at runFixture (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:19:25)
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:32:43)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3) {
+    code: 'NOT_IMPLEMENTED',
+    stage: 'build',
+    issues: [],
+    exitCode: 5
+  }
+
+test at test/generate.test.mjs:43:1
+✖ the STEP file declares millimetres and one closed solid, with the timestamp normalized (0.597012ms)
+  Error [GeneratorError]: Geometry generation is not implemented yet.
+      at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+      at runFixture (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:19:25)
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:44:43)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    code: 'NOT_IMPLEMENTED',
+    stage: 'build',
+    issues: [],
+    exitCode: 5
+  }
+
+test at test/generate.test.mjs:57:1
+✖ the manifest records the exact inputs, versions, settings, hashes and measurements (0.496434ms)
+  Error [GeneratorError]: Geometry generation is not implemented yet.
+      at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+      at runFixture (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:19:25)
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:58:43)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    code: 'NOT_IMPLEMENTED',
+    stage: 'build',
+    issues: [],
+    exitCode: 5
+  }
+
+test at test/generate.test.mjs:97:1
+✖ the manifest contains no wall-clock time or local path (0.712348ms)
+  Error [GeneratorError]: Geometry generation is not implemented yet.
+      at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+      at runFixture (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:19:25)
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:98:33)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    code: 'NOT_IMPLEMENTED',
+    stage: 'build',
+    issues: [],
+    exitCode: 5
+  }
+
+test at test/generate.test.mjs:106:1
+✖ a clean run refuses a non-empty output directory and leaves it alone (1.136236ms)
+  AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+  
+  Caught error:
+  
+  GeneratorError: Geometry generation is not implemented yet.
+      at async TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:111:3)
+      at async Test.run (node:internal/test_runner/test:1054:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: GeneratorError: Geometry generation is not implemented yet.
+        at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+        at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:112:5)
+        at Test.runInAsyncScope (node:async_hooks:214:14)
+        at Test.run (node:internal/test_runner/test:1047:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+        at Test.postRun (node:internal/test_runner/test:1173:19)
+        at Test.run (node:internal/test_runner/test:1101:12)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:744:7),
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at test/generate.test.mjs:119:1
+✖ an empty existing output directory is acceptable (0.524624ms)
+  Error [GeneratorError]: Geometry generation is not implemented yet.
+      at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:123:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    code: 'NOT_IMPLEMENTED',
+    stage: 'build',
+    issues: [],
+    exitCode: 5
+  }
+
+test at test/generate.test.mjs:131:1
+✖ wrong dimensions fail verification and write nothing (0.984311ms)
+  AssertionError [ERR_ASSERTION]: Geometry generation is not implemented yet.
+  + actual - expected
+  
+  + 'NOT_IMPLEMENTED'
+  - 'VERIFICATION_FAILED'
+  
+      at Object.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:137:14)
+      at expectedException (node:assert:576:17)
+      at expectsError (node:assert:701:21)
+      at Function.rejects (node:assert:767:3)
+      at async TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:134:3)
+      at async Test.run (node:internal/test_runner/test:1054:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'NOT_IMPLEMENTED',
+    expected: 'VERIFICATION_FAILED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/generate.test.mjs:149:1
+✖ a missing through-feature fails the genus check and writes nothing (1.079964ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'NOT_IMPLEMENTED'
+  - 'VERIFICATION_FAILED'
+  
+      at Object.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:156:14)
+      at expectedException (node:assert:576:17)
+      at expectsError (node:assert:701:21)
+      at Function.rejects (node:assert:767:3)
+      at async TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:153:3)
+      at async Test.run (node:internal/test_runner/test:1054:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'NOT_IMPLEMENTED',
+    expected: 'VERIFICATION_FAILED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/generate.test.mjs:165:1
+✖ more than one solid fails and writes nothing (0.80443ms)
+  AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+  
+  Caught error:
+  
+  GeneratorError: Geometry generation is not implemented yet.
+      at async TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:168:3)
+      at async Test.run (node:internal/test_runner/test:1054:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: GeneratorError: Geometry generation is not implemented yet.
+        at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:27:9)
+        at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:169:5)
+        at Test.runInAsyncScope (node:async_hooks:214:14)
+        at Test.run (node:internal/test_runner/test:1047:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+        at Test.postRun (node:internal/test_runner/test:1173:19)
+        at Test.run (node:internal/test_runner/test:1101:12)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:744:7),
+    operator: 'rejects',
+    diff: 'simple'
+  }
+EXIT CODE: 1

@@ -214,7 +214,7 @@ export function buildSyntheticPlate(engine, v) {
   const { BRepCheck_Analyzer: Analyzer } = engine.oc
   const valid = kernelStage(engine, 'inspect', () => {
     const analyzer = new Analyzer(shape.wrapped, true, false, false)
-    const result = analyzer.IsValid_2 ? analyzer.IsValid_2() : analyzer.IsValid()
+    const result = analyzer.IsValid()
     analyzer.delete()
     return result
   })
