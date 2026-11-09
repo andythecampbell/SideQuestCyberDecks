@@ -26,11 +26,11 @@ describe('committed repository snapshots', () => {
     expect(deck001.notes.length).toBeGreaterThan(0)
   })
 
-  test('its display identity and spelling are flagged unverified', () => {
-    expect(deck001.unverifiedIdentities.map(u => u.ref)).toContain('hoysond-7in-touch@1')
+  test('uses the confirmed Hosyond reference while later physical details stay unverified', () => {
+    expect(deck001.unverifiedIdentities.map(u => u.ref)).toContain('hosyond-7in-touch@1')
     const parsed = parseSnapshot(files[deck001.file], catalog)
     if (!parsed.ok) throw new Error(parsed.errors.join('\n'))
-    expect(parsed.configuration.placements.map(p => `${p.component.id}@${p.component.revision}`)).toContain('hoysond-7in-touch@1')
+    expect(parsed.configuration.placements.map(p => `${p.component.id}@${p.component.revision}`)).toContain('hosyond-7in-touch@1')
     for (const u of deck001.unverifiedIdentities) expect(u.note.length).toBeGreaterThan(0)
   })
 

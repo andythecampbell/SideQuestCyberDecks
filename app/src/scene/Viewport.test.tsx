@@ -16,7 +16,7 @@ test('bad references and invalid configuration show useful diagnostics and retai
  }
 })
 test('missing Pi/display mappings keep other meshes; body mapping never sends undefined URL',()=>{
- for(const id of ['raspberry-pi-5','hoysond-7in-touch']){
+ for(const id of ['raspberry-pi-5','hosyond-7in-touch']){
   const components=new Map(catalog.components), part=components.get(id+'@1')!
   components.set(id+'@2',{...part,revision:2})
   const config={...articulatedDeck,placements:articulatedDeck.placements.map(p=>p.component.id===id?{...p,component:{id,revision:2}}:p)}

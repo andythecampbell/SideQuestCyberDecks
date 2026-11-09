@@ -43,7 +43,7 @@ Generated parts may use only `datasheet` or `measured` values. An `estimate` sho
 
 ## Identifiers and revisions
 
-- Component and enclosure ids are lowercase kebab-case: `raspberry-pi-5`, `hoysond-7in-touch`.
+- Component and enclosure ids are lowercase kebab-case: `raspberry-pi-5`, `hosyond-7in-touch`.
 - `revision` is an integer that increases whenever geometry or interfaces change. Typo fixes don't need a bump.
 - A configuration references a component by `id` + `revision`.
 - Variants that don't change geometry (e.g. Pi 5 RAM size) are not separate components.

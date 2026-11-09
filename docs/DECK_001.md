@@ -7,7 +7,7 @@ My own deck and the first reference build. It will keep changing.
 | Part | Status | Catalog |
 |---|---|---|
 | Raspberry Pi 5, 2GB | Ordered | `raspberry-pi-5` |
-| Hoysond 7" HDMI touchscreen | Arrived 2026-10-07 | `hoysond-7in-touch` |
+| Hosyond 7" HDMI touchscreen | Arrived 2026-10-07 | `hosyond-7in-touch` |
 | Adafruit mini chiclet keyboard (USB) | Ordered | `adafruit-mini-chiclet-keyboard` |
 | Anker 10000mAh 30W power bank | Ordered | `anker-10000-30w` |
 | Case | Buying in store | (placeholder box for now) |

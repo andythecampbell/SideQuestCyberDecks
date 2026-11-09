@@ -58,7 +58,7 @@ const readFileText = vi.fn(function (this: Blob) {
 })
 Object.defineProperty(File.prototype, 'text', { configurable: true, value: readFileText })
 
-const DISPLAY = 'Hoysond 7" HDMI Touchscreen'
+const DISPLAY = 'Hosyond 7" HDMI Touchscreen'
 const STAMP = '2026-11-08T12:00:00.000Z'
 const act = (fn: () => void) => flushSync(fn)
 

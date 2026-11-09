@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "kind": "component",
-  "id": "hoysond-7in-touch",
+  "id": "hosyond-7in-touch",
   "revision": 1,
-  "name": "Hoysond 7\" HDMI Touchscreen",
+  "name": "Hosyond 7\" HDMI Touchscreen",
   "category": "display",
   "notes": "ALL VALUES ARE PLACEHOLDERS for a typical 7in 1024x600 panel. Measure: overall size, active area and its offset, mounting holes, connector positions, back-side controller board height.",
   "envelope": { "size": [165, 100, 15], "confidence": "estimate" },

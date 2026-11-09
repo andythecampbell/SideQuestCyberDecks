@@ -598,7 +598,7 @@
     },
     {
       "id": "display",
-      "catalogKey": "hoysond-7in-touch@1",
+      "catalogKey": "hosyond-7in-touch@1",
       "url": "/previews/display.glb",
       "source": "assets/Hosyond 7in IPS LCD.step",
       "selection": "all occurrences",

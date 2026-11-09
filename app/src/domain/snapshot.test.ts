@@ -13,7 +13,7 @@ const sample = (): ConfigurationV2 => ConfigurationV2.parse({
   base: { position: [0, 0, 0], rotation: [0, 0, 0, 1] },
   placements: [
     { id: 'pi', component: { id: 'raspberry-pi-5', revision: 1 }, attachment: 'base', position: [1.5, -0, 1e-7], rotation: [0, 0, 0, 1] },
-    { id: 'display', component: { id: 'hoysond-7in-touch', revision: 1 }, attachment: 'lid', position: [-82, 64, 20], rotation: [1, 0, 0, 0] },
+    { id: 'display', component: { id: 'hosyond-7in-touch', revision: 1 }, attachment: 'lid', position: [-82, 64, 20], rotation: [1, 0, 0, 0] },
   ],
   createdAt: '2026-01-01T00:00:00.000Z',
   modifiedAt: '2026-01-02T00:00:00.000Z',
@@ -45,7 +45,7 @@ const GOLDEN = `{
     {
       "attachment": "lid",
       "component": {
-        "id": "hoysond-7in-touch",
+        "id": "hosyond-7in-touch",
         "revision": 1
       },
       "id": "display",
@@ -373,7 +373,7 @@ describe('v1 migration', () => {
     ['wrong units', d => { d.units = 'cm' }, /units: "cm" is not supported/],
     ['non-unit quaternion', d => { d.placements[0].rotation = [0, 0, 0, 3] }, /placements\[0\]\.rotation: rotation must be a unit quaternion/],
     ['duplicate placement ids', d => { d.placements[1].id = d.placements[0].id }, /duplicate placement id: "keyboard"/],
-    ['missing component revision', d => { d.placements[3].component.revision = 7 }, /placements\[3\]\.component: hoysond-7in-touch@7 is not in the catalog/],
+    ['missing component revision', d => { d.placements[3].component.revision = 7 }, /placements\[3\]\.component: hosyond-7in-touch@7 is not in the catalog/],
     ['missing enclosure revision', d => { d.enclosure.revision = 7 }, /enclosure: placeholder-box@7 is not in the catalog/],
   ])('rejects a v1 file with %s using the same specific rule', (_, mutate, message) => {
     const doc = v1Doc()

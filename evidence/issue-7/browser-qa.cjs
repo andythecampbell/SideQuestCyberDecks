@@ -32,7 +32,7 @@ const identity = JSON.parse(fs.readFileSync(process.env.QA_IDENTITY, 'utf8'))
 
 const STORAGE_KEY = 'sidequest-decks:configuration'
 const QUARANTINE_0 = `${STORAGE_KEY}:quarantine:0`
-const DISPLAY = 'Hoysond 7" HDMI Touchscreen'
+const DISPLAY = 'Hosyond 7" HDMI Touchscreen'
 const FIXTURE_DISPLAY = '[-82, 64, 20]'
 const EDITED_DISPLAY = '[-71.5, 51, 20]'
 const FIXTURE_STAMP = '2026-10-07T00:00:00.000Z'
@@ -140,6 +140,7 @@ async function runViewport(browser, vp) {
     check('load-fixture-timestamps', (await stamp('createdAt')) === FIXTURE_STAMP && (await stamp('modifiedAt')) === FIXTURE_STAMP)
     check('load-not-marked-unsaved', (await unsavedVisible()) === 0)
     check('load-header-names-enclosure', await page.getByText('2800 provisional articulated preview', { exact: false }).isVisible())
+    check('load-shows-Hosyond-spelling', await displayItem.isVisible())
 
     // ---------- Edit -> exactly one write of canonical bytes, stamps modifiedAt once.
     await selectDisplay()

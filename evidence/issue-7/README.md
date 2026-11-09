@@ -75,9 +75,6 @@ Screenshots: `normal-edited.png`, `normal-rejected-import.png`, `normal-corrupt-
 | (A) Repository snapshots validate and resolve in all poses | `repoSnapshots.test.ts`, `domain/repoSnapshots.test.ts` |
 | (H) Interactive check by Andy | **Pending.** The automated browser run is a rehearsal of the same steps, not this check. |
 
-## Open decisions (Andy)
+## Decisions recorded from Andy
 
-The first snapshot exists as an explicitly illustrative, uncalibrated record. Two decisions the issue names remain open and are not made here:
-
-- where repository snapshots live (`snapshots/` is provisional);
-- the display identity and spelling (catalog `hoysond-7in-touch`/Hoysond vs CAD source `Hosyond 7in IPS LCD`). The repository holds no physical evidence for either yet; see `snapshots/README.md`.
+Andy accepted `snapshots/` as the repository snapshot path and confirmed `hosyond-7in-touch` / Hosyond in PR #11. Mounting-hole and connector positions remain a later physical-evidence follow-up; Andy will update them as the project progresses. They are not a blocker for this explicitly illustrative, uncalibrated snapshot.

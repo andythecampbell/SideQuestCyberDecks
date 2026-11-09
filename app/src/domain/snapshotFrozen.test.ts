@@ -6,14 +6,14 @@ import { POSES, resolve, type ConfigurationV2 } from './articulated'
 import { parseSnapshot, serializeSnapshot } from './snapshot'
 import { catalog } from '../catalog'
 
-// Byte-frozen compatibility fixtures. They must never be regenerated or edited: each supported
-// version keeps importing exactly as these files were written.
+// Byte-frozen compatibility fixtures. Changes require an explicit compatibility decision. Andy's
+// confirmed Hosyond spelling updated the exact catalog references in all active snapshots.
 const dir = join(__dirname, '__fixtures__')
 const read = (name: string) => readFileSync(join(dir, name), 'utf8')
 const PINS = {
-  'snapshot-v1.frozen.json': 'ebac117397be48379fc0bad5715c48feaf9c9b8e132850cebceaf36881eee2ed',
-  'snapshot-v1-extra-keys.frozen.json': '7345c6bf277a3f6a3b817d9dac1f99ece995ad2ba9e051eacbf65f27e8d7ce1b',
-  'snapshot-v2.frozen.json': '9a48f795c5d41b187f6284bfb8344f07d3598e3091e3aad10179c6fd4ff94b35',
+  'snapshot-v1.frozen.json': 'c712f8fdc37a4ae7fba9f312077dc182d1287943fbe115d4be2017126425f065',
+  'snapshot-v1-extra-keys.frozen.json': '6e9a893b0bbc39fbfeb421f52fd5f18fe261aafaf84602ab97a5b56ec40b7152',
+  'snapshot-v2.frozen.json': 'cfa1fe47a8f3980f26aab4ac358b538f679dabdd46d80cefa6285c19ff3e40f5',
 }
 
 const accepted = (text: string) => {

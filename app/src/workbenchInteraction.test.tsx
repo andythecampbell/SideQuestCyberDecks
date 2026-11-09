@@ -72,9 +72,9 @@ describe('mounted list/mesh selection -> edit -> pose -> selection change', () =
     expect(warning()).not.toBeNull()
 
     // List selection.
-    const displayItem = listButton('Hoysond 7" HDMI Touchscreen')
+    const displayItem = listButton('Hosyond 7" HDMI Touchscreen')
     click(displayItem)
-    expect(heading()).toBe('Hoysond 7" HDMI Touchscreen')
+    expect(heading()).toBe('Hosyond 7" HDMI Touchscreen')
     expect(displayItem.getAttribute('aria-pressed')).toBe('true')
     expect(mesh('display').dataset.selected).toBe('true')
     expect(document.activeElement).toBe(displayItem)
@@ -136,7 +136,7 @@ describe('mounted list/mesh selection -> edit -> pose -> selection change', () =
 
     // List selection change back: the edited display values persist; focus stays on the list item.
     click(displayItem)
-    expect(heading()).toBe('Hoysond 7" HDMI Touchscreen')
+    expect(heading()).toBe('Hosyond 7" HDMI Touchscreen')
     expect(stored('position')).toBe('[-71.5, 51, 20]')
     expect(stored('rotation')).toBe(rotated)
     expect(input('x').value).toBe('-71.5')

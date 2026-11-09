@@ -2,7 +2,7 @@
 
 Committed configuration snapshots. `npm test` validates every file here against the real catalog and resolves each one in every supported pose, the same way the catalog is validated.
 
-> **Status: provisional location.** Andy's decision on where repository snapshots live (issue #7) is still open. This directory was chosen so the first snapshot can exist and be validated; moving it is a one-line test change. The display catalog id spelling is likewise an open decision, recorded below.
+> **Status: accepted location.** Andy accepted `snapshots/` as the default repository snapshot path in PR #11.
 
 ## Rules
 
@@ -24,7 +24,6 @@ A snapshot records a configuration. It is not a description of a physical deck. 
 
 - `deck-001-illustrative.json`: the app's illustrative fixture, exported canonically. Uncalibrated and not as-built.
 
-## Open decisions
+## Product identity and later physical evidence
 
-- **Snapshot location.** Provisional; see above.
-- **Display identity and spelling.** The catalog says `hoysond-7in-touch` / Hoysond; the preview CAD source file is named `Hosyond 7in IPS LCD`. No physical evidence confirms either yet. `hoysond-7in-touch@1` is referenced only because it is the existing catalog id; the `unverifiedIdentities` entry says so explicitly. A correction would be a new catalog id or revision and a new snapshot, which is why it is cheaper to decide early.
+Andy confirmed the display spelling as `hosyond-7in-touch` / Hosyond in PR #11. The immutable CAD source remains `assets/Hosyond 7in IPS LCD.step`. Mounting-hole and connector positions remain estimates or unresolved; Andy will update them as physical evidence becomes available. Those later measurements do not block this illustrative, uncalibrated snapshot.

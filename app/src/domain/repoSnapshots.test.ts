@@ -5,7 +5,7 @@ import { articulatedDeck } from '../articulatedFixture'
 import { catalog } from '../catalog'
 
 const FILE = 'deck-001-illustrative.json'
-const DISPLAY = 'hoysond-7in-touch@1'
+const DISPLAY = 'hosyond-7in-touch@1'
 const label = () => ({
   file: FILE,
   deck: 'Deck 001',
@@ -14,7 +14,7 @@ const label = () => ({
   authoritative: false,
   asBuilt: false,
   notes: 'Illustrative placements only.',
-  unverifiedIdentities: [{ ref: DISPLAY, note: 'Spelling and product identity unverified.' }],
+  unverifiedIdentities: [{ ref: DISPLAY, note: 'Mounting-hole and connector positions await physical evidence.' }],
 })
 const files = (index: unknown = { snapshots: [label()] }, snapshot: string = serializeSnapshot(articulatedDeck)) =>
   ({ 'index.json': JSON.stringify(index), [FILE]: snapshot })
@@ -72,9 +72,9 @@ describe('repository snapshot validation', () => {
     expect(errors(files(undefined, v1)).join('\n')).toMatch(/not canonical|schema version 2/)
   })
 
-  test('the display identity must be flagged unverified', () => {
-    expect(errors(files({ snapshots: [{ ...label(), unverifiedIdentities: [] }] })).join('\n')).toMatch(/hoysond-7in-touch@1.*unverified/)
-    expect(errors(files({ snapshots: [{ ...label(), unverifiedIdentities: [{ ref: 'raspberry-pi-5@1', note: 'Not the display.' }] }] })).join('\n')).toMatch(/hoysond-7in-touch@1.*unverified/)
+  test('the display must remain flagged for unresolved physical details', () => {
+    expect(errors(files({ snapshots: [{ ...label(), unverifiedIdentities: [] }] })).join('\n')).toMatch(/hosyond-7in-touch@1.*unverified/)
+    expect(errors(files({ snapshots: [{ ...label(), unverifiedIdentities: [{ ref: 'raspberry-pi-5@1', note: 'Not the display.' }] }] })).join('\n')).toMatch(/hosyond-7in-touch@1.*unverified/)
   })
 
   test('a duplicate index entry is rejected', () => {
