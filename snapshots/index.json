@@ -1,0 +1,19 @@
+{
+  "snapshots": [
+    {
+      "file": "deck-001-illustrative.json",
+      "deck": "Deck 001",
+      "status": "illustrative",
+      "calibration": "uncalibrated",
+      "authoritative": false,
+      "asBuilt": false,
+      "notes": "Canonical export of the app's illustrative fixture placements. Nothing in it was measured: the enclosure calibration is UNRESOLVED and every placement is illustrative. It records a configuration, not the physical Deck 001 as built, and no fit, clearance or fabrication conclusion may be drawn from it. Replacing it needs a new, explicitly relabelled snapshot backed by physical evidence.",
+      "unverifiedIdentities": [
+        {
+          "ref": "hosyond-7in-touch@1",
+          "note": "Andy confirmed the Hosyond product spelling in PR #11. Mounting-hole and connector positions remain unverified and will be updated later from physical evidence (issue #8); this illustrative snapshot makes no fit or fabrication claim."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (15 tests | 11 failed) 14ms
+   ❯ parseSnapshot file gate (11)
+     × rejects non-JSON text with a readable message 2ms
+     × rejects oversized input by UTF-8 byte length before parsing it 0ms
+     × rejects a array document: only JSON objects are snapshots 0ms
+     × rejects a null document: only JSON objects are snapshots 0ms
+     × rejects a string document: only JSON objects are snapshots 1ms
+     × rejects a number document: only JSON objects are snapshots 0ms
+     × rejects a missing schemaVersion and lists the supported versions 0ms
+     × rejects a unknown number schemaVersion and lists the supported versions 0ms
+     × rejects a string schemaVersion and lists the supported versions 0ms
+     × rejects a null schemaVersion and lists the supported versions 0ms
+     × rejects a float schemaVersion and lists the supported versions 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects non-JSON text with a readable message
+TypeError: parseSnapshot is not a function
+ ❯ rejected src/domain/snapshot.test.ts:93:20
+     91| describe('parseSnapshot file gate', () => {
+     92|   const rejected = (text: string) => {
+     93|     const result = parseSnapshot(text, catalog)
+       |                    ^
+     94|     if (result.ok) throw new Error(`expected rejection, got ${JSON.str…
+     95|     return result.errors.join('\n')
+ ❯ src/domain/snapshot.test.ts:99:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects oversized input by UTF-8 byte length before parsing it
+TypeError: parseSnapshot is not a function
+ ❯ rejected src/domain/snapshot.test.ts:93:20
+     91| describe('parseSnapshot file gate', () => {
+     92|   const rejected = (text: string) => {
+     93|     const result = parseSnapshot(text, catalog)
+       |                    ^
+     94|     if (result.ok) throw new Error(`expected rejection, got ${JSON.str…
+     95|     return result.errors.join('\n')
+ ❯ src/domain/snapshot.test.ts:106:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a array document: only JSON objects are snapshots
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a null document: only JSON objects are snapshots
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a string document: only JSON objects are snapshots
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a number document: only JSON objects are snapshots
+TypeError: parseSnapshot is not a function
+ ❯ rejected src/domain/snapshot.test.ts:93:20
+     91| describe('parseSnapshot file gate', () => {
+     92|   const rejected = (text: string) => {
+     93|     const result = parseSnapshot(text, catalog)
+       |                    ^
+     94|     if (result.ok) throw new Error(`expected rejection, got ${JSON.str…
+     95|     return result.errors.join('\n')
+ ❯ src/domain/snapshot.test.ts:112:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a missing schemaVersion and lists the supported versions
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a unknown number schemaVersion and lists the supported versions
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a string schemaVersion and lists the supported versions
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a null schemaVersion and lists the supported versions
+ FAIL  src/domain/snapshot.test.ts > parseSnapshot file gate > rejects a float schemaVersion and lists the supported versions
+TypeError: parseSnapshot is not a function
+ ❯ rejected src/domain/snapshot.test.ts:93:20
+     91| describe('parseSnapshot file gate', () => {
+     92|   const rejected = (text: string) => {
+     93|     const result = parseSnapshot(text, catalog)
+       |                    ^
+     94|     if (result.ok) throw new Error(`expected rejection, got ${JSON.str…
+     95|     return result.errors.join('\n')
+ ❯ src/domain/snapshot.test.ts:122:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  11 failed | 4 passed (15)
+   Start at  18:56:24
+   Duration  339ms (transform 51%, import 41%, tests 7%, worker 2%)
+
+EXIT CODE: 1

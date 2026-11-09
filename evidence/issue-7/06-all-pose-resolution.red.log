@@ -1,0 +1,78 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (47 tests | 4 failed | 42 skipped) 11ms
+   ❯ resolution in every supported pose (5)
+     × supported poses are exactly OPEN and CLOSED 7ms
+     × an accepted v2 document resolves to finite transforms in every pose 1ms
+     × a lid attachment against a box enclosure is rejected, naming the placement and enclosure 1ms
+     × a transform that overflows only in the CLOSED pose is rejected: every pose is checked, not just the first 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts > resolution in every supported pose > supported poses are exactly OPEN and CLOSED
+AssertionError: expected undefined to deeply equal [ 'OPEN', 'CLOSED' ]
+
+- Expected:
+[
+  "OPEN",
+  "CLOSED",
+]
+
++ Received:
+undefined
+
+ ❯ src/domain/snapshot.test.ts:278:19
+    276|
+    277|   test('supported poses are exactly OPEN and CLOSED', () => {
+    278|     expect(POSES).toEqual(['OPEN', 'CLOSED'])
+       |                   ^
+    279|   })
+    280|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/domain/snapshot.test.ts > resolution in every supported pose > an accepted v2 document resolves to finite transforms in every pose
+TypeError: POSES is not iterable
+ ❯ src/domain/snapshot.test.ts:285:24
+    283|     if (!result.ok) throw new Error(result.errors.join('\n'))
+    284|     const enclosure = catalog.enclosures.get('case-2800-preview@1')!
+    285|     for (const pose of POSES) {
+       |                        ^
+    286|       const resolved = resolve(result.configuration, enclosure, catalo…
+    287|       expect(resolved.placements).toHaveLength(4)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/domain/snapshot.test.ts > resolution in every supported pose > a lid attachment against a box enclosure is rejected, naming the placement and enclosure
+Error: expected rejection, got {"schemaVersion":2,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"placeholder-box","revision":1},"base":{"position":[0,0,0],"rotation":[0,0,0,1]},"placements":[{"position":[-140,-105,-80],"rotation":[0,0,0,1],"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"attachment":"base"},{"position":[-140,20,-80],"rotation":[0,0,0,1],"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"attachment":"base"},{"position":[30,20,-80],"rotation":[0,0,0,1],"id":"power","component":{"id":"anker-10000-30w","revision":1},"attachment":"base"},{"position":[-82,64,20],"rotation":[1,0,0,0],"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"attachment":"lid"}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z"}
+ ❯ errorsFor src/domain/snapshot.test.ts:134:24
+    132| const errorsFor = (doc: unknown) => {
+    133|   const result = parseDoc(doc)
+    134|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    135|   return result.errors.join('\n')
+    136| }
+ ❯ src/domain/snapshot.test.ts:297:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/domain/snapshot.test.ts > resolution in every supported pose > a transform that overflows only in the CLOSED pose is rejected: every pose is checked, not just the first
+TypeError: Cannot read properties of undefined (reading '0')
+ ❯ src/domain/snapshot.test.ts:311:12
+    309|     doc.base = { position: [0, 1.7e308, 0], rotation: [0, 0, 0, 1] }
+    310|     doc.placements = [{ ...doc.placements[3], position: [0, 1.7e308, 0…
+    311|     expect(POSES[0]).toBe('OPEN')
+       |            ^
+    312|     const c = ConfigurationV2.parse(doc)
+    313|     const enclosure = catalog.enclosures.get('case-2800-preview@1')!
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 1 passed | 42 skipped (47)
+   Start at  18:58:19
+   Duration  323ms (transform 57%, import 36%, tests 5%, worker 1%)
+
+EXIT CODE: 1

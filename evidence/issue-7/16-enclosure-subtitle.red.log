@@ -1,0 +1,35 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+(node:1744221) [THREE_CJS_DEPRECATED] DeprecationWarning: `require("three")` is deprecated and will be removed.
+Replace `const THREE = require("three")` with `import * as THREE from "three"`.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ src/selectionSync.test.tsx (8 tests | 1 failed | 7 skipped) 20ms
+   ❯ the workbench describes the loaded configuration (1)
+     × names the enclosure actually loaded, so an imported box is not called the 2800 preview 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/selectionSync.test.tsx > the workbench describes the loaded configuration > names the enclosure actually loaded, so an imported box is not called the 2800 preview
+AssertionError: expected '<div class="layout"><aside class="pan…' to contain 'Placeholder open box'
+
+Expected: "Placeholder open box"
+Received: "<div class="layout"><aside class="panel"><aside class="no-fit-warning" role="note" aria-label="No-fit warning"><strong>Not validated.</strong> Fit, clearance, wiring, connector access, cooling and assembly are unvalidated. On-screen appearance, mesh bounds and apparent overlap (or its absence) are not evidence.</aside><div class="panel-scroll"><h1>SideQuest Decks</h1><p class="muted">2800 articulated preview · mm, Z-up</p><section aria-label="Inspection pose"><p role="status">UNRESOLVED calibration · illustrative placement / not fit validated. Component natural orientation is unverified.</p><div><button type="button" aria-pressed="true">OPEN · 120°</button><button type="button" aria-pressed="false">CLOSED · 210°</button></div><p class="muted">Inspection only. Assumed CLOSED reference, sign +1, candidate +X hinge. Driver delta 90°; observed export delta 90.75770394990006°. Datums and mapping await approval.</p></section><p class="muted">Body-local positions. Imported mesh overlays hidden: catalog holes, ports and keep-outs are unvalidated. Keyboard/power are estimated envelopes. Mesh bounds differ from estimated catalog envelopes; no scaling to fit. GrabCAD case/Pi and Andy display: source URLs/license TODO, deferred.</p><section class="snapshot" aria-label="Configuration file"><h2>Configuration file</h2><dl><dt>Created</dt><dd data-field="createdAt">2026-10-07T00:00:00.000Z</dd><dt>Modified</dt><dd data-field="modifiedAt">2026-10-07T00:00:00.000Z</dd></dl><div class="snapshot-actions"><button type="button" title="Download sidequest-configuration.json">Export file</button><label class="snapshot-import">Import file<input type="file" accept=".json,application/json"/></label><button type="button">Reset to fixture</button></div></section><h2>Components</h2><ul class="parts"><li class=""><button type="button" aria-pressed="false">Adafruit Mini Chiclet Keyboard (USB)</button><span class="badge">2 est.</span></li><li class=""><button type="button" aria-pressed="false">Raspberry Pi 5</button><span class="badge">7 est.</span></li><li class=""><button type="button" aria-pressed="false">Anker 10000mAh 30W Power Bank</button><span class="badge">3 est.</span></li><li class=""><button type="button" aria-pressed="false">Hoysond 7&quot; HDMI Touchscreen</button><span class="badge">5 est.</span></li></ul><footer class="muted">Illustrative preview only. No physical fit, clearance or fabrication validation.</footer></div></aside><main class="viewport"><div style="position:relative;width:100%;height:100%;overflow:hidden;pointer-events:auto"><div style="width:100%;height:100%"><canvas style="display:block"></canvas></div></div></main></div>"
+
+ ❯ src/selectionSync.test.tsx:97:18
+     95|   test('names the enclosure actually loaded, so an imported box is not…
+     96|     const html = renderToStaticMarkup(Workbench(props({ design: initia…
+     97|     expect(html).toContain('Placeholder open box')
+       |                  ^
+     98|     expect(html).not.toContain('2800 articulated preview')
+     99|     expect(renderToStaticMarkup(Workbench(props()))).toContain('2800 p…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 skipped (8)
+   Start at  19:11:51
+   Duration  695ms (import 66%, transform 30%, tests 3%, worker 1%)
+
+EXIT CODE: 1

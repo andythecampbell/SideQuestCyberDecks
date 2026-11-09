@@ -1,0 +1,105 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (35 tests | 17 failed | 15 skipped) 16ms
+   ❯ strict v2 parsing (20)
+     × rejects wrong units with a specific message 4ms
+     × rejects missing units with a specific message 1ms
+     × rejects wrong coordinate system with a specific message 0ms
+     × rejects non-unit quaternion in a placement with a specific message 0ms
+     × rejects non-unit base quaternion with a specific message 0ms
+     × rejects non-finite position via 1e999 with a specific message 0ms
+     × rejects short position with a specific message 1ms
+     × rejects unknown top-level key with a specific message 0ms
+     × rejects unknown key inside a placement with a specific message 0ms
+     × rejects unknown key inside a component ref with a specific message 0ms
+     × rejects unknown key inside the base transform with a specific message 0ms
+     × rejects unknown key inside the enclosure ref with a specific message 0ms
+     × rejects prototype-shaped key with a specific message 0ms
+     × rejects bad attachment with a specific message 0ms
+     × rejects non-integer revision with a specific message 0ms
+     × rejects bad timestamp with a specific message 0ms
+     × several unknown keys in one object are each named 0ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 17 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects wrong units with a specific message
+Error: expected rejection for {"schemaVersion":2,"units":"in","coordinateSystem":"right-handed-z-up","enclosur
+ ❯ src/domain/snapshot.test.ts:185:26
+    183|     const text = JSON.stringify(doc).replace('"__1e999__"', '[1e999,0,…
+    184|     const result = parseSnapshot(text, catalog)
+    185|     if (result.ok) throw new Error(`expected rejection for ${text.slic…
+       |                          ^
+    186|     expect(result.errors.join('\n')).toMatch(message)
+    187|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/17]⎯
+
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects missing units with a specific message
+Error: expected rejection for {"schemaVersion":2,"coordinateSystem":"right-handed-z-up","enclosure":{"id":"cas
+ ❯ src/domain/snapshot.test.ts:185:26
+    183|     const text = JSON.stringify(doc).replace('"__1e999__"', '[1e999,0,…
+    184|     const result = parseSnapshot(text, catalog)
+    185|     if (result.ok) throw new Error(`expected rejection for ${text.slic…
+       |                          ^
+    186|     expect(result.errors.join('\n')).toMatch(message)
+    187|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/17]⎯
+
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects wrong coordinate system with a specific message
+Error: expected rejection for {"schemaVersion":2,"units":"mm","coordinateSystem":"left-handed-y-up","enclosure
+ ❯ src/domain/snapshot.test.ts:185:26
+    183|     const text = JSON.stringify(doc).replace('"__1e999__"', '[1e999,0,…
+    184|     const result = parseSnapshot(text, catalog)
+    185|     if (result.ok) throw new Error(`expected rejection for ${text.slic…
+       |                          ^
+    186|     expect(result.errors.join('\n')).toMatch(message)
+    187|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/17]⎯
+
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects non-unit quaternion in a placement with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects non-unit base quaternion with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects non-finite position via 1e999 with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects short position with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects unknown top-level key with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects unknown key inside a placement with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects unknown key inside a component ref with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects unknown key inside the base transform with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects unknown key inside the enclosure ref with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects prototype-shaped key with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects bad attachment with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects non-integer revision with a specific message
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > rejects bad timestamp with a specific message
+Error: expected rejection for {"schemaVersion":2,"units":"mm","coordinateSystem":"right-handed-z-up","enclosur
+ ❯ src/domain/snapshot.test.ts:185:26
+    183|     const text = JSON.stringify(doc).replace('"__1e999__"', '[1e999,0,…
+    184|     const result = parseSnapshot(text, catalog)
+    185|     if (result.ok) throw new Error(`expected rejection for ${text.slic…
+       |                          ^
+    186|     expect(result.errors.join('\n')).toMatch(message)
+    187|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/17]⎯
+
+ FAIL  src/domain/snapshot.test.ts > strict v2 parsing > several unknown keys in one object are each named
+Error: expected rejection, got {"schemaVersion":2,"units":"mm","coordinateSystem":"right-handed-z-up","enclosure":{"id":"case-2800-preview","revision":1},"base":{"position":[0,0,0],"rotation":[0,0,0,1]},"placements":[{"position":[-140,-105,-80],"rotation":[0,0,0,1],"id":"keyboard","component":{"id":"adafruit-mini-chiclet-keyboard","revision":1},"attachment":"base"},{"position":[-140,20,-80],"rotation":[0,0,0,1],"id":"pi","component":{"id":"raspberry-pi-5","revision":1},"attachment":"base"},{"position":[30,20,-80],"rotation":[0,0,0,1],"id":"power","component":{"id":"anker-10000-30w","revision":1},"attachment":"base"},{"position":[-82,64,20],"rotation":[1,0,0,0],"id":"display","component":{"id":"hoysond-7in-touch","revision":1},"attachment":"lid"}],"createdAt":"2026-10-07T00:00:00.000Z","modifiedAt":"2026-10-07T00:00:00.000Z","pose":"OPEN","selectedId":"pi"}
+ ❯ errorsFor src/domain/snapshot.test.ts:134:24
+    132| const errorsFor = (doc: unknown) => {
+    133|   const result = parseDoc(doc)
+    134|   if (result.ok) throw new Error(`expected rejection, got ${JSON.strin…
+       |                        ^
+    135|   return result.errors.join('\n')
+    136| }
+ ❯ src/domain/snapshot.test.ts:190:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/17]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  17 failed | 3 passed | 15 skipped (35)
+   Start at  18:57:02
+   Duration  392ms (transform 54%, import 37%, tests 7%, worker 2%)
+
+EXIT CODE: 1

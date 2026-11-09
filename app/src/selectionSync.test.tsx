@@ -9,6 +9,9 @@ import { ComponentView } from './scene/ComponentView'
 import { initialDesign, applyPlacementEdit } from './designState'
 import { articulatedDeck } from './articulatedFixture'
 import { catalog } from './catalog'
+import { EMPTY_REPORT } from './SnapshotPanel'
+import { migrateV1ToV2 } from './domain/articulated'
+import { deck001 } from './fixtures'
 
 type El = ReactElement<Record<string, unknown> & { children?: ReactNode }>
 /** Collects host and component elements without invoking child components. */
@@ -23,7 +26,7 @@ function elements(node: ReactNode, out: El[] = []): El[] {
 
 const props = (over: Partial<WorkbenchProps> = {}): WorkbenchProps => ({
   design: initialDesign(articulatedDeck), pose: 'OPEN', selectedId: null,
-  onPose: vi.fn(), onSelect: vi.fn(), onEdit: vi.fn(), ...over,
+  onPose: vi.fn(), onSelect: vi.fn(), onEdit: vi.fn(), report: EMPTY_REPORT, onExport: vi.fn(), onImportFile: vi.fn(), onReset: vi.fn(), ...over,
 })
 const listButtons = (tree: El[]) => tree.filter(e => e.type === 'button' && 'aria-pressed' in e.props)
 
@@ -85,5 +88,14 @@ describe('pose is UI state separate from the design', () => {
     expect(renderToStaticMarkup(Workbench(props()))).not.toContain('Unsaved')
     const edited = applyPlacementEdit(initialDesign(articulatedDeck), 'pi', { position: [0, 0, 0] }, () => '2026-11-08T12:00:00.000Z')
     for (const pose of ['OPEN', 'CLOSED'] as const) expect(renderToStaticMarkup(Workbench(props({ design: edited, pose })))).toContain('Unsaved')
+  })
+})
+
+describe('the workbench describes the loaded configuration', () => {
+  test('names the enclosure actually loaded, so an imported box is not called the 2800 preview', () => {
+    const html = renderToStaticMarkup(Workbench(props({ design: initialDesign(migrateV1ToV2(deck001)) })))
+    expect(html).toContain('Placeholder open box')
+    expect(html).not.toContain('2800 articulated preview')
+    expect(renderToStaticMarkup(Workbench(props()))).toContain('2800 provisional articulated preview')
   })
 })

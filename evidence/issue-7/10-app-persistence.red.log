@@ -1,0 +1,156 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/appPersistence.test.tsx (9 tests | 7 failed) 182ms
+   ❯ committed edits persist and survive a reload (7)
+     × an accepted edit writes exactly once, stamps modifiedAt exactly once, and is canonical 20ms
+     × a remount (reload) restores the committed edit without writing or re-stamping 18ms
+     × pose and selection changes never write or stamp, and the stored design has no view state 49ms
+     × each further real edit writes once more and advances modifiedAt 11ms
+     × a failed save keeps the edit in memory, marks it unsaved and leaves the previous value 9ms
+   ❯ corrupt stored value (2)
+     × falls back to the fixture with a notice, on every load, and writes nothing 5ms
+     × the first committed edit preserves the corrupt bytes and then saves; reload restores the edit 12ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/appPersistence.test.tsx > committed edits persist and survive a reload > an accepted edit writes exactly once, stamps modifiedAt exactly once, and is canonical
+AssertionError: expected [] to deeply equal [ 'sidequest-decks:configuration' ]
+
+- Expected
++ Received
+
+- [
+-   "sidequest-decks:configuration",
+- ]
++ []
+
+ ❯ src/appPersistence.test.tsx:114:28
+    112|     page.setX('-71.5')
+    113|     expect(page.stored()).toBe('[-71.5, 64, 20]')
+    114|     expect(storage.writes).toEqual([STORAGE_KEY])
+       |                            ^
+    115|     expect(clockCalls).toBe(1)
+    116|     const saved = parseStored(storage)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  src/appPersistence.test.tsx > committed edits persist and survive a reload > a remount (reload) restores the committed edit without writing or re-stamping
+AssertionError: expected [] to deeply equal [ 'sidequest-decks:configuration' ]
+
+- Expected
++ Received
+
+- [
+-   "sidequest-decks:configuration",
+- ]
++ []
+
+ ❯ src/appPersistence.test.tsx:133:28
+    131|
+    132|     const reloaded = mount(storage)
+    133|     expect(storage.writes).toEqual([STORAGE_KEY])
+       |                            ^
+    134|     reloaded.selectDisplay()
+    135|     expect(reloaded.stored()).toBe('[-71.5, 64, 20]')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  src/appPersistence.test.tsx > committed edits persist and survive a reload > pose and selection changes never write or stamp, and the stored design has no view state
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ src/appPersistence.test.tsx:159:24
+    157|     expect(clockCalls).toBe(calls)
+    158|     expect(storage.data.get(STORAGE_KEY)).toBe(stored)
+    159|     expect(stored).not.toMatch(/"pose"|"selected|selectedId|"OPEN"|"CL…
+       |                        ^
+    160|   })
+    161|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  src/appPersistence.test.tsx > committed edits persist and survive a reload > each further real edit writes once more and advances modifiedAt
+AssertionError: expected [] to deeply equal [ …(2) ]
+
+- Expected
++ Received
+
+- [
+-   "sidequest-decks:configuration",
+-   "sidequest-decks:configuration",
+- ]
++ []
+
+ ❯ src/appPersistence.test.tsx:188:28
+    186|     page.setX('-71.5')
+    187|     page.setX('-60')
+    188|     expect(storage.writes).toEqual([STORAGE_KEY, STORAGE_KEY])
+       |                            ^
+    189|     expect(clockCalls).toBe(2)
+    190|     expect(parseStored(storage).modifiedAt).toBe('2026-11-08T12:00:02.…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  src/appPersistence.test.tsx > committed edits persist and survive a reload > a failed save keeps the edit in memory, marks it unsaved and leaves the previous value
+AssertionError: expected 'Not validated. Fit, clearance, wiring…' to match /Could not save/
+
+- Expected:
+/Could not save/
+
++ Received:
+"Not validated. Fit, clearance, wiring, connector access, cooling and assembly are unvalidated. On-screen appearance, mesh bounds and apparent overlap (or its absence) are not evidence.SideQuest Decks2800 articulated preview · mm, Z-upUnsaved · edits are in memory only; reloading discards them.UNRESOLVED calibration · illustrative placement / not fit validated. Component natural orientation is unverified.OPEN · 120°CLOSED · 210°Inspection only. Assumed CLOSED reference, sign +1, candidate +X hinge. Driver delta 90°; observed export delta 90.75770394990006°. Datums and mapping await approval.Body-local positions. Imported mesh overlays hidden: catalog holes, ports and keep-outs are unvalidated. Keyboard/power are estimated envelopes. Mesh bounds differ from estimated catalog envelopes; no scaling to fit. GrabCAD case/Pi and Andy display: source URLs/license TODO, deferred.ComponentsAdafruit Mini Chiclet Keyboard (USB)2 est.Raspberry Pi 57 est.Anker 10000mAh 30W Power Bank3 est.Hoysond 7\" HDMI Touchscreen5 est.Hoysond 7\" HDMI TouchscreenComponenthoysond-7in-touch@1Attachment bodylidStored position · mm[-71.5, 64, 20]Stored quaternion [x, y, z, w][1, 0, 0, 0]Enclosurecase-2800-preview@1 calibration: UNRESOLVEDCatalog features recorded as estimate:envelopeactive areaport hdmiport usb-touch-powerkeep-out rear-cablesBody-local position relative to lid · mmXYZApply positionRotate about lid axesStep °X−X+Y−Y+Z−Z+Illustrative preview only. No physical fit, clearance or fabrication validation."
+
+ ❯ src/appPersistence.test.tsx:203:25
+    201|     expect(page.stored()).toBe('[-71.5, 64, 20]')
+    202|     expect(page.text()).toContain('Unsaved')
+    203|     expect(page.text()).toMatch(/Could not save/)
+       |                         ^
+    204|     expect(storage.data.get(STORAGE_KEY)).toBe(previous)
+    205|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  src/appPersistence.test.tsx > corrupt stored value > falls back to the fixture with a notice, on every load, and writes nothing
+AssertionError: expected '' to match /could not be loaded.*fixture/
+
+- Expected:
+/could not be loaded.*fixture/
+
++ Received:
+""
+
+ ❯ src/appPersistence.test.tsx:216:40
+    214|     for (let i = 0; i < 2; i++) {
+    215|       const page = mount(storage)
+    216|       expect(page.alerts().join('\n')).toMatch(/could not be loaded.*f…
+       |                                        ^
+    217|       page.selectDisplay()
+    218|       expect(page.stored()).toBe('[-82, 64, 20]')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL  src/appPersistence.test.tsx > corrupt stored value > the first committed edit preserves the corrupt bytes and then saves; reload restores the edit
+AssertionError: expected undefined to be '{"schemaVersion":2,"units"' // Object.is equality
+
+- Expected:
+"{\"schemaVersion\":2,\"units\""
+
++ Received:
+undefined
+
+ ❯ src/appPersistence.test.tsx:233:55
+    231|     page.selectDisplay()
+    232|     page.setX('-71.5')
+    233|     expect(storage.data.get(`${QUARANTINE_PREFIX}0`)).toBe(CORRUPT)
+       |                                                       ^
+    234|     expect(page.text()).toContain(`${QUARANTINE_PREFIX}0`)
+    235|     expect(parseStored(storage).placements.find(p => p.id === 'display…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 2 passed (9)
+   Start at  19:03:33
+   Duration  896ms (environment 40%, tests 23%, transform 19%, import 18%)
+
+EXIT CODE: 1

@@ -1,0 +1,55 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/domain/snapshot.test.ts (60 tests | 2 failed | 57 skipped) 13ms
+   ❯ rejection reporting (3)
+     × messages say snapshot, so they read correctly for a file and for a stored value 7ms
+     × reports at most 20 specific problems and says how many more exist, so a hostile file cannot flood the page 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/domain/snapshot.test.ts > rejection reporting > messages say snapshot, so they read correctly for a file and for a stored value
+AssertionError: expected 'File is not valid JSON: Unexpected to…' to match /^Snapshot is not valid JSON/
+
+- Expected:
+/^Snapshot is not valid JSON/
+
++ Received:
+"File is not valid JSON: Unexpected token 'o', \"nope\" is not valid JSON"
+
+ ❯ src/domain/snapshot.test.ts:389:31
+    387|     const notJson = parseSnapshot('nope', catalog)
+    388|     if (notJson.ok) throw new Error('expected rejection')
+    389|     expect(notJson.errors[0]).toMatch(/^Snapshot is not valid JSON/)
+       |                               ^
+    390|     const tooLarge = parseSnapshot(' '.repeat(MAX_SNAPSHOT_BYTES + 1),…
+    391|     if (tooLarge.ok) throw new Error('expected rejection')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/domain/snapshot.test.ts > rejection reporting > reports at most 20 specific problems and says how many more exist, so a hostile file cannot flood the page
+AssertionError: expected [ 'Unknown key: bogus0', …(49) ] to have a length of 21 but got 50
+
+- Expected
++ Received
+
+- 21
++ 50
+
+ ❯ src/domain/snapshot.test.ts:400:27
+    398|     const result = parseSnapshot(JSON.stringify(doc), catalog)
+    399|     if (result.ok) throw new Error('expected rejection')
+    400|     expect(result.errors).toHaveLength(21)
+       |                           ^
+    401|     expect(result.errors[0]).toMatch(/^Unknown key: bogus0$/)
+    402|     expect(result.errors[20]).toMatch(/^\.\.\.and 30 more problems\.$/)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed | 57 skipped (60)
+   Start at  19:24:24
+   Duration  334ms (transform 57%, import 36%, tests 6%, worker 1%)
+
+EXIT CODE: 1

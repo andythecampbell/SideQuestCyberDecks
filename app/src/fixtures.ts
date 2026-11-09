@@ -10,7 +10,7 @@ export const deck001: Configuration = {
     { id: 'keyboard', component: { id: 'adafruit-mini-chiclet-keyboard', revision: 1 }, position: [25, 5, 0], rotation: IDENTITY },
     { id: 'pi', component: { id: 'raspberry-pi-5', revision: 1 }, position: [20, 125, 0], rotation: IDENTITY },
     { id: 'power', component: { id: 'anker-10000-30w', revision: 1 }, position: [160, 140, 0], rotation: IDENTITY },
-    { id: 'display', component: { id: 'hoysond-7in-touch', revision: 1 }, position: [67, 60, 90], rotation: IDENTITY },
+    { id: 'display', component: { id: 'hosyond-7in-touch', revision: 1 }, position: [67, 60, 90], rotation: IDENTITY },
   ],
   createdAt: '2026-10-07T00:00:00.000Z',
   modifiedAt: '2026-10-07T00:00:00.000Z',

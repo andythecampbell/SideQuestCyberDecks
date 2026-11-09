@@ -8,6 +8,7 @@ Early work in progress. The first build is my own deck: a Raspberry Pi 5, a 7" t
 
 ```
 catalog/      Component and enclosure definitions (JSON, validated by the app's tests)
+snapshots/    Committed configuration snapshots (JSON, validated by the app's tests; illustrative only so far)
 app/          Browser configurator (Vite, React, TypeScript, React Three Fiber)
 docs/         Vision, configurator direction, plans, conventions
 ```

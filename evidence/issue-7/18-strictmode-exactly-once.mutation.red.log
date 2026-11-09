@@ -1,0 +1,37 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/appPersistence.test.tsx (33 tests | 1 failed | 32 skipped) 68ms
+   ❯ committed edits persist and survive a reload (7)
+     × an accepted edit writes exactly once, stamps modifiedAt exactly once, and is canonical 67ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/appPersistence.test.tsx > committed edits persist and survive a reload > an accepted edit writes exactly once, stamps modifiedAt exactly once, and is canonical
+AssertionError: expected [ …(2) ] to deeply equal [ 'sidequest-decks:configuration' ]
+
+- Expected
++ Received
+
+  [
+    "sidequest-decks:configuration",
++   "sidequest-decks:configuration",
+  ]
+
+ ❯ src/appPersistence.test.tsx:136:28
+    134|     page.setX('-71.5')
+    135|     expect(page.stored()).toBe('[-71.5, 64, 20]')
+    136|     expect(storage.writes).toEqual([STORAGE_KEY])
+       |                            ^
+    137|     expect(clockCalls).toBe(1)
+    138|     const saved = parseStored(storage)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 32 skipped (33)
+   Start at  19:36:06
+   Duration  827ms (environment 41%, transform 29%, import 20%, tests 9%)
+
+EXIT CODE: 1

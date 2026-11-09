@@ -1,0 +1,1614 @@
+{
+  "status": "passed",
+  "url": "http://127.0.0.1:4173/",
+  "identity": {
+    "baseCommit": "78fecbd660ef68c5a2fccca227cc3c3e004ca9b9",
+    "sourceContentSha256": "8dbdf5ec9abf68589a5d83c6e685e366e46bf88dc5acd62096c8682e086f5679",
+    "sourceFiles": 72,
+    "sourceStatusPorcelain": [],
+    "hashRecipe": "sha256 over sorted `git ls-files -co --exclude-standard -- app catalog snapshots`, each as path\\0content\\0"
+  },
+  "command": "bash evidence/issue-7/run-browser-qa.sh",
+  "server": "env -u NODE_ENV npm run dev --workspace app -- --host 127.0.0.1 --port 4173 --strictPort",
+  "user": "sidequestqa",
+  "chromiumSandbox": true,
+  "attempts": [
+    {
+      "executablePath": "/root/.hermes-web-ui/desktop-runtime/hermes/0.22.2/linux-x64/python/agent-browser/browsers/chrome-149.0.7827.55/chrome",
+      "launched": true,
+      "version": "149.0.7827.55"
+    }
+  ],
+  "runs": [
+    {
+      "name": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "deviceScaleFactor": 1,
+      "checks": [
+        {
+          "check": "load-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "load-no-stored-value",
+          "pass": true
+        },
+        {
+          "check": "load-fixture-timestamps",
+          "pass": true
+        },
+        {
+          "check": "load-not-marked-unsaved",
+          "pass": true
+        },
+        {
+          "check": "load-header-names-enclosure",
+          "pass": true
+        },
+        {
+          "check": "select-shows-fixture-values",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "edit-applies",
+          "pass": true,
+          "stored": "[-71.5, 64, 20]"
+        },
+        {
+          "check": "edit-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "edit-stored-canonical-shape",
+          "pass": true
+        },
+        {
+          "check": "edit-stamps-modifiedAt",
+          "pass": true,
+          "modifiedAt": "2026-11-08T19:36:38.733Z"
+        },
+        {
+          "check": "edit-keeps-createdAt",
+          "pass": true
+        },
+        {
+          "check": "edit-not-marked-unsaved",
+          "pass": true
+        },
+        {
+          "check": "second-edit-applies",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "second-edit-second-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration",
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "second-edit-advances-modifiedAt",
+          "pass": true,
+          "first": "2026-11-08T19:36:38.733Z",
+          "second": "2026-11-08T19:36:44.374Z"
+        },
+        {
+          "check": "rejected-edit-alerted",
+          "pass": true
+        },
+        {
+          "check": "rejected-edit-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "exclusions-selection-changed-by-mesh",
+          "pass": true,
+          "picked": {
+            "heading": null,
+            "at": [
+              0.15,
+              0.2
+            ]
+          }
+        },
+        {
+          "check": "exclusions-write-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "exclusions-stored-unchanged",
+          "pass": true
+        },
+        {
+          "check": "exclusions-no-stamp",
+          "pass": true
+        },
+        {
+          "check": "exclusions-no-view-state-in-stored",
+          "pass": true
+        },
+        {
+          "check": "reload-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "reload-pose-not-restored",
+          "pass": true
+        },
+        {
+          "check": "reload-selection-not-restored",
+          "pass": true
+        },
+        {
+          "check": "reload-restores-edit",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "reload-restores-timestamps",
+          "pass": true
+        },
+        {
+          "check": "reload-stored-untouched",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-after-reload",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "export-file-name",
+          "pass": true,
+          "suggested": "sidequest-configuration.json"
+        },
+        {
+          "check": "export-equals-stored-bytes",
+          "pass": true
+        },
+        {
+          "check": "cleared-reload-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "cleared-storage-empty",
+          "pass": true
+        },
+        {
+          "check": "cleared-shows-fixture",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "import-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "import-stored-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "import-clears-selection",
+          "pass": true
+        },
+        {
+          "check": "import-restores-state",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "import-preserves-timestamps",
+          "pass": true,
+          "createdAt": "2026-10-07T00:00:00.000Z",
+          "modifiedAt": "2026-11-08T19:36:44.374Z"
+        },
+        {
+          "check": "round-trip-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "import-survives-reload",
+          "pass": true
+        },
+        {
+          "check": "reload-export-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "reject-hand-corrupted-truncated-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is not valid JSON: Expected double-quoted property name in JSON at position 40 (line 3 column 27)"
+        },
+        {
+          "check": "reject-hand-corrupted-truncated-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-non-json-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is not valid JSON: Unexpected token 'h', \"this file i\"... is not valid JSON"
+        },
+        {
+          "check": "reject-non-json-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-oversized-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is too large: 1048577 bytes; the limit is 1048576 bytes."
+        },
+        {
+          "check": "reject-oversized-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-unknown-version-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Unsupported schemaVersion 3. Supported versions: 1, 2."
+        },
+        {
+          "check": "reject-unknown-version-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-missing-version-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Missing schemaVersion. Supported versions: 1, 2."
+        },
+        {
+          "check": "reject-missing-version-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-wrong-units-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.units: \"in\" is not supported; snapshots are in millimeters (\"mm\") and units are never guessed or converted."
+        },
+        {
+          "check": "reject-wrong-units-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-non-unit-quaternion-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.base.rotation: rotation must be a unit quaternion"
+        },
+        {
+          "check": "reject-non-unit-quaternion-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-unknown-key-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Unknown key: pose"
+        },
+        {
+          "check": "reject-unknown-key-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-duplicate-ids-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.placements: duplicate placement id: \"keyboard\""
+        },
+        {
+          "check": "reject-duplicate-ids-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-missing-revision-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.enclosure: case-2800-preview@9 is not in the catalog. Available revisions of case-2800-preview: 1. Revisions are never upgraded automatically."
+        },
+        {
+          "check": "reject-missing-revision-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-lid-on-box-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Cannot resolve in pose OPEN: Box enclosure placeholder-box@1 has no lid; placement \"display\" is attached to lid."
+        },
+        {
+          "check": "reject-lid-on-box-no-change",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-with-import-error",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "warning-nonoverlap-with-import-error-scrolled",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 614,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "v1-notice-names-dropped-keys",
+          "pass": true,
+          "migration": "UNRESOLVED calibration · illustrative placement / not fit validated. Component natural orientation is unverified.\nImported snapshot-v1-extra-keys.frozen.json.\nMigrated from schema version 1 to 2: every placement is attached to base and the world base is identity.\nDropped keys not in schema version 1: enclosure.sku, placements[0].component.vendor, placements[1].label, notes."
+        },
+        {
+          "check": "v1-import-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "v1-stored-as-v2",
+          "pass": true
+        },
+        {
+          "check": "v1-preserves-timestamps",
+          "pass": true
+        },
+        {
+          "check": "v1-header-names-box",
+          "pass": true
+        },
+        {
+          "check": "corrupt-load-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "corrupt-value-untouched",
+          "pass": true
+        },
+        {
+          "check": "corrupt-notice-visible",
+          "pass": true,
+          "corruptNotice": "The saved configuration in this browser could not be loaded, so the fixture is shown. The saved value has not been changed; it stays under browser-storage key \"sidequest-decks:configuration\". Reason: Snapshot is not valid JSON: Unexpected end of JSON input"
+        },
+        {
+          "check": "corrupt-fixture-shown",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "corrupt-value-survives-viewing",
+          "pass": true
+        },
+        {
+          "check": "corrupt-persists-across-reload",
+          "pass": true
+        },
+        {
+          "check": "corrupt-quarantined-before-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration:quarantine:0",
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "corrupt-bytes-preserved",
+          "pass": true
+        },
+        {
+          "check": "corrupt-primary-replaced-by-edit",
+          "pass": true
+        },
+        {
+          "check": "corrupt-quarantine-notice",
+          "pass": true
+        },
+        {
+          "check": "reset-needs-confirmation",
+          "pass": true
+        },
+        {
+          "check": "reset-cancel-keeps-design",
+          "pass": true
+        },
+        {
+          "check": "reset-removes-value",
+          "pass": true,
+          "writes": [],
+          "removes": [
+            "sidequest-decks:configuration"
+          ]
+        },
+        {
+          "check": "reset-clears-selection",
+          "pass": true
+        },
+        {
+          "check": "reset-quarantine-kept",
+          "pass": true
+        },
+        {
+          "check": "reset-shows-fixture",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "reset-survives-reload",
+          "pass": true
+        },
+        {
+          "check": "reset-export-equals-fixture-snapshot",
+          "pass": true
+        },
+        {
+          "check": "no-fit-claims-in-panel",
+          "pass": true,
+          "sample": "Not validated. Fit, clearance, wiring, connector access, cooling and assembly are unvalidated. On-screen appearance, mesh bounds and apparent overlap (or its absence) are not evidence.\nSideQuest Decks"
+        },
+        {
+          "check": "warning-nonoverlap-final",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              1000
+            ],
+            "scrollTop": 0,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "no-console-errors",
+          "pass": true,
+          "consoleErrors": [],
+          "pageErrors": []
+        },
+        {
+          "check": "no-failed-loads",
+          "pass": true,
+          "failedLoads": []
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedLoads": [],
+      "screenshots": [
+        "evidence/issue-7/normal-edited.png",
+        "evidence/issue-7/normal-rejected-import.png",
+        "evidence/issue-7/normal-corrupt-storage.png",
+        "evidence/issue-7/normal-reset.png"
+      ]
+    },
+    {
+      "name": "zoom-200",
+      "viewport": {
+        "width": 720,
+        "height": 500
+      },
+      "deviceScaleFactor": 2,
+      "checks": [
+        {
+          "check": "load-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "load-no-stored-value",
+          "pass": true
+        },
+        {
+          "check": "load-fixture-timestamps",
+          "pass": true
+        },
+        {
+          "check": "load-not-marked-unsaved",
+          "pass": true
+        },
+        {
+          "check": "load-header-names-enclosure",
+          "pass": true
+        },
+        {
+          "check": "select-shows-fixture-values",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "edit-applies",
+          "pass": true,
+          "stored": "[-71.5, 64, 20]"
+        },
+        {
+          "check": "edit-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "edit-stored-canonical-shape",
+          "pass": true
+        },
+        {
+          "check": "edit-stamps-modifiedAt",
+          "pass": true,
+          "modifiedAt": "2026-11-08T19:40:04.897Z"
+        },
+        {
+          "check": "edit-keeps-createdAt",
+          "pass": true
+        },
+        {
+          "check": "edit-not-marked-unsaved",
+          "pass": true
+        },
+        {
+          "check": "second-edit-applies",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "second-edit-second-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration",
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "second-edit-advances-modifiedAt",
+          "pass": true,
+          "first": "2026-11-08T19:40:04.897Z",
+          "second": "2026-11-08T19:40:10.511Z"
+        },
+        {
+          "check": "rejected-edit-alerted",
+          "pass": true
+        },
+        {
+          "check": "rejected-edit-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "exclusions-selection-changed-by-mesh",
+          "pass": true,
+          "picked": {
+            "heading": null,
+            "at": [
+              0.15,
+              0.2
+            ]
+          }
+        },
+        {
+          "check": "exclusions-write-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "exclusions-stored-unchanged",
+          "pass": true
+        },
+        {
+          "check": "exclusions-no-stamp",
+          "pass": true
+        },
+        {
+          "check": "exclusions-no-view-state-in-stored",
+          "pass": true
+        },
+        {
+          "check": "reload-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "reload-pose-not-restored",
+          "pass": true
+        },
+        {
+          "check": "reload-selection-not-restored",
+          "pass": true
+        },
+        {
+          "check": "reload-restores-edit",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "reload-restores-timestamps",
+          "pass": true
+        },
+        {
+          "check": "reload-stored-untouched",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-after-reload",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 452,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "export-file-name",
+          "pass": true,
+          "suggested": "sidequest-configuration.json"
+        },
+        {
+          "check": "export-equals-stored-bytes",
+          "pass": true
+        },
+        {
+          "check": "cleared-reload-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "cleared-storage-empty",
+          "pass": true
+        },
+        {
+          "check": "cleared-shows-fixture",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "import-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "import-stored-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "import-clears-selection",
+          "pass": true
+        },
+        {
+          "check": "import-restores-state",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "import-preserves-timestamps",
+          "pass": true,
+          "createdAt": "2026-10-07T00:00:00.000Z",
+          "modifiedAt": "2026-11-08T19:40:10.511Z"
+        },
+        {
+          "check": "round-trip-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "import-survives-reload",
+          "pass": true
+        },
+        {
+          "check": "reload-export-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "reject-hand-corrupted-truncated-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is not valid JSON: Expected double-quoted property name in JSON at position 40 (line 3 column 27)"
+        },
+        {
+          "check": "reject-hand-corrupted-truncated-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-non-json-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is not valid JSON: Unexpected token 'h', \"this file i\"... is not valid JSON"
+        },
+        {
+          "check": "reject-non-json-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-oversized-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is too large: 1048577 bytes; the limit is 1048576 bytes."
+        },
+        {
+          "check": "reject-oversized-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-unknown-version-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Unsupported schemaVersion 3. Supported versions: 1, 2."
+        },
+        {
+          "check": "reject-unknown-version-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-missing-version-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Missing schemaVersion. Supported versions: 1, 2."
+        },
+        {
+          "check": "reject-missing-version-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-wrong-units-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.units: \"in\" is not supported; snapshots are in millimeters (\"mm\") and units are never guessed or converted."
+        },
+        {
+          "check": "reject-wrong-units-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-non-unit-quaternion-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.base.rotation: rotation must be a unit quaternion"
+        },
+        {
+          "check": "reject-non-unit-quaternion-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-unknown-key-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Unknown key: pose"
+        },
+        {
+          "check": "reject-unknown-key-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-duplicate-ids-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.placements: duplicate placement id: \"keyboard\""
+        },
+        {
+          "check": "reject-duplicate-ids-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-missing-revision-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.enclosure: case-2800-preview@9 is not in the catalog. Available revisions of case-2800-preview: 1. Revisions are never upgraded automatically."
+        },
+        {
+          "check": "reject-missing-revision-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-lid-on-box-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Cannot resolve in pose OPEN: Box enclosure placeholder-box@1 has no lid; placement \"display\" is attached to lid."
+        },
+        {
+          "check": "reject-lid-on-box-no-change",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-with-import-error",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 452,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "warning-nonoverlap-with-import-error-scrolled",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 1114,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "v1-notice-names-dropped-keys",
+          "pass": true,
+          "migration": "UNRESOLVED calibration · illustrative placement / not fit validated. Component natural orientation is unverified.\nImported snapshot-v1-extra-keys.frozen.json.\nMigrated from schema version 1 to 2: every placement is attached to base and the world base is identity.\nDropped keys not in schema version 1: enclosure.sku, placements[0].component.vendor, placements[1].label, notes."
+        },
+        {
+          "check": "v1-import-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "v1-stored-as-v2",
+          "pass": true
+        },
+        {
+          "check": "v1-preserves-timestamps",
+          "pass": true
+        },
+        {
+          "check": "v1-header-names-box",
+          "pass": true
+        },
+        {
+          "check": "corrupt-load-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "corrupt-value-untouched",
+          "pass": true
+        },
+        {
+          "check": "corrupt-notice-visible",
+          "pass": true,
+          "corruptNotice": "The saved configuration in this browser could not be loaded, so the fixture is shown. The saved value has not been changed; it stays under browser-storage key \"sidequest-decks:configuration\". Reason: Snapshot is not valid JSON: Unexpected end of JSON input"
+        },
+        {
+          "check": "corrupt-fixture-shown",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "corrupt-value-survives-viewing",
+          "pass": true
+        },
+        {
+          "check": "corrupt-persists-across-reload",
+          "pass": true
+        },
+        {
+          "check": "corrupt-quarantined-before-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration:quarantine:0",
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "corrupt-bytes-preserved",
+          "pass": true
+        },
+        {
+          "check": "corrupt-primary-replaced-by-edit",
+          "pass": true
+        },
+        {
+          "check": "corrupt-quarantine-notice",
+          "pass": true
+        },
+        {
+          "check": "reset-needs-confirmation",
+          "pass": true
+        },
+        {
+          "check": "reset-cancel-keeps-design",
+          "pass": true
+        },
+        {
+          "check": "reset-removes-value",
+          "pass": true,
+          "writes": [],
+          "removes": [
+            "sidequest-decks:configuration"
+          ]
+        },
+        {
+          "check": "reset-clears-selection",
+          "pass": true
+        },
+        {
+          "check": "reset-quarantine-kept",
+          "pass": true
+        },
+        {
+          "check": "reset-shows-fixture",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "reset-survives-reload",
+          "pass": true
+        },
+        {
+          "check": "reset-export-equals-fixture-snapshot",
+          "pass": true
+        },
+        {
+          "check": "no-fit-claims-in-panel",
+          "pass": true,
+          "sample": "Not validated. Fit, clearance, wiring, connector access, cooling and assembly are unvalidated. On-screen appearance, mesh bounds and apparent overlap (or its absence) are not evidence.\nSideQuest Decks"
+        },
+        {
+          "check": "warning-nonoverlap-final",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              500
+            ],
+            "scrollTop": 452,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "no-console-errors",
+          "pass": true,
+          "consoleErrors": [],
+          "pageErrors": []
+        },
+        {
+          "check": "no-failed-loads",
+          "pass": true,
+          "failedLoads": []
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedLoads": [],
+      "screenshots": [
+        "evidence/issue-7/zoom-200-edited.png",
+        "evidence/issue-7/zoom-200-rejected-import.png"
+      ]
+    },
+    {
+      "name": "short",
+      "viewport": {
+        "width": 1280,
+        "height": 560
+      },
+      "deviceScaleFactor": 1,
+      "checks": [
+        {
+          "check": "load-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "load-no-stored-value",
+          "pass": true
+        },
+        {
+          "check": "load-fixture-timestamps",
+          "pass": true
+        },
+        {
+          "check": "load-not-marked-unsaved",
+          "pass": true
+        },
+        {
+          "check": "load-header-names-enclosure",
+          "pass": true
+        },
+        {
+          "check": "select-shows-fixture-values",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "edit-applies",
+          "pass": true,
+          "stored": "[-71.5, 64, 20]"
+        },
+        {
+          "check": "edit-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "edit-stored-canonical-shape",
+          "pass": true
+        },
+        {
+          "check": "edit-stamps-modifiedAt",
+          "pass": true,
+          "modifiedAt": "2026-11-08T19:43:20.990Z"
+        },
+        {
+          "check": "edit-keeps-createdAt",
+          "pass": true
+        },
+        {
+          "check": "edit-not-marked-unsaved",
+          "pass": true
+        },
+        {
+          "check": "second-edit-applies",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "second-edit-second-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration",
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "second-edit-advances-modifiedAt",
+          "pass": true,
+          "first": "2026-11-08T19:43:20.990Z",
+          "second": "2026-11-08T19:43:24.967Z"
+        },
+        {
+          "check": "rejected-edit-alerted",
+          "pass": true
+        },
+        {
+          "check": "rejected-edit-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "exclusions-selection-changed-by-mesh",
+          "pass": true,
+          "picked": {
+            "heading": null,
+            "at": [
+              0.15,
+              0.2
+            ]
+          }
+        },
+        {
+          "check": "exclusions-write-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "exclusions-stored-unchanged",
+          "pass": true
+        },
+        {
+          "check": "exclusions-no-stamp",
+          "pass": true
+        },
+        {
+          "check": "exclusions-no-view-state-in-stored",
+          "pass": true
+        },
+        {
+          "check": "reload-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "reload-pose-not-restored",
+          "pass": true
+        },
+        {
+          "check": "reload-selection-not-restored",
+          "pass": true
+        },
+        {
+          "check": "reload-restores-edit",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "reload-restores-timestamps",
+          "pass": true
+        },
+        {
+          "check": "reload-stored-untouched",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-after-reload",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 392,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "export-file-name",
+          "pass": true,
+          "suggested": "sidequest-configuration.json"
+        },
+        {
+          "check": "export-equals-stored-bytes",
+          "pass": true
+        },
+        {
+          "check": "cleared-reload-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "cleared-storage-empty",
+          "pass": true
+        },
+        {
+          "check": "cleared-shows-fixture",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "import-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "import-stored-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "import-clears-selection",
+          "pass": true
+        },
+        {
+          "check": "import-restores-state",
+          "pass": true,
+          "stored": "[-71.5, 51, 20]"
+        },
+        {
+          "check": "import-preserves-timestamps",
+          "pass": true,
+          "createdAt": "2026-10-07T00:00:00.000Z",
+          "modifiedAt": "2026-11-08T19:43:24.967Z"
+        },
+        {
+          "check": "round-trip-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "import-survives-reload",
+          "pass": true
+        },
+        {
+          "check": "reload-export-byte-identical",
+          "pass": true
+        },
+        {
+          "check": "reject-hand-corrupted-truncated-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is not valid JSON: Expected double-quoted property name in JSON at position 40 (line 3 column 27)"
+        },
+        {
+          "check": "reject-hand-corrupted-truncated-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-non-json-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is not valid JSON: Unexpected token 'h', \"this file i\"... is not valid JSON"
+        },
+        {
+          "check": "reject-non-json-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-oversized-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Snapshot is too large: 1048577 bytes; the limit is 1048576 bytes."
+        },
+        {
+          "check": "reject-oversized-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-unknown-version-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Unsupported schemaVersion 3. Supported versions: 1, 2."
+        },
+        {
+          "check": "reject-unknown-version-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-missing-version-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Missing schemaVersion. Supported versions: 1, 2."
+        },
+        {
+          "check": "reject-missing-version-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-wrong-units-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.units: \"in\" is not supported; snapshots are in millimeters (\"mm\") and units are never guessed or converted."
+        },
+        {
+          "check": "reject-wrong-units-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-non-unit-quaternion-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.base.rotation: rotation must be a unit quaternion"
+        },
+        {
+          "check": "reject-non-unit-quaternion-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-unknown-key-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Unknown key: pose"
+        },
+        {
+          "check": "reject-unknown-key-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-duplicate-ids-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.placements: duplicate placement id: \"keyboard\""
+        },
+        {
+          "check": "reject-duplicate-ids-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-missing-revision-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.enclosure: case-2800-preview@9 is not in the catalog. Available revisions of case-2800-preview: 1. Revisions are never upgraded automatically."
+        },
+        {
+          "check": "reject-missing-revision-no-change",
+          "pass": true
+        },
+        {
+          "check": "reject-lid-on-box-message",
+          "pass": true,
+          "message": "Import rejected; configuration unchanged.Cannot resolve in pose OPEN: Box enclosure placeholder-box@1 has no lid; placement \"display\" is attached to lid."
+        },
+        {
+          "check": "reject-lid-on-box-no-change",
+          "pass": true
+        },
+        {
+          "check": "warning-nonoverlap-with-import-error",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 392,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "warning-nonoverlap-with-import-error-scrolled",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 1054,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "v1-notice-names-dropped-keys",
+          "pass": true,
+          "migration": "UNRESOLVED calibration · illustrative placement / not fit validated. Component natural orientation is unverified.\nImported snapshot-v1-extra-keys.frozen.json.\nMigrated from schema version 1 to 2: every placement is attached to base and the world base is identity.\nDropped keys not in schema version 1: enclosure.sku, placements[0].component.vendor, placements[1].label, notes."
+        },
+        {
+          "check": "v1-import-one-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "v1-stored-as-v2",
+          "pass": true
+        },
+        {
+          "check": "v1-preserves-timestamps",
+          "pass": true
+        },
+        {
+          "check": "v1-header-names-box",
+          "pass": true
+        },
+        {
+          "check": "corrupt-load-writes-nothing",
+          "pass": true,
+          "writes": [],
+          "removes": []
+        },
+        {
+          "check": "corrupt-value-untouched",
+          "pass": true
+        },
+        {
+          "check": "corrupt-notice-visible",
+          "pass": true,
+          "corruptNotice": "The saved configuration in this browser could not be loaded, so the fixture is shown. The saved value has not been changed; it stays under browser-storage key \"sidequest-decks:configuration\". Reason: Snapshot is not valid JSON: Unexpected end of JSON input"
+        },
+        {
+          "check": "corrupt-fixture-shown",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "corrupt-value-survives-viewing",
+          "pass": true
+        },
+        {
+          "check": "corrupt-persists-across-reload",
+          "pass": true
+        },
+        {
+          "check": "corrupt-quarantined-before-write",
+          "pass": true,
+          "writes": [
+            "sidequest-decks:configuration:quarantine:0",
+            "sidequest-decks:configuration"
+          ],
+          "removes": []
+        },
+        {
+          "check": "corrupt-bytes-preserved",
+          "pass": true
+        },
+        {
+          "check": "corrupt-primary-replaced-by-edit",
+          "pass": true
+        },
+        {
+          "check": "corrupt-quarantine-notice",
+          "pass": true
+        },
+        {
+          "check": "reset-needs-confirmation",
+          "pass": true
+        },
+        {
+          "check": "reset-cancel-keeps-design",
+          "pass": true
+        },
+        {
+          "check": "reset-removes-value",
+          "pass": true,
+          "writes": [],
+          "removes": [
+            "sidequest-decks:configuration"
+          ]
+        },
+        {
+          "check": "reset-clears-selection",
+          "pass": true
+        },
+        {
+          "check": "reset-quarantine-kept",
+          "pass": true
+        },
+        {
+          "check": "reset-shows-fixture",
+          "pass": true,
+          "stored": "[-82, 64, 20]"
+        },
+        {
+          "check": "reset-survives-reload",
+          "pass": true
+        },
+        {
+          "check": "reset-export-equals-fixture-snapshot",
+          "pass": true
+        },
+        {
+          "check": "no-fit-claims-in-panel",
+          "pass": true,
+          "sample": "Not validated. Fit, clearance, wiring, connector access, cooling and assembly are unvalidated. On-screen appearance, mesh bounds and apparent overlap (or its absence) are not evidence.\nSideQuest Decks"
+        },
+        {
+          "check": "warning-nonoverlap-final",
+          "pass": true,
+          "layout": {
+            "warning": true,
+            "scroll": true,
+            "visible": true,
+            "warningRect": [
+              16,
+              104
+            ],
+            "scrollRect": [
+              104,
+              560
+            ],
+            "scrollTop": 392,
+            "overlaps": [],
+            "covered": []
+          }
+        },
+        {
+          "check": "no-console-errors",
+          "pass": true,
+          "consoleErrors": [],
+          "pageErrors": []
+        },
+        {
+          "check": "no-failed-loads",
+          "pass": true,
+          "failedLoads": []
+        }
+      ],
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedLoads": [],
+      "screenshots": [
+        "evidence/issue-7/short-edited.png",
+        "evidence/issue-7/short-rejected-import.png"
+      ]
+    }
+  ],
+  "finishedAt": "2026-11-08T19:45:36.902Z"
+}

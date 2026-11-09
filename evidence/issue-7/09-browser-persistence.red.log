@@ -1,0 +1,25 @@
+
+ RUN  v5.0.3 /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app
+
+ ❯ src/browserPersistence.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/browserPersistence.test.ts [ src/browserPersistence.test.ts ]
+Error: Cannot find module './browserPersistence' imported from /root/.hermes/workspace/SideQuestCyberDecks-issue-7/app/src/browserPersistence.test.ts
+ ❯ src/browserPersistence.test.ts:2:1
+      1| import { describe, expect, test } from 'vitest'
+      2| import { QUARANTINE_PREFIX, STORAGE_KEY, browserStorage, createBrowser…
+       | ^
+      3| import { articulatedDeck } from './articulatedFixture'
+      4| import { catalog } from './catalog'
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  19:01:22
+   Duration  144ms (worker 96%, environment 4%)
+
+EXIT CODE: 1

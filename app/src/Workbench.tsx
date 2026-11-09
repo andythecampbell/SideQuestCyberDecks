@@ -1,4 +1,5 @@
 import { catalog } from './catalog'
+import type { Pose } from './domain/articulated'
 import { confidences, refKey } from './domain/catalog'
 import type { PlacementPatch } from './domain/placementEdit'
 import type { DesignState } from './designState'
@@ -6,8 +7,9 @@ import { PreviewControls } from './scene/PreviewControls'
 import { Viewport } from './scene/Viewport'
 import { NO_FIT_WARNING } from './noFitWarning'
 import { PlacementPanel } from './PlacementPanel'
+import { SnapshotPanel, type SnapshotReport } from './SnapshotPanel'
 
-export type Pose = 'OPEN' | 'CLOSED'
+export type { Pose } from './domain/articulated'
 
 export interface WorkbenchProps {
   design: DesignState
@@ -17,10 +19,14 @@ export interface WorkbenchProps {
   /** Shared by the component list and the 3D meshes so both always show the same selection. */
   onSelect: (placementId: string | null) => void
   onEdit: (placementId: string, patch: PlacementPatch) => void
+  report: SnapshotReport
+  onExport: () => void
+  onImportFile: (file: File) => void
+  onReset: () => void
 }
 
 /** Controlled view: no hooks, all state is owned by App. */
-export function Workbench({ design, pose, selectedId, onPose, onSelect, onEdit }: WorkbenchProps) {
+export function Workbench({ design, pose, selectedId, onPose, onSelect, onEdit, report, onExport, onImportFile, onReset }: WorkbenchProps) {
   const { configuration } = design
   const selected = configuration.placements.find((p) => p.id === selectedId)
   const selectedComponent = selected && catalog.components.get(refKey(selected.component))
@@ -34,11 +40,12 @@ export function Workbench({ design, pose, selectedId, onPose, onSelect, onEdit }
         </aside>
         <div className="panel-scroll">
           <h1>SideQuest Decks</h1>
-          <p className="muted">2800 articulated preview · mm, Z-up</p>
+          <p className="muted">{catalog.enclosures.get(refKey(configuration.enclosure))?.name ?? refKey(configuration.enclosure)} · mm, Z-up</p>
           {design.unsaved && <p role="status" className="unsaved">Unsaved · edits are in memory only; reloading discards them.</p>}
 
           <PreviewControls pose={pose} onPose={onPose} />
           <p className="muted">Body-local positions. Imported mesh overlays hidden: catalog holes, ports and keep-outs are unvalidated. Keyboard/power are estimated envelopes. Mesh bounds differ from estimated catalog envelopes; no scaling to fit. GrabCAD case/Pi and Andy display: source URLs/license TODO, deferred.</p>
+          <SnapshotPanel createdAt={configuration.createdAt} modifiedAt={configuration.modifiedAt} report={report} onExport={onExport} onImportFile={onImportFile} onReset={onReset} />
           <h2>Components</h2>
           <ul className="parts">
             {configuration.placements.map((p) => {
