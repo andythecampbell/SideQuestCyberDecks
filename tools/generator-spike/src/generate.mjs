@@ -116,6 +116,7 @@ export async function generate({ requestPath, outDir, repoRoot = REPO_ROOT, deps
   const engineStart = performance.now()
   const engine = await (deps.loadEngine ?? loadEngine)()
   const engineLoadMs = performance.now() - engineStart
+  const firstKernelMessage = engine.messages.length
 
   const built = (deps.buildPart ?? buildSyntheticPlate)(engine, values)
   const { stl, step } = await exportPrimary(engine, built.solid)
@@ -141,7 +142,7 @@ export async function generate({ requestPath, outDir, repoRoot = REPO_ROOT, deps
     step: stepAnalysis,
     stepReimport,
     versions: engine.versions,
-    kernelMessages: engine.messages,
+    kernelMessages: engine.messages.slice(firstKernelMessage),
     outputs: hashFiles({ [NAMES.stl]: stl, [NAMES.step]: step }),
     generatorSourceSha256: hashGeneratorSource(),
     stepOpenCascade: new TextDecoder().decode(step).match(/'(Open CASCADE \d+[\d.]*)'/)?.[1] ?? 'unknown',

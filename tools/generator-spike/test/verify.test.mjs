@@ -101,7 +101,7 @@ test('the normalized STL header states non-fabrication and is exactly 80 bytes',
   assert.match(STL_HEADER, /NON-FABRICATION/)
 })
 
-const stepText = (time = '2026-11-09T04:39:43', extra = '') =>
+const stepText = (time = '2026-11-09T04:39:43', extra = '', counter = 1) =>
   `ISO-10303-21;
 HEADER;
 FILE_DESCRIPTION(('Open CASCADE Model'),'2;1');
@@ -111,6 +111,8 @@ FILE_NAME('Open CASCADE Shape Model','${time}',('Author'),(
 FILE_SCHEMA(('AP242'));
 ENDSEC;
 DATA;
+#7 = PRODUCT('Open CASCADE STEP translator 8.0 ${counter}',
+  'Open CASCADE STEP translator 8.0 ${counter}','',(#8));
 #1 = MANIFOLD_SOLID_BREP('',#2);
 #2 = CLOSED_SHELL('',(#3));
 #4 = ( LENGTH_UNIT() NAMED_UNIT(*) SI_UNIT(.MILLI.,.METRE.) );
@@ -130,9 +132,19 @@ test('normalizeStep removes the wall-clock timestamp and labels the description'
   assert.deepEqual(normalizeStep(first), first, 'normalization is idempotent')
 })
 
-test('normalizeStep refuses a header it cannot normalize rather than passing a timestamp through', () => {
-  for (const text of ['no header at all', stepText().replace('FILE_NAME', 'FILE_NOPE'), stepText().replace("'2026-11-09T04:39:43'", "'yesterday'")]) {
-    assert.throws(() => normalizeStep(utf8(text)), (error) => error.code === 'STEP_HEADER_UNEXPECTED', text.slice(0, 20))
+test('normalizeStep replaces the process-wide product counter with a fixed name', () => {
+  const first = normalizeStep(utf8(stepText(undefined, '', 1)))
+  const second = normalizeStep(utf8(stepText(undefined, '', 7)))
+  assert.deepEqual(first, second)
+  const text = new TextDecoder().decode(first)
+  assert.doesNotMatch(text, /Open CASCADE STEP translator/)
+  assert.match(text, /PRODUCT\('NON-FABRICATION synthetic-plate r1'/)
+})
+
+test('normalizeStep refuses a file it cannot normalize rather than passing varying data through', () => {
+  const noProduct = stepText().replace(/#7 = PRODUCT[\s\S]*?\(#8\)\);\n/, '')
+  for (const text of ['no header at all', stepText().replace('FILE_NAME', 'FILE_NOPE'), stepText().replace("'2026-11-09T04:39:43'", "'yesterday'"), noProduct, stepText(undefined, "#9 = PRODUCT('Open CASCADE STEP translator 8.0 2','x','',(#8));\n")]) {
+    assert.throws(() => normalizeStep(utf8(text)), (error) => error.code === 'STEP_NORMALIZATION_FAILED', text.slice(0, 20))
   }
 })
 

@@ -9,6 +9,9 @@ export const STL_HEADER = 'NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1 un
 /** float32 STL cannot represent every double; this bounds that representational noise only. */
 const STL_NOISE_TOLERANCE_MM = 1e-6
 
+/** Fixed STEP product name. OpenCascade otherwise appends a process-wide counter to it. */
+export const STEP_PRODUCT_NAME = 'NON-FABRICATION synthetic-plate r1'
+
 const STEP_DESCRIPTION = 'NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1'
 
 function malformed(code, message) {
@@ -139,29 +142,39 @@ const decoder = new TextDecoder('utf-8', { fatal: false })
 
 const FILE_NAME_TIMESTAMP = /(FILE_NAME\s*\(\s*'[^']*'\s*,\s*')(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(')/g
 const FILE_DESCRIPTION_VALUE = /(FILE_DESCRIPTION\s*\(\s*\(\s*')([^']*)(')/
+const PRODUCT_NAMES = /(=\s*PRODUCT\s*\(\s*')Open CASCADE STEP translator [^']*('\s*,\s*')Open CASCADE STEP translator [^']*(')/g
 
 /**
- * Removes the wall-clock timestamp from a STEP header and labels the file as non-fabrication.
- * Refuses to pass through a header it cannot recognize, so a timestamp can never survive silently.
+ * Removes the two things that vary between identical exports (the FILE_NAME wall-clock timestamp and
+ * the process-wide PRODUCT counter) and labels the file as non-fabrication. Refuses to pass through
+ * anything it cannot recognize, so neither can survive silently.
  */
 export function normalizeStep(bytes) {
   const text = decoder.decode(bytes)
   const headerEnd = text.indexOf('ENDSEC;')
   if (headerEnd < 0 || !text.startsWith('ISO-10303-21;')) {
-    throw malformed('STEP_HEADER_UNEXPECTED', 'STEP output has no recognizable ISO-10303-21 header.')
+    throw malformed('STEP_NORMALIZATION_FAILED', 'STEP output has no recognizable ISO-10303-21 header.')
   }
   const header = text.slice(0, headerEnd)
   const timestamps = [...header.matchAll(FILE_NAME_TIMESTAMP)]
   if (timestamps.length !== 1) {
-    throw malformed('STEP_HEADER_UNEXPECTED', `Expected exactly one FILE_NAME timestamp, found ${timestamps.length}.`)
+    throw malformed('STEP_NORMALIZATION_FAILED', `Expected exactly one FILE_NAME timestamp, found ${timestamps.length}.`)
   }
   if (!FILE_DESCRIPTION_VALUE.test(header)) {
-    throw malformed('STEP_HEADER_UNEXPECTED', 'STEP header has no FILE_DESCRIPTION value to label.')
+    throw malformed('STEP_NORMALIZATION_FAILED', 'STEP header has no FILE_DESCRIPTION value to label.')
   }
   const normalizedHeader = header
     .replace(FILE_NAME_TIMESTAMP, `$1${NORMALIZED_STEP_TIMESTAMP}$3`)
     .replace(FILE_DESCRIPTION_VALUE, `$1${STEP_DESCRIPTION}$3`)
-  return new TextEncoder().encode(normalizedHeader + text.slice(headerEnd))
+  const body = text.slice(headerEnd)
+  const generatedNames = count(body, /Open CASCADE STEP translator/g)
+  const products = [...body.matchAll(PRODUCT_NAMES)]
+  const alreadyNormalized = generatedNames === 0 && body.includes(`PRODUCT('${STEP_PRODUCT_NAME}'`)
+  if (!alreadyNormalized && (generatedNames !== 2 || products.length !== 1)) {
+    throw malformed('STEP_NORMALIZATION_FAILED', `Expected exactly one generated PRODUCT name, found ${generatedNames} generated names across ${products.length} PRODUCT entities.`)
+  }
+  const normalizedBody = body.replace(PRODUCT_NAMES, `$1${STEP_PRODUCT_NAME}$2${STEP_PRODUCT_NAME}$3`)
+  return new TextEncoder().encode(normalizedHeader + normalizedBody)
 }
 
 const count = (text, pattern) => (text.match(pattern) ?? []).length

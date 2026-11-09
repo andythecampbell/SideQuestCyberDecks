@@ -81,6 +81,7 @@ test('the manifest records the exact inputs, versions, settings, hashes and meas
   assert.match(manifest.exportSettings.stl.header, /NON-FABRICATION/)
   assert.equal(manifest.exportSettings.step.schema, 'AP242')
   assert.equal(manifest.exportSettings.step.timestampNormalizedTo, NORMALIZED_STEP_TIMESTAMP)
+  assert.equal(manifest.exportSettings.step.productName, 'NON-FABRICATION synthetic-plate r1')
   assert.equal(manifest.diagnostics.status, 'passed')
   assert.ok(Array.isArray(manifest.diagnostics.kernelMessages))
 

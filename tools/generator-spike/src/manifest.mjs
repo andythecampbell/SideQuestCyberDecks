@@ -3,7 +3,7 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { STL_ANGULAR_DEFLECTION_RAD, STL_LINEAR_DEFLECTION_MM } from './synthetic-plate.mjs'
-import { NORMALIZED_STEP_TIMESTAMP, STL_HEADER, reportDimensions } from './verify.mjs'
+import { NORMALIZED_STEP_TIMESTAMP, STEP_PRODUCT_NAME, STL_HEADER, reportDimensions } from './verify.mjs'
 
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex')
 const srcDir = fileURLToPath(new URL('.', import.meta.url))
@@ -71,9 +71,10 @@ export function buildManifest({ request, template, built, expected, stl, step, s
       step: {
         schema: 'AP242',
         writer: 'replicad blobSTEP (write.step.schema=5)',
+        productName: STEP_PRODUCT_NAME,
         declaredLengthUnit: step.declaredLengthUnit,
         timestampNormalizedTo: NORMALIZED_STEP_TIMESTAMP,
-        normalization: 'FILE_NAME timestamp set to the fixed value and FILE_DESCRIPTION relabelled non-fabrication. Refused if the header is not recognized. DATA section unchanged.',
+        normalization: 'FILE_NAME timestamp set to the fixed value, the PRODUCT name replaced (OpenCascade appends a process-wide counter to it), and FILE_DESCRIPTION relabelled non-fabrication. Refused if any of the three is not recognized. Geometry entities are unchanged.',
       },
     },
     geometry: {

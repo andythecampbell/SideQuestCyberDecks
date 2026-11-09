@@ -1,0 +1,122 @@
+✔ a closed tetrahedron is one watertight body with genus zero (2.596113ms)
+✔ a removed triangle is an open mesh (0.313233ms)
+✔ a flipped triangle is inconsistently oriented (0.203238ms)
+✔ an edge shared by four triangles is non-manifold (0.179161ms)
+✔ two separate tetrahedra are two bodies (0.295025ms)
+✔ a degenerate triangle is counted and blocks watertightness (0.16219ms)
+✔ an inside-out mesh is rejected by its negative volume (0.235291ms)
+✔ malformed binary STLs are diagnosed, not misread (0.419172ms)
+✔ normalizeStl stamps a fixed header and leaves geometry bytes alone (0.520597ms)
+✔ the normalized STL header states non-fabrication and is exactly 80 bytes (0.337395ms)
+✔ normalizeStep removes the wall-clock timestamp and labels the description (0.477495ms)
+✖ normalizeStep replaces the process-wide product counter with a fixed name (2.042904ms)
+✖ normalizeStep refuses a file it cannot normalize rather than passing varying data through (0.239142ms)
+✔ analyzeStepText reads solids, shells and declared units from the exported text (0.330612ms)
+✔ analyzeStepText distinguishes open shells, extra solids and non-millimetre units (0.230357ms)
+✔ verifyPart passes consistent measurements (0.316648ms)
+✔ verifyPart names each failed check by path (0.716763ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 15
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 62.347521
+
+✖ failing tests:
+
+test at test/verify.test.mjs:135:1
+✖ normalizeStep replaces the process-wide product counter with a fixed name (2.042904ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    Uint8Array(550) [
+      73,
+      83,
+      79,
+      45,
+  ...
+      32,
+  +   49,
+  -   55,
+      39,
+      44,
+      10,
+      32,
+      32,
+  ...
+      32,
+  +   49,
+  -   55,
+      39,
+      44,
+      39,
+      39,
+      44,
+  
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/verify.test.mjs:138:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Uint8Array(550) [
+       73,  83,  79,  45,  49,  48,  51,  48,  51, 45, 50,  49,
+       59,  10,  72,  69,  65,  68,  69,  82,  59, 10, 70,  73,
+       76,  69,  95,  68,  69,  83,  67,  82,  73, 80, 84,  73,
+       79,  78,  40,  40,  39,  78,  79,  78,  45, 70, 65,  66,
+       82,  73,  67,  65,  84,  73,  79,  78,  32, 83, 73,  68,
+       69,  81,  85,  69,  83,  84,  32,  83,  80, 73, 75,  69,
+       32, 115, 121, 110, 116, 104, 101, 116, 105, 99, 45, 112,
+      108,  97, 116, 101,  32, 114,  49,  39,  41, 44, 39,  50,
+       59,  49,  39,  41,
+      ... 450 more items
+    ],
+    expected: Uint8Array(550) [
+       73,  83,  79,  45,  49,  48,  51,  48,  51, 45, 50,  49,
+       59,  10,  72,  69,  65,  68,  69,  82,  59, 10, 70,  73,
+       76,  69,  95,  68,  69,  83,  67,  82,  73, 80, 84,  73,
+       79,  78,  40,  40,  39,  78,  79,  78,  45, 70, 65,  66,
+       82,  73,  67,  65,  84,  73,  79,  78,  32, 83, 73,  68,
+       69,  81,  85,  69,  83,  84,  32,  83,  80, 73, 75,  69,
+       32, 115, 121, 110, 116, 104, 101, 116, 105, 99, 45, 112,
+      108,  97, 116, 101,  32, 114,  49,  39,  41, 44, 39,  50,
+       59,  49,  39,  41,
+      ... 450 more items
+    ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at test/verify.test.mjs:144:1
+✖ normalizeStep refuses a file it cannot normalize rather than passing varying data through (0.239142ms)
+  AssertionError [ERR_ASSERTION]: no header at all
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/verify.test.mjs:147:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+      at Test.postRun (node:internal/test_runner/test:1173:19)
+      at Test.run (node:internal/test_runner/test:1101:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: GeneratorError: STEP output has no recognizable ISO-10303-21 header.
+        at malformed (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/verify.mjs:18:10)
+        at normalizeStep (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/verify.mjs:154:11)
+        at file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/verify.test.mjs:147:25
+        at getActual (node:assert:609:5)
+        at Function.throws (node:assert:757:24)
+        at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/verify.test.mjs:147:12)
+        at Test.runInAsyncScope (node:async_hooks:214:14)
+        at Test.run (node:internal/test_runner/test:1047:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+        at Test.postRun (node:internal/test_runner/test:1173:19),
+    operator: 'throws',
+    diff: 'simple'
+  }
+EXIT CODE: 1
