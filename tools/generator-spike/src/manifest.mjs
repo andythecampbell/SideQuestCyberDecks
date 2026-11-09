@@ -44,12 +44,13 @@ const measured = ({ boundsMm, ...rest }) => ({ boundsMm, dimensionsMm: reportDim
  * runtime's identity, so it may differ across machines even when the primary outputs do not.
  */
 export function buildManifest({ request, template, built, expected, stl, step, stepReimport, versions, kernelMessages, outputs, generatorSourceSha256, stepOpenCascade }) {
+  const { notice: _omittedFreeFormNotice, ...recordedRequest } = request
   return {
     manifestSchema: 'sidequest.generator-manifest/1',
     purpose: 'non-fabrication',
     fabricationEligible: false,
     label: 'NON-FABRICATION synthetic spike output. Never a Deck 001 part. Not for printing as a Deck 001 part.',
-    request,
+    request: recordedRequest,
     units: 'mm',
     generator: {
       name: packageJson.name,

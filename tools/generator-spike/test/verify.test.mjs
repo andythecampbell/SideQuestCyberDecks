@@ -73,6 +73,36 @@ test('a degenerate triangle is counted and blocks watertightness', () => {
   assert.equal(a.watertight, false)
 })
 
+test('a closed tetrahedron containing a distinct collinear face is rejected', () => {
+  const collinear = [
+    [[0, 0, 0], [1, 0, 0], [2, 0, 0]],
+    [[0, 0, 0], [0, 1, 0], [1, 0, 0]],
+    [[1, 0, 0], [0, 1, 0], [2, 0, 0]],
+    [[2, 0, 0], [0, 1, 0], [0, 0, 0]],
+  ]
+  const analysis = analyzeBinaryStl(stl(collinear))
+  assert.equal(analysis.degenerateTriangles, 1)
+  assert.equal(analysis.watertight, false)
+})
+
+test('non-finite STL coordinates are diagnosed as malformed', () => {
+  for (const value of [NaN, Infinity, -Infinity]) {
+    const triangles = structuredClone(tetra)
+    triangles[0][0][0] = value
+    assert.throws(
+      () => analyzeBinaryStl(stl(triangles)),
+      (error) => error.code === 'STL_MALFORMED' && /non-finite coordinate/.test(error.message),
+    )
+  }
+})
+
+test('a distinct near-zero-area triangle is degenerate', () => {
+  const tiny = [[0, 0, 0], [1e-8, 0, 0], [0, 1e-8, 0]]
+  const analysis = analyzeBinaryStl(stl([...tetra, tiny]))
+  assert.equal(analysis.degenerateTriangles, 1)
+  assert.equal(analysis.watertight, false)
+})
+
 test('an inside-out mesh is rejected by its negative volume', () => {
   const inverted = tetra.map(([a, b, c]) => [a, c, b])
   const a = analyzeBinaryStl(stl(inverted))

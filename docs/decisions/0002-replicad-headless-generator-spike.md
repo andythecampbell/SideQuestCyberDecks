@@ -6,7 +6,7 @@ Status: **Proposed**. Decision owner: Andy, who has not yet accepted or challeng
 
 **Keep** Replicad/OpenCascade.js for headless generation in the next slice. No must-have failed, so no second engine was evaluated.
 
-The spike answers one question: can one engine produce a printable, deterministic part from explicit numeric inputs with recorded versions? On the tested setup, yes. The answer is scoped to what was tested:
+The spike answers one question: can one engine produce deterministic geometry files from explicit numeric inputs with recorded versions that pass the stated software checks? On the tested setup, yes. “Printable” here means exportable to formats consumed by the checked tools; it does not establish manufacturability.
 
 - **Where generation runs:** headless Node, as the separately pinned `tools/generator-spike` package outside the app workspace. Browser or Worker execution was out of scope and is not assessed here.
 - **Time box:** one focused implementation cycle, capped at one working day or one draft PR, as set by the foreman kickoff on issue #9.
@@ -20,7 +20,7 @@ The spike answers one question: can one engine produce a printable, deterministi
 | Repeated runs give byte-identical primary output | **Pass.** Two clean processes match on STL, STEP and manifest. A kernel reused in one process also matches. A second Node release (24.22.2 vs 22.22.0) writes identical STL and STEP bytes, and the manifest differs only in the recorded runtime. | [12](../../evidence/issue-9/12-two-clean-runs.log), [15](../../evidence/issue-9/15-cross-runtime.log) |
 | Export opens in an external tool with correct units | **Automated checks pass; Andy's interactive CAD or slicer check is pending** (see the PR). trimesh and ADMesh read the STL as one closed body at the requested size. A native OpenCascade build reads the STEP as one valid closed solid declaring millimetres. | [14](../../evidence/issue-9/14-external-validation.log) |
 | Packaging, install and runtime cost acceptable | **Pass for headless use.** Numbers below. | [11](../../evidence/issue-9/11-packaging.log), [16](../../evidence/issue-9/16-kernel-reuse.log) |
-| Failures produce a useful diagnostic | **Pass.** Every refusal or failure exits non-zero with a stage, a code and a per-input path, and writes nothing. Kernel exceptions are decoded to their OpenCascade type and message. The first implementation only reported `[object WebAssembly.Exception]`, which a test now rejects. | [10](../../evidence/issue-9/10-kernel-diagnostic.red.log), tool suite |
+| Failures produce a useful diagnostic | **Pass in the tested contract.** Every failure exits non-zero with a stage and code. Validation and guard failures carry per-input issue paths; filesystem/internal failures carry stage-level structured issues where practical. Pre-publication failures write no artifact. Injected staging, write, rename and cleanup failures are covered, with original publication errors preserved. Kernel exceptions are decoded to their OpenCascade type and message. | [10](../../evidence/issue-9/10-kernel-diagnostic.red.log), tool suite |
 | License compatible with the MIT app | **Pass for headless use.** Browser distribution has further obligations; see License. | [License](#license) |
 
 ## Acceptance results
@@ -35,9 +35,11 @@ Generated from `tools/generator-spike/fixtures/synthetic-plate.non-fabrication.r
 - **Dimensions:** 73.5 × 41.25 × 6.125 mm, equal to the explicit inputs (`max - min` per axis, exact in the B-rep, the STL and the re-imported STEP).
 - **Solid count:** one. STEP carries one `MANIFOLD_SOLID_BREP`, one `CLOSED_SHELL` and no `OPEN_SHELL`. The STL is one closed, consistently oriented body of genus 4 (the through-cut and three holes), Euler characteristic −6.
 - **Volume:** B-rep 17299.0599 mm³ against the analytic 17299.0599 mm³. Each operation's volume change is checked separately against its analytic value.
-- **Units:** STEP declares `SI_UNIT(.MILLI.,.METRE.)`. Binary STL has no unit field; its coordinates are millimetres by the manifest and the project convention, and the file header says so.
+- **Units:** STEP declares `SI_UNIT(.MILLI.,.METRE.)`. Binary STL has no native unit field; interpreting its coordinates as millimetres is a manifest/project convention, and the file header records that convention.
 
-The fabrication guard refuses, before the kernel loads and with no artifact written, any consumed physical fact not marked `datasheet` or `measured` with a durable source. Durable means an existing `evidence/measurements/<subject>-<feature>-<YYYY-MM-DD>.md` record, or a datasheet title, locator and https URI or existing `evidence/datasheets/` file. Design parameters must record value, author, rationale and explicit test-evidence status. A synthetic value can never enter a fabrication request, and the only template is non-fabrication, so no path produces an artifact labelled for fabrication. A fully qualifying fabrication request clears every input check and is then refused only because no fabrication template exists, so the guard is not simply refusing everything. No part of this spike can output fabrication-labelled geometry.
+The aggregate bounds, volume, topology and per-operation volume changes are regression checks. They do not independently prove every feature position.
+
+The fabrication guard refuses, before the kernel loads and with no artifact written, any consumed physical fact not marked `datasheet` or `measured` with a durable source. Repository sources are checked beneath the canonical repository root; every component below it must be non-symlink and the final real path must remain contained. Durable means an existing non-empty `evidence/measurements/<subject>-<feature>-<YYYY-MM-DD>.md` record, or a datasheet title, locator and https URI or existing non-empty `evidence/datasheets/` file. Existence does not prove the citation supports the numeric value. Design parameters must record value, author, rationale and explicit test-evidence status. A synthetic value can never enter a fabrication request, and the only template is non-fabrication, so no path produces an artifact labelled for fabrication. A fully qualifying fabrication request clears every input check and is then refused only because no fabrication template exists, so the guard is not simply refusing everything.
 
 ## Normalized export settings
 
@@ -46,9 +48,11 @@ The fabrication guard refuses, before the kernel loads and with no artifact writ
 | Binary STL | Linear deflection 0.01 mm, angular deflection 0.1 rad | The 80-byte header is replaced with a fixed non-fabrication header. Geometry bytes are unchanged. |
 | STEP AP242 | `blobSTEP` with `write.step.schema=5`, millimetres | `FILE_NAME` timestamp fixed at `1970-01-01T00:00:00`. `PRODUCT` name replaced, because OpenCascade appends a process-wide counter to it. `FILE_DESCRIPTION` labelled non-fabrication. Geometry entities are unchanged. |
 
-The STEP normalization refuses any file where these fields are not found exactly as expected, so a timestamp or counter cannot survive silently. The `write.step.product.name` setting had no effect in this build, which is why the name is rewritten.
+The STEP normalization is specific to the pinned exporter forms. It refuses any file where those forms are not found exactly as expected, so their timestamp or counter cannot survive silently; it is not a general STEP sanitizer. The `write.step.product.name` setting had no effect in this build, which is why the name is rewritten.
 
-The manifest beside each artifact records exact inputs, generator, template, engine and runtime versions, the WASM hash, export settings, hashes, units, dimensions, solid count, per-stage volumes, kernel messages and diagnostics. It contains no timestamps or local paths. Timings appear only on the CLI's stdout.
+The manifest beside each artifact records structural generation inputs, generator, template, engine and runtime versions, the WASM hash, export settings, hashes, units, dimensions, solid count, per-stage volumes, kernel messages and diagnostics. Requests that successfully generate artifacts are non-fabrication requests containing synthetic inputs; their free-form notice is structurally omitted, so accepted generating requests cannot inject timestamps or local paths into the manifest. Timings appear only on the CLI's stdout.
+
+Outputs are staged beside the destination and renamed into place. This contract requires an existing, trusted, stable output parent on one filesystem. It provides ordinary publication and normal failure cleanup, not race safety or crash durability.
 
 ## Packaging and runtime observed
 
@@ -79,7 +83,10 @@ Engineering assessment, not legal advice: the headless tool uses the LGPL build 
 - The STEP was read back by another OpenCascade build, which is the same kernel family and not an independent parser. The STL's external checks are fully independent.
 - The fixture covers one part. Other geometry can fail differently, particularly complex fillets, which preflight does not fully anticipate.
 - Dimensions are exact, but the fillet leaves tangent vertices about 4×10⁻¹⁶ mm from zero. These are reported as they are, and log 06b retains the first run that exposed them. They are numeric noise, not an engineering tolerance.
-- Nothing here validates printing, fit, material behaviour or tolerance policy.
+- The binary STL analyzer rejects non-finite coordinates and repeated, collinear or near-zero-area triangles. It does not prove absence of self-intersections or complete vertex-manifold correctness.
+- Synthetic fixture separation is a regression check, not a security boundary.
+- Nothing here validates printing, fit, tolerance, strength, material behaviour or manufacturability.
+- License conclusions are engineering observations, not legal advice; obtain legal/advisory review before redistribution and preserve immutable OCCT/build provenance where available.
 
 ## Consequences
 

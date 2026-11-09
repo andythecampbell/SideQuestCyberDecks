@@ -13,7 +13,7 @@ bash evidence/issue-9/run-acceptance.sh
 bash evidence/issue-9/run-mutations.sh
 ```
 
-`run-acceptance.sh` needs `EXT_PYTHON` (Python with `trimesh`, `numpy`, `scipy` and `cadquery-ocp`), `ADMESH_BIN` and optionally `NODE24_BIN` for the external and cross-runtime records. Without them, the external step records that it was skipped. The recorded run used a scratch `venv` outside the repository (trimesh 4.12.2, cadquery-ocp 8.0.1.1.0), the `admesh` 0.98.4 Debian package extracted to a scratch directory without installing it, and the checksum-verified official Node.js v24.22.2 tarball.
+`run-acceptance.sh` needs `EXT_PYTHON` (Python with `trimesh`, `numpy`, `scipy` and `cadquery-ocp`), `ADMESH_BIN` and optionally `NODE24_BIN` for the external and cross-runtime records. Without them, the external step records that it was skipped. The recorded run used a scratch `venv` outside the repository (trimesh 4.12.2, cadquery-ocp 8.0.1.1.0), the `admesh` 0.98.4 Debian package extracted to a scratch directory without installing it, and the checksum-verified official Node.js v24.22.2 tarball. The mutation runner first proves a green baseline, creates a disposable detached worktree outside the source checkout, counts only expected assertion failures (not load/syntax/infrastructure errors), traps interruption for cleanup, and verifies the source checkout head and files are unchanged.
 
 ## Test-first record
 
@@ -46,7 +46,7 @@ Each `NN-*.red.log` is raw Node test runner output plus the exit code, captured 
 | [14-external-validation.log](14-external-validation.log) | trimesh, ADMesh and native OpenCascade results, plus the same validator rejecting a deliberately damaged copy |
 | [15-cross-runtime.log](15-cross-runtime.log) | Node 22 vs Node 24 primary output comparison |
 | [16-kernel-reuse.log](16-kernel-reuse.log) | 25 runs on one kernel: time and memory |
-| [17-mutations.log](17-mutations.log) | 21 source sabotages, each killed by the named test and reverted |
+| [17-mutations.log](17-mutations.log) | green baseline plus 21 source sabotages in a disposable worktree, each killed by an assertion failure; source checkout restoration recorded |
 | `final-tool-test.log`, `final-test.log`, `final-build.log`, `final-diff-check.log` | final gates (`npm --prefix tools/generator-spike test`, `npm test`, `npm run build`, `git diff --check`) |
 
 ## Acceptance mapping (issue #9)

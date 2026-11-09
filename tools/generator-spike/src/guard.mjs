@@ -1,5 +1,5 @@
-import { lstatSync } from 'node:fs'
-import { join } from 'node:path'
+import { lstatSync, realpathSync } from 'node:fs'
+import { isAbsolute, relative, resolve, sep } from 'node:path'
 import { GeneratorError, EXIT } from './errors.mjs'
 import { TEMPLATES } from './synthetic-plate.mjs'
 
@@ -8,10 +8,26 @@ const PLACEHOLDER = /^(todo|tbd|unknown|n\/?a|none|\?+|placeholder|-+)$/i
 
 const usableText = (value) => typeof value === 'string' && value.trim() !== '' && !PLACEHOLDER.test(value.trim())
 
-/** True only for a regular, non-empty file inside the repository. A symlink is not a durable record. */
+/**
+ * True only for a regular, non-empty file under the canonical repository root.
+ * Policy: the repository root is canonicalized, and no cited path component below it may
+ * be a symlink. The final real path is checked for containment as a second defence.
+ */
 function repoFileExists(repoRoot, relativePath) {
   try {
-    const stat = lstatSync(join(repoRoot, relativePath))
+    const root = realpathSync(repoRoot)
+    const lexical = resolve(root, relativePath)
+    const lexicalRelative = relative(root, lexical)
+    if (lexicalRelative === '..' || lexicalRelative.startsWith(`..${sep}`) || isAbsolute(lexicalRelative)) return false
+    let current = root
+    for (const component of lexicalRelative.split(sep)) {
+      current = resolve(current, component)
+      if (lstatSync(current).isSymbolicLink()) return false
+    }
+    const canonical = realpathSync(lexical)
+    const canonicalRelative = relative(root, canonical)
+    if (canonicalRelative === '..' || canonicalRelative.startsWith(`..${sep}`) || isAbsolute(canonicalRelative)) return false
+    const stat = lstatSync(canonical)
     return stat.isFile() && stat.size > 0
   } catch {
     return false

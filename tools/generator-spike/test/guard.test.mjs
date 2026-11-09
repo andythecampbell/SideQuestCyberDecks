@@ -54,9 +54,9 @@ const qualifying = () => {
   return request
 }
 
-const refusal = (request) => {
+const refusal = (request, root = repoRoot) => {
   try {
-    checkRequest(request, { repoRoot })
+    checkRequest(request, { repoRoot: root })
   } catch (error) {
     assert.ok(error instanceof GeneratorError)
     return error
@@ -131,6 +131,46 @@ test('refuses a measurement record reached through a symlink out of the reposito
   request.inputs.plateSizeX.source = { kind: 'measurement-record', record: linked }
   assert.deepEqual(codesFor(refusal(request), 'inputs.plateSizeX.source'), ['SOURCE_NOT_FOUND'])
   rmSync(outside, { recursive: true, force: true })
+})
+
+test('refuses repository evidence reached through any symlinked ancestor', () => {
+  const outside = mkdtempSync(join(tmpdir(), 'generator-spike-outside-'))
+  for (const directory of ['measurements', 'datasheets', 'coupons']) {
+    mkdirSync(join(outside, directory), { recursive: true })
+  }
+  writeFileSync(join(outside, 'measurements/spike-widget-width-2026-01-02.md'), '# outside measurement\n')
+  writeFileSync(join(outside, 'datasheets/widget.pdf'), 'outside datasheet')
+  writeFileSync(join(outside, 'coupons/spike-coupon.md'), '# outside coupon\n')
+  for (const directory of ['measurements', 'datasheets', 'coupons']) {
+    rmSync(join(repoRoot, `evidence/${directory}`), { recursive: true, force: true })
+    symlinkSync(join(outside, directory), join(repoRoot, `evidence/${directory}`), 'dir')
+  }
+
+  const measurement = qualifying()
+  assert.deepEqual(codesFor(refusal(measurement), 'inputs.plateSizeX.source'), ['SOURCE_NOT_FOUND'])
+  const sheet = qualifying()
+  sheet.inputs.plateSizeY.source.uri = 'evidence/datasheets/widget.pdf'
+  assert.deepEqual(codesFor(refusal(sheet), 'inputs.plateSizeY.source'), ['SOURCE_NOT_FOUND'])
+  const coupon = qualifying()
+  coupon.inputs.cornerRadius.testEvidence = { status: 'recorded', reference: COUPON }
+  assert.deepEqual(codesFor(refusal(coupon), 'inputs.cornerRadius.testEvidence'), ['TEST_EVIDENCE_NOT_FOUND'])
+  rmSync(outside, { recursive: true, force: true })
+})
+
+test('accepts a canonical repository reached through a symlinked root alias', () => {
+  const aliasParent = mkdtempSync(join(tmpdir(), 'generator-spike-alias-'))
+  const alias = join(aliasParent, 'repo')
+  symlinkSync(repoRoot, alias, 'dir')
+  assert.deepEqual(codesFor(refusal(qualifying(), alias), 'inputs.plateSizeX.source'), [])
+  rmSync(aliasParent, { recursive: true, force: true })
+})
+
+test('refuses an internal symlink even when its target stays in the repository', () => {
+  const linked = 'evidence/measurements/internal-widget-width-2026-01-02.md'
+  symlinkSync(join(repoRoot, RECORD), join(repoRoot, linked))
+  const request = qualifying()
+  request.inputs.plateSizeX.source = { kind: 'measurement-record', record: linked }
+  assert.deepEqual(codesFor(refusal(request), 'inputs.plateSizeX.source'), ['SOURCE_NOT_FOUND'])
 })
 
 test('refuses a confidence and source kind that disagree', () => {

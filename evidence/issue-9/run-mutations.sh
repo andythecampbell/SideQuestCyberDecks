@@ -1,32 +1,56 @@
 #!/usr/bin/env bash
-# Applies each sabotage to committed source, confirms the named test fails, and restores it.
-# Usage: bash evidence/issue-9/run-mutations.sh   (requires a clean tools/generator-spike/src and test)
+# Applies each sabotage in a disposable worktree and accepts assertion failures only.
+# Usage from repository root: bash evidence/issue-9/run-mutations.sh
 set -uo pipefail
 unset NODE_ENV
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+SOURCE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+SOURCE_HEAD="$(git -C "$SOURCE_ROOT" rev-parse HEAD)"
+WORKTREE="$(mktemp -d "${TMPDIR:-/tmp}/generator-spike-mutations.XXXXXX")/checkout"
+LOG="$SOURCE_ROOT/evidence/issue-9/17-mutations.log"
+cleanup() {
+  git -C "$SOURCE_ROOT" worktree remove --force "$WORKTREE" >/dev/null 2>&1 || true
+  rm -rf "$(dirname "$WORKTREE")"
+}
+interrupted() { cleanup; trap - EXIT; exit 130; }
+trap cleanup EXIT
+trap interrupted HUP INT TERM
+test -z "$(git -C "$SOURCE_ROOT" status --porcelain=v1 --untracked-files=all -- tools/generator-spike/src tools/generator-spike/test)" || { echo "source tree is not clean" >&2; exit 2; }
+git -C "$SOURCE_ROOT" worktree add --detach "$WORKTREE" "$SOURCE_HEAD" >/dev/null || exit 2
+ROOT="$WORKTREE"
 TOOL="$ROOT/tools/generator-spike"
 EVID="$ROOT/evidence/issue-9"
-LOG="$EVID/17-mutations.log"
 cd "$ROOT"
-git diff --quiet -- tools/generator-spike/src tools/generator-spike/test || { echo "source tree is not clean" >&2; exit 2; }
 
 failures=0
 : > "$LOG"
+echo "baseline head: $SOURCE_HEAD" >> "$LOG"
+if ! (cd "$TOOL" && npm ci --no-audit --no-fund) >> "$LOG" 2>&1; then
+  echo "dependency install failed; mutations not run" | tee -a "$LOG"
+  exit 2
+fi
+if ! (cd "$TOOL" && node --test --test-reporter=spec) >> "$LOG" 2>&1; then
+  echo "baseline failed; mutations not run" | tee -a "$LOG"
+  exit 2
+fi
+echo "baseline: GREEN" >> "$LOG"
 mutate() {
   local id="$1" description="$2" file="$3" old="$4" new="$5" test_file="$6"
   python3 "$EVID/mutate.py" "$TOOL/$file" "$old" "$new" || { echo "$id: mutation failed to apply" | tee -a "$LOG"; failures=$((failures+1)); return; }
-  (cd "$TOOL" && node --test --test-reporter=spec "$test_file") > "$EVID/.mutation-output" 2>&1
+  (cd "$TOOL" && node --test --test-reporter=spec "$test_file") > "$ROOT/.mutation-output" 2>&1
   local code=$?
   git checkout -q -- "tools/generator-spike/$file"
+  local assertion_failure=false infrastructure_failure=false
+  grep -aq 'AssertionError' "$ROOT/.mutation-output" && assertion_failure=true
+  grep -aqE 'SyntaxError|ERR_MODULE_NOT_FOUND|MODULE_NOT_FOUND|Could not find|test failed to load|npm ERR' "$ROOT/.mutation-output" && infrastructure_failure=true
   {
     echo "### $id: $description"
     echo "file: $file   test: $test_file"
-    grep -a -E '^✖ |^ℹ (pass|fail) ' "$EVID/.mutation-output" | awk '!seen[$0]++' | head -12
-    echo "exit code: $code (expected non-zero)"
-    if [ "$code" -eq 0 ]; then echo "SURVIVED"; else echo "KILLED"; fi
+    grep -a -E '^✖ |^ℹ (pass|fail) ' "$ROOT/.mutation-output" | awk '!seen[$0]++' | head -12
+    echo "exit code: $code; assertion failure: $assertion_failure; infrastructure failure: $infrastructure_failure"
+    if [ "$code" -ne 0 ] && [ "$assertion_failure" = true ] && [ "$infrastructure_failure" = false ]; then echo "KILLED"; else echo "INVALID OR SURVIVED"; fi
     echo
   } | tee -a "$LOG"
-  [ "$code" -ne 0 ] || failures=$((failures+1))
+  [ "$code" -ne 0 ] && [ "$assertion_failure" = true ] && [ "$infrastructure_failure" = false ] || failures=$((failures+1))
 }
 
 mutate M01 "STEP timestamp normalization removed" src/verify.mjs \
@@ -36,7 +60,7 @@ mutate M02 "STEP product counter normalization removed" src/verify.mjs \
 mutate M03 "guard stops checking physical facts" src/guard.mjs \
   "function checkPhysicalFact(input, path, repoRoot, issues) {" "function checkPhysicalFact(input, path, repoRoot, issues) { return" test/guard.test.mjs
 mutate M04 "guard treats every cited source as present" src/guard.mjs \
-  "    return stat.isFile() && stat.size > 0" "    return true" test/guard.test.mjs
+  "    return stat.isFile() && stat.size > 0" "    return true // mutation" test/guard.test.mjs
 mutate M05 "synthetic values allowed in fabrication" src/guard.mjs \
   "    if (input.class === 'synthetic') {\n      issues.push({ code: 'SYNTHETIC_IN_FABRICATION'" "    if (false) {\n      issues.push({ code: 'SYNTHETIC_IN_FABRICATION'" test/guard.test.mjs
 mutate M06 "design parameters no longer need test evidence" src/guard.mjs \
@@ -46,7 +70,7 @@ mutate M07 "template declares itself fabrication-capable" src/synthetic-plate.mj
 mutate M08 "manifest relabelled fabrication-eligible" src/manifest.mjs \
   "fabricationEligible: false" "fabricationEligible: true" test/generate.test.mjs
 mutate M09 "a refused request still writes a file" src/generate.mjs \
-  "  const request = parseRequest(readRequestFile(requestPath))\n" "  mkdirSync(outDir, { recursive: true }); writeFileSync(join(outDir, 'leak.txt'), 'x')\n  const request = parseRequest(readRequestFile(requestPath))\n" test/cli-refusal.test.mjs
+  "  const request = parseRequest(readRequestFile(requestPath))\n" "  nodeFs.mkdirSync(outDir, { recursive: true }); nodeFs.writeFileSync(join(outDir, 'leak.txt'), 'x')\n  const request = parseRequest(readRequestFile(requestPath))\n" test/cli-refusal.test.mjs
 mutate M10 "output verification skipped" src/generate.mjs \
   "const issues = verifyPart({ expected, built, stl: stlAnalysis, step: stepAnalysis, stepReimport })" "const issues = []" test/generate.test.mjs
 mutate M11 "STL watertightness always reported" src/verify.mjs \
@@ -72,7 +96,10 @@ mutate M20 "the kernel loads before the fabrication guard runs" src/generate.mjs
 mutate M21 "a build with no solid is not diagnosed" src/generate.mjs \
   "  if (built.solid === undefined) {" "  if (false) {" test/generate.test.mjs
 
-rm -f "$EVID/.mutation-output"
+rm -f "$ROOT/.mutation-output"
 git diff --quiet -- tools/generator-spike/src tools/generator-spike/test || { echo "source tree was not restored" >&2; exit 3; }
+test "$(git -C "$SOURCE_ROOT" rev-parse HEAD)" = "$SOURCE_HEAD" || { echo "source checkout head changed" >&2; exit 3; }
+test -z "$(git -C "$SOURCE_ROOT" status --porcelain=v1 --untracked-files=all -- tools/generator-spike/src tools/generator-spike/test)" || { echo "source checkout changed" >&2; exit 3; }
+echo "source checkout restored: true" | tee -a "$LOG"
 echo "survivors or failures: $failures" | tee -a "$LOG"
 [ "$failures" -eq 0 ]

@@ -8,6 +8,8 @@ export const STL_HEADER = 'NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1 un
 
 /** float32 STL cannot represent every double; this bounds that representational noise only. */
 const STL_NOISE_TOLERANCE_MM = 1e-6
+/** Triangles at or below this geometric area are unusable even when vertices differ. */
+const STL_MIN_TRIANGLE_AREA_MM2 = 1e-12
 
 /** Fixed STEP product name. OpenCascade otherwise appends a process-wide counter to it. */
 export const STEP_PRODUCT_NAME = 'NON-FABRICATION synthetic-plate r1'
@@ -83,6 +85,9 @@ export function analyzeBinaryStl(bytes) {
     const [a, b, c] = [point(0), point(1), point(2)]
     for (const vertex of [a, b, c]) {
       vertex.forEach((value, axis) => {
+        if (!Number.isFinite(value)) {
+          throw malformed('STL_MALFORMED', `Binary STL triangle ${index} has a non-finite coordinate at axis ${axis}.`)
+        }
         lowest[axis] = Math.min(lowest[axis], value)
         highest[axis] = Math.max(highest[axis], value)
       })
@@ -91,7 +96,11 @@ export function analyzeBinaryStl(bytes) {
     for (const id of ids) {
       if (parents[id] === undefined) parents[id] = id
     }
-    if (ids[0] === ids[1] || ids[1] === ids[2] || ids[2] === ids[0]) {
+    const ab = [b[0] - a[0], b[1] - a[1], b[2] - a[2]]
+    const ac = [c[0] - a[0], c[1] - a[1], c[2] - a[2]]
+    const cross = [ab[1] * ac[2] - ab[2] * ac[1], ab[2] * ac[0] - ab[0] * ac[2], ab[0] * ac[1] - ab[1] * ac[0]]
+    const area = Math.hypot(...cross) / 2
+    if (ids[0] === ids[1] || ids[1] === ids[2] || ids[2] === ids[0] || area <= STL_MIN_TRIANGLE_AREA_MM2) {
       degenerateTriangles += 1
       continue
     }

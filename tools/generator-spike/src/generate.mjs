@@ -1,4 +1,5 @@
-import { existsSync, lstatSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, renameSync, rmSync, rmdirSync, writeFileSync } from 'node:fs'
+import * as nodeFs from 'node:fs'
+import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describeKernelError, loadEngine } from './engine.mjs'
@@ -81,18 +82,32 @@ async function reimportStep(engine, stepBytes) {
   })
 }
 
-/** Stages every file next to the destination, then moves it into place in one rename. */
-function writeOutputs(outDir, files) {
+/**
+ * Stages files beside the destination and publishes with rename. This requires a trusted,
+ * existing, stable output parent on one filesystem. It does not claim race safety or crash durability.
+ */
+function writeOutputs(outDir, files, fs = nodeFs) {
   const target = resolve(outDir)
-  mkdirSync(dirname(target), { recursive: true })
-  const staging = mkdtempSync(`${target}.staging-`)
+  const parent = dirname(target)
+  let staging
   try {
-    for (const [name, bytes] of Object.entries(files)) writeFileSync(join(staging, name), bytes)
-    if (existsSync(target)) rmdirSync(target)
-    renameSync(staging, target)
+    if (!fs.lstatSync(parent).isDirectory()) throw new Error('output parent is not a directory')
+    staging = fs.mkdtempSync(`${target}.staging-`)
+    for (const [name, bytes] of Object.entries(files)) fs.writeFileSync(join(staging, name), bytes)
+    if (fs.existsSync(target)) fs.rmdirSync(target)
+    fs.renameSync(staging, target)
   } catch (cause) {
-    rmSync(staging, { recursive: true, force: true })
-    throw new GeneratorError('OUTPUT_WRITE_FAILED', `Could not write outputs to "${outDir}": ${cause.message}`, { stage: 'output', exitCode: EXIT.INTERNAL, cause })
+    const issues = [{ code: 'OUTPUT_PUBLICATION_FAILED', path: 'output', message: cause.message }]
+    if (staging !== undefined) {
+      try {
+        fs.rmSync(staging, { recursive: true, force: true })
+      } catch (cleanupCause) {
+        issues.push({ code: 'OUTPUT_CLEANUP_FAILED', path: 'output.staging', message: cleanupCause.message })
+      }
+    }
+    throw new GeneratorError('OUTPUT_WRITE_FAILED', `Could not publish outputs to "${outDir}": ${cause.message}`, {
+      stage: 'output', issues, exitCode: EXIT.INTERNAL, cause,
+    })
   }
 }
 
@@ -157,7 +172,7 @@ export async function generate({ requestPath, outDir, repoRoot = REPO_ROOT, deps
     stepOpenCascade: new TextDecoder().decode(step).match(/'(Open CASCADE \d+[\d.]*)'/)?.[1] ?? 'unknown',
   })
   const manifestBytes = new TextEncoder().encode(canonicalJson(manifest))
-  writeOutputs(outDir, { [NAMES.stl]: stl, [NAMES.step]: step, [NAMES.manifest]: manifestBytes })
+  writeOutputs(outDir, { [NAMES.stl]: stl, [NAMES.step]: step, [NAMES.manifest]: manifestBytes }, deps.outputFs)
 
   return {
     status: 'ok',

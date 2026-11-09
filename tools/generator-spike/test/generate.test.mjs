@@ -1,6 +1,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
+import * as fs from 'node:fs'
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { generate } from '../src/generate.mjs'
@@ -59,7 +60,8 @@ test('the manifest records the exact inputs, versions, settings, hashes and meas
   assert.equal(manifest.purpose, 'non-fabrication')
   assert.equal(manifest.fabricationEligible, false)
   assert.match(manifest.label, /NON-FABRICATION/)
-  assert.deepEqual(manifest.request, readFixture(SYNTHETIC), 'exact inputs, unmodified')
+  const { notice: _fixtureNotice, ...recordedRequest } = readFixture(SYNTHETIC)
+  assert.deepEqual(manifest.request, recordedRequest, 'all structural generation inputs, with free-form notice omitted')
   assert.equal(manifest.units, 'mm')
   assert.equal(manifest.generator.name, '@sidequest/generator-spike')
   assert.equal(manifest.generator.version, '0.1.0')
@@ -101,6 +103,20 @@ test('the manifest contains no wall-clock time or local path', async () => {
   assert.equal(text.includes(dir), false, 'no absolute output path')
   assert.equal(text.includes(process.cwd()), false, 'no absolute working directory')
   assert.doesNotMatch(text, /\b20\d\d-\d{2}-\d{2}T/, 'no wall-clock timestamp')
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('the manifest omits free-form request notices for arbitrary accepted requests', async () => {
+  const dir = scratch('manifest-notice')
+  const request = readFixture(SYNTHETIC)
+  request.notice = `generated 2099-12-31T23:59:59 from ${dir}/private/request.json`
+  const requestPath = join(dir, 'request.json')
+  writeFileSync(requestPath, JSON.stringify(request))
+  const outDir = join(dir, 'out')
+  await generate({ requestPath, outDir })
+  const manifest = JSON.parse(readFileSync(join(outDir, 'manifest.json'), 'utf8'))
+  assert.equal('notice' in manifest.request, false)
+  assert.doesNotMatch(JSON.stringify(manifest), /2099-12-31|private\/request/)
   rmSync(dir, { recursive: true, force: true })
 })
 
@@ -252,5 +268,72 @@ test('an output path that is an existing file is diagnosed without being touched
     (error) => error instanceof GeneratorError && error.code === 'OUTPUT_DIR_NOT_EMPTY' && error.message.includes(outDir),
   )
   assert.equal(readFileSync(outDir, 'utf8'), 'a file')
+  rmSync(dir, { recursive: true, force: true })
+})
+
+const failureFs = (method, cleanupFails = false) => ({
+  ...fs,
+  [method]: (...args) => {
+    if (method === 'writeFileSync' && !String(args[0]).endsWith('manifest.json')) return fs.writeFileSync(...args)
+    throw new Error(`injected ${method} failure`)
+  },
+  ...(cleanupFails ? { rmSync: () => { throw new Error('injected cleanup failure') } } : {}),
+})
+
+for (const method of ['mkdtempSync', 'writeFileSync', 'rmdirSync', 'renameSync']) {
+  test(`a ${method} publication failure is structured and cleans staging`, async () => {
+    const dir = scratch(`publication-${method}`)
+    const outDir = join(dir, 'out')
+    if (method === 'rmdirSync') mkdirSync(outDir)
+    await assert.rejects(
+      generate({ requestPath: fixturePath(SYNTHETIC), outDir, deps: { outputFs: failureFs(method) } }),
+      (error) => {
+        assert.equal(error.code, 'OUTPUT_WRITE_FAILED')
+        assert.equal(error.stage, 'output')
+        assert.equal(error.cause.message, `injected ${method} failure`)
+        assert.ok(error.issues.some((issue) => issue.code === 'OUTPUT_PUBLICATION_FAILED'))
+        return true
+      },
+    )
+    if (method === 'rmdirSync') assert.deepEqual(listTree(dir), ['out'], 'target-removal failure preserves the empty target')
+    else assert.deepEqual(listTree(dir), [], 'normal failure cleanup removes staging and leaves no partial target')
+    rmSync(dir, { recursive: true, force: true })
+  })
+}
+
+test('publication requires an existing output parent', async () => {
+  const dir = scratch('publication-parent')
+  const outDir = join(dir, 'missing-parent', 'out')
+  await assert.rejects(
+    generate({ requestPath: fixturePath(SYNTHETIC), outDir }),
+    (error) => error.code === 'OUTPUT_WRITE_FAILED' && error.issues.some((issue) => /ENOENT/.test(issue.message)),
+  )
+  assert.deepEqual(listTree(dir), [])
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('rename failure after removing an existing empty target leaves no partial target', async () => {
+  const dir = scratch('publication-existing-target')
+  const outDir = join(dir, 'out')
+  mkdirSync(outDir)
+  await assert.rejects(
+    generate({ requestPath: fixturePath(SYNTHETIC), outDir, deps: { outputFs: failureFs('renameSync') } }),
+    (error) => error.code === 'OUTPUT_WRITE_FAILED',
+  )
+  assert.equal(existsSync(outDir), false)
+  assert.deepEqual(listTree(dir), [])
+  rmSync(dir, { recursive: true, force: true })
+})
+
+test('publication preserves the original error when cleanup also fails', async () => {
+  const dir = scratch('publication-cleanup')
+  await assert.rejects(
+    generate({ requestPath: fixturePath(SYNTHETIC), outDir: join(dir, 'out'), deps: { outputFs: failureFs('renameSync', true) } }),
+    (error) => {
+      assert.equal(error.cause.message, 'injected renameSync failure')
+      assert.ok(error.issues.some((issue) => issue.code === 'OUTPUT_CLEANUP_FAILED' && /injected cleanup failure/.test(issue.message)))
+      return true
+    },
+  )
   rmSync(dir, { recursive: true, force: true })
 })
