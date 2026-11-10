@@ -1,0 +1,36 @@
+✔ two clean separate-process CLI runs are byte-identical (6230.648804ms)
+✔ the CLI reports hashes that match the written files (3121.117037ms)
+✖ repeating in one process with a reused kernel is byte-identical (1848.283894ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12710.004921
+
+✖ failing tests:
+
+test at test/determinism.test.mjs:38:1
+✖ repeating in one process with a reused kernel is byte-identical (1848.283894ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'e7a2119d053fea4e39e74e3d8ec84f631e9a12f0016bd5ffc5758f91d9623e09',
+  +   '8d684b1370a2e0ce66ef5279b5722c33dccc562cb655491ec5faa9063b2c58c2'
+  -   'dc1fc517d9abf6c9f2d1ebe112a7363518444d2026fee6a3096fef67b08ed6d6'
+    ]
+  
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/determinism.test.mjs:48:10)
+      at async Test.run (node:internal/test_runner/test:1054:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'e7a2119d053fea4e39e74e3d8ec84f631e9a12f0016bd5ffc5758f91d9623e09', '8d684b1370a2e0ce66ef5279b5722c33dccc562cb655491ec5faa9063b2c58c2' ],
+    expected: [ 'e7a2119d053fea4e39e74e3d8ec84f631e9a12f0016bd5ffc5758f91d9623e09', 'dc1fc517d9abf6c9f2d1ebe112a7363518444d2026fee6a3096fef67b08ed6d6' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+EXIT CODE: 1

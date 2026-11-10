@@ -1,0 +1,133 @@
+# Rejected fabrication fixture: no artifact
+{
+  "status": "refused-or-failed",
+  "code": "FABRICATION_REFUSED",
+  "stage": "guard",
+  "message": "Fabrication refused: inputs.plateSizeX.confidence: Estimates must never drive a generated part.; inputs.plateSizeY.source: A consumed physical fact must cite a durable source.; inputs.plateThickness.confidence: Confidence must be \"measured\" or \"datasheet\".; inputs.cornerRadius.rationale: A design parameter must record its rationale.; inputs.cornerRadius.testEvidence: State test evidence as { status: \"recorded\", reference } or { status: \"not-applicable\", reason }.; inputs.throughCutMinX: A synthetic value cannot be consumed by a fabrication request.; inputs.throughCutMinY: A synthetic value cannot be consumed by a fabrication request.; inputs.throughCutSizeX: A synthetic value cannot be consumed by a fabrication request.; inputs.throughCutSizeY: A synthetic value cannot be consumed by a fabrication request.; inputs.pocketMinX: A synthetic value cannot be consumed by a fabrication request.; inputs.pocketMinY: A synthetic value cannot be consumed by a fabrication request.; inputs.pocketSizeX: A synthetic value cannot be consumed by a fabrication request.; inputs.pocketSizeY: A synthetic value cannot be consumed by a fabrication request.; inputs.pocketDepth: A synthetic value cannot be consumed by a fabrication request.; inputs.hole1X: A synthetic value cannot be consumed by a fabrication request.; inputs.hole1Y: A synthetic value cannot be consumed by a fabrication request.; inputs.hole1Diameter: A synthetic value cannot be consumed by a fabrication request.; inputs.hole2X: A synthetic value cannot be consumed by a fabrication request.; inputs.hole2Y: A synthetic value cannot be consumed by a fabrication request.; inputs.hole2Diameter: A synthetic value cannot be consumed by a fabrication request.; inputs.hole3X: A synthetic value cannot be consumed by a fabrication request.; inputs.hole3Y: A synthetic value cannot be consumed by a fabrication request.; inputs.hole3Diameter: A synthetic value cannot be consumed by a fabrication request.; template: Template \"synthetic-plate\" is non-fabrication only and can never produce an artifact labelled for fabrication.",
+  "issues": [
+    {
+      "code": "ESTIMATE_NOT_ALLOWED",
+      "path": "inputs.plateSizeX.confidence",
+      "message": "Estimates must never drive a generated part."
+    },
+    {
+      "code": "SOURCE_MISSING",
+      "path": "inputs.plateSizeY.source",
+      "message": "A consumed physical fact must cite a durable source."
+    },
+    {
+      "code": "CONFIDENCE_NOT_QUALIFYING",
+      "path": "inputs.plateThickness.confidence",
+      "message": "Confidence must be \"measured\" or \"datasheet\"."
+    },
+    {
+      "code": "DESIGN_PARAMETER_INCOMPLETE",
+      "path": "inputs.cornerRadius.rationale",
+      "message": "A design parameter must record its rationale."
+    },
+    {
+      "code": "TEST_EVIDENCE_REQUIRED",
+      "path": "inputs.cornerRadius.testEvidence",
+      "message": "State test evidence as { status: \"recorded\", reference } or { status: \"not-applicable\", reason }."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.throughCutMinX",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.throughCutMinY",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.throughCutSizeX",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.throughCutSizeY",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.pocketMinX",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.pocketMinY",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.pocketSizeX",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.pocketSizeY",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.pocketDepth",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole1X",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole1Y",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole1Diameter",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole2X",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole2Y",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole2Diameter",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole3X",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole3Y",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "SYNTHETIC_IN_FABRICATION",
+      "path": "inputs.hole3Diameter",
+      "message": "A synthetic value cannot be consumed by a fabrication request."
+    },
+    {
+      "code": "TEMPLATE_NOT_FABRICATION_CAPABLE",
+      "path": "template",
+      "message": "Template \"synthetic-plate\" is non-fabrication only and can never produce an artifact labelled for fabrication."
+    }
+  ],
+  "artifactsWritten": false
+}
+exit code: 2 (expected 2)
+output directory absent: true
+0

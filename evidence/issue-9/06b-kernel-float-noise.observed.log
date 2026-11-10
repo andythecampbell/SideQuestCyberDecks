@@ -1,0 +1,46 @@
+✔ the engine reports exact versions and a hash of the WASM it loaded (293.197052ms)
+✔ a version that differs from the pin is refused with a diagnostic (0.495196ms)
+✔ builds one solid, reporting the exact volume change of every operation (260.485751ms)
+✖ the finished solid matches the expected dimensions and passes the kernel validity check (221.091654ms)
+✔ a kernel failure names the failing stage and carries the kernel message (43.060749ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1165.58062
+
+✖ failing tests:
+
+test at test/build.test.mjs:48:1
+✖ the finished solid matches the expected dimensions and passes the kernel validity check (221.091654ms)
+  AssertionError [ERR_ASSERTION]: bounds are exact, with no float noise
+  + actual - expected
+  
+    [
+      [
+  +     -4.440892098500626e-16,
+  +     -4.440892098500626e-16,
+        0,
+  -     0,
+  -     0
+      ],
+      [
+        73.5,
+        41.25,
+        6.125
+  
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/build.test.mjs:53:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ [ -4.440892098500626e-16, -4.440892098500626e-16, 0 ], [ 73.5, 41.25, 6.125 ] ],
+    expected: [ [ 0, 0, 0 ], [ 73.5, 41.25, 6.125 ] ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+EXIT CODE: 1

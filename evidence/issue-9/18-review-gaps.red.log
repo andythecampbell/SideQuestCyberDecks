@@ -1,0 +1,76 @@
+✔ writes exactly the labelled STL, STEP and manifest (1287.110318ms)
+✔ the STL is one closed oriented solid at the requested size with the expected holes (2277.823028ms)
+✔ the STEP file declares millimetres and one closed solid, with the timestamp normalized (512.773866ms)
+✔ the manifest records the exact inputs, versions, settings, hashes and measurements (449.194209ms)
+✔ the manifest contains no wall-clock time or local path (406.238263ms)
+✔ a clean run refuses a non-empty output directory and leaves it alone (1.727286ms)
+✔ an empty existing output directory is acceptable (403.445925ms)
+✔ wrong dimensions fail verification and write nothing (407.587203ms)
+✔ an undersized hole fails the volume check and writes nothing (376.960222ms)
+✔ more than one solid fails and writes nothing (404.690078ms)
+✔ a refused request never loads the kernel (2.207645ms)
+✔ a kernel failure during the build writes nothing and names its stage (272.962636ms)
+✖ a build that yields no solid is diagnosed as verification failure, not a crash (280.105241ms)
+✔ a successful run leaves nothing beside the output directory (400.185941ms)
+✖ an output path that is an existing file is diagnosed without being touched (0.884611ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 13
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7614.072713
+
+✖ failing tests:
+
+test at test/generate.test.mjs:220:1
+✖ a build that yields no solid is diagnosed as verification failure, not a crash (280.105241ms)
+  AssertionError [ERR_ASSERTION]: Kernel failed at stage "export-stl": Cannot read properties of undefined (reading 'blobSTL')
+  + actual - expected
+  
+  + 'KERNEL_FAILURE'
+  - 'VERIFICATION_FAILED'
+  
+      at Object.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:230:14)
+      at expectedException (node:assert:576:17)
+      at expectsError (node:assert:701:21)
+      at Function.rejects (node:assert:767:3)
+      at async TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:223:3)
+      at async Test.run (node:internal/test_runner/test:1054:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'KERNEL_FAILURE',
+    expected: 'VERIFICATION_FAILED',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test/generate.test.mjs:246:1
+✖ an output path that is an existing file is diagnosed without being touched (0.884611ms)
+  AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false
+  
+  Caught error:
+  
+  Error: ENOTDIR: not a directory, scandir '/root/.hermes/cache/scratch/generator-spike-file-out-6mFfie/occupied'
+      at async TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:250:3)
+      at async Test.run (node:internal/test_runner/test:1054:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: ENOTDIR: not a directory, scandir '/root/.hermes/cache/scratch/generator-spike-file-out-6mFfie/occupied'
+        at readdirSync (node:fs:1597:26)
+        at ensureCleanOutputDir (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:41:29)
+        at generate (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/generate.mjs:114:3)
+        at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/generate.test.mjs:251:5)
+        at Test.runInAsyncScope (node:async_hooks:214:14)
+        at Test.run (node:internal/test_runner/test:1047:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+        at Test.postRun (node:internal/test_runner/test:1173:19)
+        at Test.run (node:internal/test_runner/test:1101:12)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:744:7),
+    operator: 'rejects',
+    diff: 'simple'
+  }
+EXIT CODE: 1

@@ -1,0 +1,35 @@
+✔ the engine reports exact versions and a hash of the WASM it loaded (287.396784ms)
+✔ a version that differs from the pin is refused with a diagnostic (0.481787ms)
+✔ builds one solid, reporting the exact volume change of every operation (377.504198ms)
+✔ the finished solid matches the expected dimensions and passes the kernel validity check (243.099383ms)
+✖ a kernel failure names the failing stage and carries the kernel message (58.397196ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1146.169503
+
+✖ failing tests:
+
+test at test/build.test.mjs:60:1
+✖ a kernel failure names the failing stage and carries the kernel message (58.397196ms)
+  AssertionError [ERR_ASSERTION]: the kernel exception must be decoded
+      at Object.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/build.test.mjs:70:14)
+      at expectedException (node:assert:576:17)
+      at expectsError (node:assert:701:21)
+      at Function.throws (node:assert:757:3)
+      at TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/build.test.mjs:63:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1047:25)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:744:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'Kernel failed at stage "corner-fillet": [object WebAssembly.Exception]',
+    expected: /\[object/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+EXIT CODE: 1

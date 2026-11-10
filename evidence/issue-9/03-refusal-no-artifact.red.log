@@ -1,0 +1,191 @@
+TAP version 13
+# Subtest: the committed rejected-fabrication fixture is refused and writes nothing
+not ok 1 - the committed rejected-fabrication fixture is refused and writes nothing
+  ---
+  duration_ms: 26.240875
+  type: 'test'
+  location: '/root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:12:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    node:internal/modules/cjs/loader:1386
+      throw err;
+      ^
+    
+    Error: Cannot find module '/root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/cli.mjs'
+        at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+        at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+        at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+        at Function._load (node:internal/modules/cjs/loader:1192:37)
+        at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+        at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+        at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+        at node:internal/main/run_main_module:36:49 {
+      code: 'MODULE_NOT_FOUND',
+      requireStack: []
+    }
+    
+    Node.js v22.22.0
+    
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+    defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    Function._load (node:internal/modules/cjs/loader:1192:37)
+    TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    node:internal/main/run_main_module:36:49 {
+    TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:16:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.start (node:internal/test_runner/test:944:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:296:17)
+  ...
+# Subtest: the synthetic fixture cannot be relabelled for fabrication
+not ok 2 - the synthetic fixture cannot be relabelled for fabrication
+  ---
+  duration_ms: 22.473428
+  type: 'test'
+  location: '/root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:31:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    node:internal/modules/cjs/loader:1386
+      throw err;
+      ^
+    
+    Error: Cannot find module '/root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/cli.mjs'
+        at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+        at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+        at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+        at Function._load (node:internal/modules/cjs/loader:1192:37)
+        at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+        at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+        at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+        at node:internal/main/run_main_module:36:49 {
+      code: 'MODULE_NOT_FOUND',
+      requireStack: []
+    }
+    
+    Node.js v22.22.0
+    
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+    defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    Function._load (node:internal/modules/cjs/loader:1192:37)
+    TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    node:internal/main/run_main_module:36:49 {
+    TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:37:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: a refused request leaves an existing output directory untouched
+not ok 3 - a refused request leaves an existing output directory untouched
+  ---
+  duration_ms: 21.241338
+  type: 'test'
+  location: '/root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:45:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:51:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: bad invocations and unreadable requests are diagnosed without writing
+not ok 4 - bad invocations and unreadable requests are diagnosed without writing
+  ---
+  duration_ms: 21.24573
+  type: 'test'
+  location: '/root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:56:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    : node:internal/modules/cjs/loader:1386
+      throw err;
+      ^
+    
+    Error: Cannot find module '/root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/src/cli.mjs'
+        at Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+        at defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+        at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+        at Function._load (node:internal/modules/cjs/loader:1192:37)
+        at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+        at wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+        at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+        at node:internal/main/run_main_module:36:49 {
+      code: 'MODULE_NOT_FOUND',
+      requireStack: []
+    }
+    
+    Node.js v22.22.0
+    
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    Function._resolveFilename (node:internal/modules/cjs/loader:1383:15)
+    defaultResolveImpl (node:internal/modules/cjs/loader:1025:19)
+    resolveForCJSWithHooks (node:internal/modules/cjs/loader:1030:22)
+    Function._load (node:internal/modules/cjs/loader:1192:37)
+    TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    wrapModuleLoad (node:internal/modules/cjs/loader:237:24)
+    Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    node:internal/main/run_main_module:36:49 {
+    TestContext.<anonymous> (file:///root/.hermes/workspace/SideQuestCyberDecks-replicad/tools/generator-spike/test/cli-refusal.test.mjs:67:12)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 0
+# fail 4
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 143.250472
+EXIT CODE: 1

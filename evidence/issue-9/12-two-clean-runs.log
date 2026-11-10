@@ -1,0 +1,140 @@
+# Two clean runs from fresh output directories
+git head: 7d28e5c800fc7df1036d8c35ab54e3b194e84fab   node: v22.22.0
+  [run-a] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.19
+  [run-a] 	Maximum resident set size (kbytes): 636124
+  [run-a] CLI observations: {'wallMs': 1116, 'engineLoadMs': 301, 'rssBytes': 394592256}
+  [run-b] 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.10
+  [run-b] 	Maximum resident set size (kbytes): 559276
+  [run-b] CLI observations: {'wallMs': 1166, 'engineLoadMs': 298, 'rssBytes': 393805824}
+
+45d7e374f5caeaaa69a08aa484debccd7ed2b72ccd785bdd372a3b6a521a8552  run-a/NON-FABRICATION-synthetic-plate-r1.step
+9cc920c3b06715e03bed96330d2a5f0cb38a2a012f44601a37b70e11cb44edfd  run-a/NON-FABRICATION-synthetic-plate-r1.stl
+cf8fe63059b033120d6075f22d0f28148000f018afe8590400d79fb02e4d4f1b  run-a/manifest.json
+45d7e374f5caeaaa69a08aa484debccd7ed2b72ccd785bdd372a3b6a521a8552  run-b/NON-FABRICATION-synthetic-plate-r1.step
+9cc920c3b06715e03bed96330d2a5f0cb38a2a012f44601a37b70e11cb44edfd  run-b/NON-FABRICATION-synthetic-plate-r1.stl
+cf8fe63059b033120d6075f22d0f28148000f018afe8590400d79fb02e4d4f1b  run-b/manifest.json
+
+byte-identical: NON-FABRICATION-synthetic-plate-r1.stl
+byte-identical: NON-FABRICATION-synthetic-plate-r1.step
+byte-identical: manifest.json
+
+STL header (first 80 bytes):
+NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1 units=mm no-timestamp        
+STEP header:
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION(('NON-FABRICATION SIDEQUEST SPIKE synthetic-plate r1'),'2;1');
+FILE_NAME('Open CASCADE Shape Model','1970-01-01T00:00:00',('Author'),(
+    'Open CASCADE'),'Open CASCADE STEP processor 8.0','Open CASCADE 8.0'
+  ,'Unknown');
+FILE_SCHEMA((
+'AP242_MANAGED_MODEL_BASED_3D_ENGINEERING_MIM_LF {1 0 10303 442 1 1 4 }'
+    ));
+ENDSEC;
+DATA;
+#1 = APPLICATION_PROTOCOL_DEFINITION('internation
+
+STEP entities:
+      1 CLOSED_SHELL
+      1 MANIFOLD_SOLID_BREP
+      1 SI_UNIT(.MILLI.,.METRE.)
+
+Manifest geometry summary:
+{
+  "purpose": "non-fabrication",
+  "fabricationEligible": false,
+  "label": "NON-FABRICATION synthetic spike output. Never a Deck 001 part. Not for printing as a Deck 001 part.",
+  "units": "mm",
+  "generator": {
+    "name": "@sidequest/generator-spike",
+    "sourceSha256": "e4f35fd90ac59f755978ecb6400a588f8699116ea08c3554e4cdca5f08ea30c1",
+    "template": {
+      "id": "synthetic-plate",
+      "revision": 1
+    },
+    "version": "0.1.0"
+  },
+  "engine": {
+    "openCascadeReported": "Open CASCADE 8.0",
+    "replicad": "1.2.1",
+    "replicadOpencascadejs": "1.2.1",
+    "wasmBuild": "replicad_single",
+    "wasmBytes": 22942327,
+    "wasmSha256": "a9335919fa64bfeaee3e241d3139ad134022682429c6688e20d8ca12093d33d9"
+  },
+  "runtime": {
+    "arch": "x64",
+    "node": "v22.22.0",
+    "platform": "linux"
+  },
+  "outputs": [
+    {
+      "bytes": 104284,
+      "format": "binary-stl",
+      "path": "NON-FABRICATION-synthetic-plate-r1.stl",
+      "role": "primary",
+      "sha256": "9cc920c3b06715e03bed96330d2a5f0cb38a2a012f44601a37b70e11cb44edfd"
+    },
+    {
+      "bytes": 73773,
+      "format": "step-ap242",
+      "path": "NON-FABRICATION-synthetic-plate-r1.step",
+      "role": "primary",
+      "sha256": "45d7e374f5caeaaa69a08aa484debccd7ed2b72ccd785bdd372a3b6a521a8552"
+    }
+  ]
+}
+{
+  "units": "mm",
+  "solidCount": 1,
+  "valid": true,
+  "dimensionsMm": [
+    73.5,
+    41.25,
+    6.125
+  ],
+  "boundsMm": [
+    [
+      -8.881784197001252e-16,
+      -8.881784197001252e-16,
+      0
+    ],
+    [
+      73.5,
+      41.25,
+      6.125
+    ]
+  ],
+  "volumeMm3": 17299.059913381683,
+  "faces": 22,
+  "stages": [
+    {
+      "stage": "plate",
+      "volumeMm3": 18570.234375
+    },
+    {
+      "stage": "corner-fillet",
+      "volumeMm3": 18496.297335983025
+    },
+    {
+      "stage": "through-cut",
+      "volumeMm3": 17763.59421098303
+    },
+    {
+      "stage": "pocket",
+      "volumeMm3": 17437.06296098303
+    },
+    {
+      "stage": "hole-1",
+      "volumeMm3": 17386.251381365102
+    },
+    {
+      "stage": "hole-2",
+      "volumeMm3": 17335.439801747176
+    },
+    {
+      "stage": "hole-3",
+      "volumeMm3": 17299.059913381683
+    }
+  ]
+}
