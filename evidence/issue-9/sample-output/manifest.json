@@ -47,7 +47,7 @@
   "fabricationEligible": false,
   "generator": {
     "name": "@sidequest/generator-spike",
-    "sourceSha256": "c46058592064a68240176892ff3af5c22dc6cd6ad1327475829f1c43adc8c54d",
+    "sourceSha256": "e4f35fd90ac59f755978ecb6400a588f8699116ea08c3554e4cdca5f08ea30c1",
     "template": {
       "id": "synthetic-plate",
       "revision": 1
@@ -302,7 +302,6 @@
         "value": 7.25
       }
     },
-    "notice": "Synthetic spike fixture. Values are invented and deliberately unlike Deck 001. Never print this as a Deck 001 part.",
     "purpose": "non-fabrication",
     "schema": "sidequest.generator-request/1",
     "template": {
